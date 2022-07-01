@@ -3,3 +3,34 @@
   padding: 0;
   box-sizing: border-box;
 }
+.playfield {
+  /* display: flex; */
+  /* flex-direction: row; */
+  margin: auto;
+  height: 800px;
+  width: 800px;
+  /* border: 2px solid blueviolet; */
+}
+.score {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* border-bottom: 2px solid blueviolet; */
+  height: 15%;
+  font-size: 50px;
+}
+.action-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+.controllers {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* border-top: 2px solid blueviolet; */
+  height: 15%;
+  user-select: none;
+}
