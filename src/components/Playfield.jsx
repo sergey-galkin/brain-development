@@ -3,12 +3,7 @@ import ActionField from './ActionField';
 import Controllers from './Controllers';
 
 const colors = ['red', 'blue', 'green', 'yellow'];
-const gameData = {
-  // started: false,
-  // finished: false,
-  active: false,
-  lastResult: null,
-  bestResult: null,
+const generalData = {
   startTime: null,
   moveStartTime: null,
   timeLimit: 10*1000,
@@ -17,17 +12,21 @@ const gameData = {
 }
 
 const Playfield = () => {
-  const [score, setScore] = useState(0);
-  const [figureColor, setFigureColor] = useState(null);
-  const [scoreColor, setScoreColor] = useState(null);
+  const [gameData, setGameData] = useState({
+    active: false,
+    result: {
+      previous: null,
+      current: null,
+      best: null,
+    },
+    figureColor: '',
+  });
 
-  function bodyOnKeyDown() {
-    if (gameData.active) {
+  function bodyOnKeyDown(enable) {
+    if (enable) {
       document.body.onkeydown = function (e) {
         e = e || window.event;
         const index = getIndex(e);
-        console.log(index)
-        console.log(colors[index - 1])
         if (index !== null) {
           handleGameButtonClick(colors[index - 1])
         }
@@ -45,36 +44,44 @@ const Playfield = () => {
   }
 
   function updateScore(chosenColor) {
-    console.log(chosenColor)
-    console.log(figureColor)
-    console.log(chosenColor === figureColor)
-    const points = calcPoints(chosenColor);
-    setScore((prevScore) => {
-      gameData.lastResult = prevScore + points
-      return gameData.lastResult
-    });
-    setScoreColor(points > 0 ? 'green' : 'red');
-    // console.log(gameData.lastResult)
-    function calcPoints(chosenColor) {
-      return (chosenColor === figureColor ? 10 : -10)
+    setGameData(calcState);
+
+    function calcState(prevGameData) {
+      const points = chosenColor === prevGameData.figureColor ? 10 : -10;
+      const result = {
+        previous: prevGameData.result.current,
+        current: prevGameData.result.current + points,
+        best: prevGameData.result.best,
+      }
+      return {...prevGameData, result: result}
     }
   }
 
   function nextMove() {
-    setFigureColor('');
-    clearTimeout(gameData.moveTimerId);
-    clearTimeout(gameData.forcingMoveTimerId);
+    clearTimeout(generalData.moveTimerId);
+    clearTimeout(generalData.forcingMoveTimerId);
     
-    gameData.moveTimerId = setTimeout(() => {
-      setFigureColor( getRandomColor() );
-      setScoreColor('');
-
-      const now = Date.now();
-      if (!gameData.startTime) gameData.startTime = now;
-      gameData.moveStartTime = now;
-
-      // forcing next move, if player goes over time limit of 2 seconds
-      gameData.forcingMoveTimerId = setTimeout(handleGameButtonClick, 2000, 'nocolor');
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        figureColor: '',
+      }
+    });
+    
+    generalData.moveStartTime = Date.now();
+    generalData.forcingMoveTimerId = setTimeout(handleGameButtonClick, 2000, 'nocolor');
+    generalData.moveTimerId = setTimeout(() => {
+      setGameData((prevGameData) => {
+        return {
+          ...prevGameData,
+          figureColor: getRandomColor(), 
+          result: {
+            ...prevGameData.result, 
+            previous: prevGameData.result.current
+          },
+        }
+      })
+      bodyOnKeyDown(true);
     }, 1000);
 
     function getRandomColor() {
@@ -84,45 +91,72 @@ const Playfield = () => {
   }
 
   function handleStartButtonClick() {
-    gameData.active = true;
-    setScore(0);
+    generalData.startTime = Date.now();
+    setGameData((prevGameData) => {
+      return {
+        ...prevGameData,
+        active: true,
+        result: {
+          previous: 0,
+          current: 0,
+          best: prevGameData.result.best,
+        }
+      }
+    });
+    
     nextMove();
-    bodyOnKeyDown();
 
     // set game over actions
     setTimeout(() => {
-      gameData.active = false;
-      if (gameData.lastResult > gameData.bestResult || gameData.bestResult === null) {
-        gameData.bestResult = gameData.lastResult;
-      }
-      clearTimeout(gameData.moveTimerId);
-      clearTimeout(gameData.forcingMoveTimerId);
-      setScoreColor(null);
-      bodyOnKeyDown();
-    }, gameData.timeLimit);
+      bodyOnKeyDown(false);
+      clearTimeout(generalData.moveTimerId);
+      clearTimeout(generalData.forcingMoveTimerId);
+
+      setGameData((prevGameData) => {
+        let bestResult = prevGameData.result.best;
+        if (prevGameData.result.current > prevGameData.result.best || bestResult === null) {
+          bestResult = prevGameData.result.current;
+        }
+        return {
+          ...prevGameData,
+          active: false,
+          figureColor: '',
+          result: {
+            ...prevGameData.result,
+            previous: prevGameData.result.current,
+            best: bestResult,
+          }
+        }
+      });
+    }, generalData.timeLimit);
   }
 
 
   function handleGameButtonClick(chosenColor) {
+    bodyOnKeyDown(false);
     updateScore(chosenColor);
     nextMove();
   }
 
+  function getScoreElementColor() {
+    if (gameData.result.previous < gameData.result.current) return 'green';
+    if (gameData.result.previous > gameData.result.current) return 'red';
+    return '';
+  }
+
   return (
     <div className='playfield'>
-      <div className='score' style={{color: scoreColor}}>
-        {score}
+      <div className='score' style={{color: getScoreElementColor()}}>
+        {gameData.result.current}
       </div>
       <ActionField
-        figureColor={figureColor}
         gameData={gameData}
       />
       <Controllers
         colors={colors}
-        figureColor={figureColor}
         handleGameButtonClick={handleGameButtonClick}
         handleStartButtonClick={handleStartButtonClick}
-        isGameActive={gameData.active}
+        gameData={gameData}
       />
     </div>
   );

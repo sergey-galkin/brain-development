@@ -1,22 +1,22 @@
 import React from 'react';
 import GameButton from './ui/GameButton/GameButton';
 
-const ActionField = ({figureColor, gameData}) => {
+const ActionField = ({gameData}) => {
   const components = [];
   if (gameData.active) {
-    components.push(<GameButton key={1} figureColor={figureColor}/>)
+    components.push(<GameButton key={1} figureColor={gameData.figureColor}/>)
   } else {
-    if (gameData.lastResult !== null) {
+    if (gameData.result.current !== null) {
       components.push(
         <ComponentWrapper key={2}>
-          <h1>Ваш результат: {gameData.lastResult}</h1>
+          <h1>Ваш результат: {gameData.result.current}</h1>
         </ComponentWrapper>
       )
     }
-    if (gameData.bestResult !== null) {
+    if (gameData.result.best !== null) {
       components.push(
         <ComponentWrapper key={3}>
-          <h1>Ваш лучший результат: {gameData.bestResult}</h1>
+          <h1>Ваш лучший результат: {gameData.result.best}</h1>
         </ComponentWrapper>
       )
     }

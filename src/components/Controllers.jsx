@@ -2,18 +2,18 @@ import React from 'react';
 import GameButton from './ui/GameButton/GameButton';
 import StartButton from './ui/StartButton/StartButton';
 
-const Controllers = ({colors, figureColor, handleGameButtonClick, handleStartButtonClick, isGameActive}) => {
+const Controllers = ({colors, handleGameButtonClick, handleStartButtonClick, gameData}) => {
   return (
     <div className='controllers'>
       {
-        isGameActive
+        gameData.active
         ?
         colors.map((color) => {
           return (
             <GameButton 
               key={color}
               figureColor={color} 
-              onClick={() => figureColor ? handleGameButtonClick(color) : null}
+              onClick={() => gameData.figureColor ? handleGameButtonClick(color) : null}
             />
           )
         })
