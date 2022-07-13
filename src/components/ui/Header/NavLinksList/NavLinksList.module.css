@@ -1,0 +1,22 @@
+/* @media screen and (max-width: 600px) {
+  .nav-links-list {
+    position: absolute;
+    background-color: blueviolet;
+    display: none !important;
+  }
+} */
+.nav-links-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+.nav-links-group-list {
+  display: none;
+  position: absolute;
+  background-color: blueviolet;
+  list-style: none;
+  top: 60px;
+}
+.nav-links-list-visible {
+  display: block;
+}

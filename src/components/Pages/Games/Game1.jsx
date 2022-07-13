@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import ActionField from './ActionField';
-import Controllers from './Controllers';
+import ActionField from '../../ActionField';
+import Controllers from '../../Controllers';
 
 const colors = ['red', 'blue', 'green', 'yellow'];
 const generalData = {

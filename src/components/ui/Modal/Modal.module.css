@@ -1,0 +1,17 @@
+.dark-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1000;
+  opacity: .5;
+}
+.modal {
+  min-width: 200px;
+  padding: 20px;
+}
+.info {
+  color: #c45100;
+  background: #ffcfab;
+  box-shadow: #ff6a00 0 0 3px 3px;
+}

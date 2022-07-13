@@ -1,0 +1,27 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background: blueviolet;
+  box-shadow: black 0px 0px 5px 0px;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 25px;
+}
+.nav-container > div {
+  display: flex;
+}
+.navigation a {
+  text-decoration: none;
+  color: inherit;
+  padding: 10px;
+  display: block;
+  transition: linear 0.1s;
+}
+.navigation a:hover {
+  color: white !important;
+}
