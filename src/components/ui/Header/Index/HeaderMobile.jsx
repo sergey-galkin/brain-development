@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import classes from './Header.module.css';
+import css from './Header.module.css';
 import Logo from '../Logo/Logo';
 import NavLinkActive from '../NavLink/NavLink';
 import NavLinksGroup from '../NavLinksGroup/NavLinksGroup';
+import gamesData from '../../../../games_data/index';
 
 const Header = () => {
   const [visible, setVisible] = useState(false);
 
-  const routes = [
-    {path: 'games/1', capture: 'Игра 1'},
-    {path: 'games/2', capture: 'Игра 2'},
-    {path: 'games/3', capture: 'Игра 3'},
-  ];
+  const routes = gamesData.map(
+    d => {return {
+      path: 'games/' + d.urls[0],
+      capture: d.name
+    }
+  });
 
   return (
-    <nav className={classes.navigation}>
+    <nav className={css.navigation}>
       <div className='container'>
-        <div className={classes['nav-container']}>
+        <div className={css['nav-container']}>
           <div>
             <Logo hideLinksList={() => setVisible(false)}/>
             <NavLinksGroup 

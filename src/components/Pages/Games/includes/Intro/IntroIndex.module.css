@@ -1,0 +1,28 @@
+.header-holder {
+  background: #e6caff;
+  width: 100%;
+}
+.header-container {
+  justify-content: center;
+  padding: 30px;
+  height: 200px;
+  text-align: center;
+}
+.description-container {
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 30px;
+  overflow: auto;
+}
+@media screen and (max-width: 500px) {
+  .description-container {
+    flex-wrap: wrap;
+    justify-content: space-around !important;
+    overflow: hidden;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 780px) {
+  .description-container {
+    justify-content: left !important;
+  }
+}

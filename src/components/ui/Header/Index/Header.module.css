@@ -1,8 +1,12 @@
 .navigation {
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
   height: 60px;
-  background: blueviolet;
+  width: 100%;
+  background: black;
+  color: white;
   box-shadow: black 0px 0px 5px 0px;
 }
 .nav-container {
@@ -10,7 +14,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-size: 25px;
+  font-size: 20px;
+  line-height: 25px;
 }
 .nav-container > div {
   display: flex;
@@ -23,5 +28,9 @@
   transition: linear 0.1s;
 }
 .navigation a:hover {
-  color: white !important;
+  color: #e6caff !important;
+}
+.navigation + div {
+  margin-top: 60px;
+  min-width: 340px;
 }

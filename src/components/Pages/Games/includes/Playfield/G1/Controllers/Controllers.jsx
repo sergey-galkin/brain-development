@@ -1,13 +1,11 @@
 import React from 'react';
-import GameButton from './ui/GameButton/GameButton';
-import StartButton from './ui/StartButton/StartButton';
+import GameButton from '../GameButton/GameButton';
+import css from './Controllers.module.css';
 
-const Controllers = ({colors, handleGameButtonClick, handleStartButtonClick, gameData}) => {
+const Controllers = ({colors, handleGameButtonClick, gameData}) => {
   return (
-    <div className='controllers'>
+    <div className={css.controllers}>
       {
-        gameData.active
-        ?
         colors.map((color) => {
           return (
             <GameButton 
@@ -17,10 +15,6 @@ const Controllers = ({colors, handleGameButtonClick, handleStartButtonClick, gam
             />
           )
         })
-        :
-        <StartButton
-          handleClick={handleStartButtonClick}
-        />
       }
     </div>
   );

@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
-import ActionField from '../../ActionField';
-import Controllers from '../../Controllers';
+import React, { useState, useEffect } from 'react';
+import Modal from '../../../../../ui/Modal/Modal';
+import GameModal from './GameModal/GameModal';
+import ActionField from './ActionField/ActionField';
+import Controllers from './Controllers/Controllers';
 
 const colors = ['red', 'blue', 'green', 'yellow'];
 const generalData = {
@@ -13,7 +15,7 @@ const generalData = {
 
 const Playfield = () => {
   const [gameData, setGameData] = useState({
-    active: false,
+    active: true,
     result: {
       previous: null,
       current: null,
@@ -21,6 +23,17 @@ const Playfield = () => {
     },
     figureColor: '',
   });
+
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    startGame();
+  }, []);
+  // useEffect(() => {
+  //   if (started && !gameData.active) {
+  //     startGame();
+  //   }
+  // }, [started]);
 
   function bodyOnKeyDown(enable) {
     if (enable) {
@@ -90,7 +103,8 @@ const Playfield = () => {
     }
   }
 
-  function handleStartButtonClick() {
+  function startGame() {
+    setModal(false);
     generalData.startTime = Date.now();
     setGameData((prevGameData) => {
       return {
@@ -112,6 +126,7 @@ const Playfield = () => {
       clearTimeout(generalData.moveTimerId);
       clearTimeout(generalData.forcingMoveTimerId);
 
+      setModal(true);
       setGameData((prevGameData) => {
         let bestResult = prevGameData.result.best;
         if (prevGameData.result.current > prevGameData.result.best || bestResult === null) {
@@ -155,9 +170,17 @@ const Playfield = () => {
       <Controllers
         colors={colors}
         handleGameButtonClick={handleGameButtonClick}
-        handleStartButtonClick={handleStartButtonClick}
         gameData={gameData}
       />
+      <Modal 
+        visible={modal}
+        setVisible={setModal}
+      >
+        <GameModal
+          result={gameData.result}
+          startGame={startGame}
+        />
+      </Modal>
     </div>
   );
 }
