@@ -1,0 +1,9 @@
+.playfield {
+  display: block;
+  margin: auto;
+  height: 80vh;
+  min-height: 300px;
+  max-width: 1000px;
+  width: 100%;
+  user-select: none;
+}

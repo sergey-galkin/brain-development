@@ -5,3 +5,8 @@
   align-items: center;
   height: 70%;
 }
+@media screen and (max-width: 600px) {
+  .action-field {
+    font-size: 3vmin;
+  }
+}

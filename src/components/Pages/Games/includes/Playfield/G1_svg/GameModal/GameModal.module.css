@@ -1,0 +1,69 @@
+/* .game-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+.header {
+  width: 100%;
+  background: #e6caff;
+  text-align: center;
+  padding: 50px 0;
+  margin-bottom: 50px;
+}
+.result-container {
+  font-size: 30px;
+  padding: 20px;
+  margin: 0 auto;
+  text-align: right;
+  color: blueviolet;
+}
+.result-container td {
+  padding: 10px;
+}
+.result-value {
+  color: black;
+}
+.plus {
+  color: #0c0;
+}
+.minus {
+  color: red;
+}
+.btn {
+  display: block;
+  margin: 30px auto;
+  border: 0;
+  border-radius: 10px;
+  background: #e6caff;
+  width: 50%;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 50px 0;
+  font-size: 30px;
+  color: black;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: blueviolet;
+  color: white;
+}
+.btn:active {
+  border-style: none;
+}
+@media screen and (max-width: 600px) {
+  .header {
+    font-size: 25px;
+  }
+  .result-container {
+    font-size: 20px;
+  }
+  .result-container td {
+    padding: 5px;
+  }
+  .btn {
+    min-width: 200px;
+    padding: 30px 0;
+    font-size: 20px;
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import css from './G1Index.module.css';
 import Modal from '../../../../../ui/Modal/Modal';
 import GameModal from './GameModal/GameModal';
 import ActionField from './ActionField/ActionField';
@@ -160,8 +161,8 @@ const Playfield = () => {
   }
 
   return (
-    <div className='playfield'>
-      <div className='score' style={{color: getScoreElementColor()}}>
+    <div className={css.playfield}>
+      <div className={css.score} style={{color: getScoreElementColor()}}>
         {gameData.result.current}
       </div>
       <ActionField

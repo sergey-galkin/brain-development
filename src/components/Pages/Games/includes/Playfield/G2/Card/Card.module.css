@@ -1,0 +1,71 @@
+.card {
+  position: relative;
+  height: 100px;
+  width: 70px;
+  margin: 5px;
+  perspective: 500px;
+}
+.card-side {
+  box-shadow: rgb(0 0 0 / 50%) 0 0 2px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: 1s;
+  backface-visibility: hidden;
+  border-radius: 5px;
+}
+.card-side.front {
+  transform: rotateY(0deg);
+  background-color: aqua;
+}
+.card-side.back {
+  transform: rotateY(-180deg);
+  background-color: #e6caff;
+}
+.card:hover .card-side.front {
+  transform: rotateY(180deg);
+}
+.card:hover .card-side.back {
+  transform: rotateY(0deg);
+}
+.picture-1 {
+  background-image: url(../../../../../../../images/g2/1.svg);
+}
+.picture-2 {
+  background-image: url(../../../../../../../images/g2/2.svg);
+}
+.picture-3 {
+  background-image: url(../../../../../../../images/g2/3.svg);
+}
+.picture-4 {
+  background-image: url(../../../../../../../images/g2/4.svg);
+}
+.picture-5 {
+  background-image: url(../../../../../../../images/g2/5.svg);
+}
+.picture-6 {
+  background-image: url(../../../../../../../images/g2/6.svg);
+}
+.picture-7 {
+  background-image: url(../../../../../../../images/g2/7.svg);
+}
+.picture-8 {
+  background-image: url(../../../../../../../images/g2/8.svg);
+}
+.picture-9 {
+  background-image: url(../../../../../../../images/g2/9.svg);
+}
+.picture-10 {
+  background-image: url(../../../../../../../images/g2/10.svg);
+}
+.picture-11 {
+  background-image: url(../../../../../../../images/g2/11.svg);
+}
+.picture-12 {
+  background-image: url(../../../../../../../images/g2/12.svg);
+}

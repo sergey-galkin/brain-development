@@ -17,9 +17,7 @@ const Modal = ({visible, setVisible, children}) => {
         onClick={(e) => e.stopPropagation()}
       >
         {children}
-        <div className={css.cross} onClick={() => setVisible(false)}>
-          X
-        </div>
+        <div className={css.cross} onClick={() => setVisible(false)} />
       </div>
     </div>
   );

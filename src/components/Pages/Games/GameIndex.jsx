@@ -8,7 +8,6 @@ import * as Games from './includes/Playfield/Index';
 
 const GameIndex = () => {
   const {gameURL} = useParams();
-  // const [active, setActive] = useState(true);
 
   const gameData = getGameData(gameURL);
   if (!gameData) return <NotFound/>
@@ -22,15 +21,9 @@ const GameIndex = () => {
   }
 
   const CurentGame = Games[gameData.id];
-
+  
   return (
     <CurentGame/>
-    // <div>
-    // <CurentGame started={active}/>
-    //   <Modal 
-    //     active={!active}
-    //   />
-    // </div>
   )
 }
 

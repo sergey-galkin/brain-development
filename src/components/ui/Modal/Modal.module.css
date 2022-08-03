@@ -19,6 +19,7 @@
 }
 .modal {
   width: 90%;
+  /* width: 900px; */
   max-width: 1000px;
   min-width: 340px;
   max-height: 80vh;
@@ -30,19 +31,22 @@
 .cross {
   height: 40px;
   width: 40px;
-  background: #ffffff;
-  color: black;
+  background-image: url(../../../images/icons/closure_cross.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   border-radius: 50%;
-  border: 3px solid #e6caff;
+  position: absolute;
   right: 10px;
   top: 10px;
-  text-align: center;
-  font-size: 30px;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
+  transition: 0.1s;
+}
+.cross:hover {
+  height: 50px;
+  width: 50px;
+  right: 5px;
+  top: 5px;
 }
 .modal.invisible {
   display: none;
