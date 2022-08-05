@@ -1,9 +1,9 @@
 import React from 'react';
 import { SVG } from '@svgdotjs/svg.js';
-import css from './G1Index.module.css';
+import css from './Playfield.module.css';
 
 
-export const playfieldSVG = new class {
+export const playfield = new class {
   create(playfieldHolder, {level}, gameData, handleGameButtonClick) {
     this.canvas = SVG()
       .attr('id', 'playfield')

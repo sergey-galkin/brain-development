@@ -15,7 +15,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  transition: 1s;
+  transition: 1s transform;
   backface-visibility: hidden;
   border-radius: 5px;
 }
@@ -27,12 +27,22 @@
   transform: rotateY(-180deg);
   background-color: #e6caff;
 }
-.card:hover .card-side.front {
+.card.turned .card-side.front {
+  transform: rotateY(180deg);
+}
+.card.turned .card-side.back {
+  transform: rotateY(0deg);
+}
+.card-side.front.matched {
+  box-shadow: none;
+  background-color: transparent;
+}
+/* .card:hover .card-side.front {
   transform: rotateY(180deg);
 }
 .card:hover .card-side.back {
   transform: rotateY(0deg);
-}
+} */
 .picture-1 {
   background-image: url(../../../../../../../images/g2/1.svg);
 }

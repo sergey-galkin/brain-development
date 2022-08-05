@@ -20,11 +20,11 @@
 .result-container td {
   padding: 10px;
 }
-.result-value, .result-deviation {
+.result-value {
   color: black;
 }
 .plus {
-  color: green;
+  color: #0c0;
 }
 .minus {
   color: red;
@@ -42,6 +42,7 @@
   font-size: 30px;
   color: black;
   cursor: pointer;
+  transition: 0.3s;
 }
 .btn:hover {
   background: blueviolet;
@@ -49,4 +50,20 @@
 }
 .btn:active {
   border-style: none;
+}
+@media screen and (max-width: 600px) {
+  .header {
+    font-size: 25px;
+  }
+  .result-container {
+    font-size: 20px;
+  }
+  .result-container td {
+    padding: 5px;
+  }
+  .btn {
+    min-width: 200px;
+    padding: 30px 0;
+    font-size: 20px;
+  }
 }

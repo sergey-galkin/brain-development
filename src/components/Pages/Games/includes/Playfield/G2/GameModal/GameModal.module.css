@@ -24,10 +24,10 @@
   color: black;
 }
 .plus {
-  color: #0c0;
+  color: red;
 }
 .minus {
-  color: red;
+  color: #0c0;
 }
 .btn {
   display: block;

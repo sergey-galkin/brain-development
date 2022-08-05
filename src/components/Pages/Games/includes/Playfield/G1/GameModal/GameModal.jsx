@@ -9,13 +9,19 @@ const GameModal = ({result, startGame}) => {
         <tbody>
           <tr>
             <td>Текущий:</td>
-            <CurrentPoints value={result.current} classes={[css['result-value']]}/>
-            <td></td>
+            <Points value={result.total} />
+            {
+              result.total < result.previousBest && result.previousBest &&
+              <Deviation value={result.total - result.best} />
+            }
           </tr>
           <tr>
             <td>Лучший:</td>
-            <BestPoints value={result.best} classes={[css['result-value']]}/>
-            <BestPoints value={result.previous - result.best} classes={[css['result-deviation']]}/>
+            <Points value={result.best} />
+            {
+              result.best > result.previousBest &&
+              <Deviation value={'+' + (result.best - result.previousBest)} />
+            }
           </tr>
         </tbody>
       </table>
@@ -29,7 +35,16 @@ const GameModal = ({result, startGame}) => {
   );
 }
 
-const CurrentPoints = ({value, classes}) => {
+const Points = ({value}) => {
+  return (
+    <td className={css['result-value']}>
+      {value}
+    </td>
+  )
+}
+
+const Deviation = ({value}) => {
+  const classes = [];
   if (value < 0) classes.push([css.minus]);
   if (value > 0) classes.push([css.plus]);
 
@@ -40,14 +55,5 @@ const CurrentPoints = ({value, classes}) => {
   )
 }
 
-const BestPoints = ({value, classes}) => {
-  if (value < 0) classes.push([css.minus]);
-
-  return (
-    <td className={classes.join(' ')}>
-      {value}
-    </td>
-  )
-}
 
 export default GameModal;

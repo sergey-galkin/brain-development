@@ -1,0 +1,33 @@
+.menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 30px 0;
+  font-size: 25px;
+}
+.difficulty > div {
+  display: inline-block;
+}
+.difficulty-item.active {
+  background-color: #e6caff;
+}
+.difficulty-item {
+  margin-left: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+@media screen and (max-width: 600px){
+  .menu {
+    font-size: 20px;
+  }
+  .difficulty-item {
+    width: 35px;
+    height: 35px;
+    padding: 7px;
+  }
+}

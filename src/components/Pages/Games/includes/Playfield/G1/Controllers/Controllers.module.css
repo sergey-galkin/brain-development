@@ -1,8 +1,0 @@
-.controllers {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  /* border-top: 2px solid blueviolet; */
-  height: 15%;
-  user-select: none;
-}
