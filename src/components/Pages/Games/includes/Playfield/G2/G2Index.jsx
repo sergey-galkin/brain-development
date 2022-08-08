@@ -6,12 +6,15 @@ import GameMenu from './GameMenu/GameMenu';
 import GameModal from './GameModal/GameModal';
 
 function createCards(difficulty) {
-  const cardAmount = 1;
-  const playfield = [];
-  for (let i = 0; i < difficulty * 2; i++) {
-    for (let j = 0; j < cardAmount; j++) {
-      playfield.push({
-        pictureId: j,
+  const uniqueCardsAmount = 12;
+  const maxDifficulty = 3;
+  const uniqueCardsAmountInGame = uniqueCardsAmount / (maxDifficulty + 1 - difficulty);
+  const indexes = createRandomIndexes(uniqueCardsAmount);
+  const cards = [];
+  for (let i = 0; i < 4 * (4 - difficulty); i++) {
+    for (let j = 0; j < uniqueCardsAmountInGame; j++) {
+      cards.push({
+        pictureId: indexes[j].i,
         active: true,
         turned: false,
         matched: false,
@@ -19,7 +22,18 @@ function createCards(difficulty) {
       })
     }
   }
-  return playfield.sort((a, b) => b.random - a.random)
+  return cards.sort((a, b) => b.random - a.random)
+}
+
+function createRandomIndexes(amount) {
+  const indexes = [];
+  for (let i = 0; i < amount; i++) {
+    indexes.push({
+      i: i,
+      random: Math.random(),
+    })
+  }
+  return indexes.sort((a, b) => b.random - a.random)
 }
 
 function createResultObject() {
@@ -34,72 +48,85 @@ function createResultObject() {
   return result;
 }
 
-
 const generalData = {
   startTime: null,
   finishTime: null,
   setTimeTimerId: null,
-  // setTimeTimerId: [],
 }
 
 const G2 = () => {
   const [modal, setModal] = useState(false);
-  const [difficulty, setDifficulty] = useState(1);
-  const [cards, setCards] = useState(createCards(difficulty));
-  const [turnedCards, setTurnedCards] = useState([]);
-  const [time, setTime] = useState('0:00');
-  const [result, setResult] = useState(createResultObject());
+  const [gameData, setGameData] = useState({
+    difficulty: 1,
+    cards: createCards(1),
+    turnedCards: [],
+    result: createResultObject(),
+    time: '0:00',
+    moves: 0,
+  });
 
-  useEffect(() => {
-    startGame(difficulty)
-  }, []);
+
+  useEffect(startGame, []);
 
   function changeDifficulty(value) {
     clearInterval(generalData.setTimeTimerId);
-    setDifficulty(value);
-    startGame(value);
+    setGameData((p) => {
+      return {...p, difficulty: value}
+    });
+    startGame();
   }
 
   function turnCard(index) {
-    const newCards = [...cards];
+    const newCards = [...gameData.cards];
     newCards[index].active = false;
     newCards[index].turned = true;
-    setCards(newCards);
     
-    const newTurnedCards = [...turnedCards];
+    const newTurnedCards = [...gameData.turnedCards];
     newTurnedCards.push(newCards[index]);
-    setTurnedCards(newTurnedCards);
+    
+    setGameData((p) => {
+      return {...p, cards: newCards, turnedCards: newTurnedCards}
+    });
     
     if (newTurnedCards.length === 2) {
       newCards.forEach((card) => card.active = false);
       setTimeout(() => {
         if (newTurnedCards[0].pictureId === newTurnedCards[1].pictureId) {
-          newTurnedCards[0].matched = true;
-          newTurnedCards[1].matched = true;
+          newTurnedCards.forEach((card) => card.matched = true);
         }
-      }, 1000);
-      setTimeout(() => {
         newCards.forEach((card) => {if (!card.matched) card.active = true});
         newTurnedCards.forEach((card) => card.turned = false)
-        setCards(newCards);
-        setTurnedCards([]);
-        gameOverCheck();
+        setGameData((p) => {
+          return {...p, cards: newCards, turnedCards: [], moves: p.moves + 1}
+        });
       }, 2000);
+      setTimeout(() => {
+        gameOverCheck();
+      }, 3000);
     }
   }
   
-  function startGame(difficulty = 1) {
+  function startGame() {
     setModal(false);
-    setCards(createCards(difficulty));
-    setTime('0:00');
-    const newResult = [...result];
+    const newResult = [...gameData.result];
     newResult.forEach((r) => r.current = null);
-    setResult(newResult);
+    setGameData((p) => {
+      return {
+        ...p,
+        cards: createCards(p.difficulty),
+        turnedCards: [],
+        result: newResult,
+        time: '0:00',
+        moves: 0,
+      }
+    });
 
     generalData.startTime = Date.now();
     if (generalData.setTimeTimerId) clearInterval(generalData.setTimeTimerId);
     generalData.setTimeTimerId = setInterval(() => {
-      setTime(getTime());
+      setGameData((p) => {
+        return {...p, time: getTime()}
+      });
     }, 1000);
 
     function getTime() {
@@ -112,38 +139,42 @@ const G2 = () => {
   }
 
   function gameOverCheck() {
-    if (cards.filter(c => !c.matched).length) return;
+    if (gameData.cards.filter(c => !c.matched).length) return;
     
     generalData.finishTime = Date.now();
     clearInterval(generalData.setTimeTimerId);
     
-    const newResult = [...result];
-    const index = difficulty - 1;
+    const newResult = [...gameData.result];
+    const index = gameData.difficulty - 1;
     newResult[index].current = generalData.finishTime - generalData.startTime;
     newResult[index].previousBest = newResult[index].best;
     
     if (!newResult[index].best || newResult[index].current < newResult[index].best) newResult[index].best = newResult[index].current;
-    setResult(newResult);
+    setGameData((p) => {
+      return {...p, result: newResult}
+    });
     setModal(true);
   }
 
   return (
     <div className={'container ' + css.flex}>
-      <GameMenu time={time} difficulty={difficulty} handleClick={changeDifficulty}/>
+      <GameMenu 
+        difficulty={gameData.difficulty}
+        time={gameData.time} 
+        moves={gameData.moves} 
+        handleClick={changeDifficulty}
+      />
       <div className={css.playfield}>
         {
-          cards.map((card, i) => {
+          gameData.cards.map((card, i) => {
             return <Card key={card.random} {...card} handleClick={() => turnCard(i)}/>
           })
         }
       </div>
       {modal && 
-        <Modal 
-          visible={modal}
-          setVisible={setModal}
-        >
+        <Modal visible={modal} setVisible={setModal}>
           <GameModal
-            result={result[difficulty - 1]}
+            result={gameData.result[gameData.difficulty - 1]}
             startGame={startGame}
           />
         </Modal>
