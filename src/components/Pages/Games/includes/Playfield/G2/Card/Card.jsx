@@ -3,10 +3,13 @@ import css from './Card.module.css';
 
 const Card = ({pictureId, active, turned, matched, handleClick}) => {
   const cardClasses = [css.card];
-  if (turned) cardClasses.push(css.turned);
-  
   const frontClasses = [css['card-side'], css.front];
-  const backClasses = [css['card-side'], css.back, css['picture-' + ++pictureId]];
+  const backClasses = [css['card-side'], css.back];
+  
+  if (turned) {
+    cardClasses.push(css.turned);
+    backClasses.push(css['picture-' + ++pictureId]);
+  }
   if (matched) {
     frontClasses.push(css.matched);
     backClasses.push(css.matched);

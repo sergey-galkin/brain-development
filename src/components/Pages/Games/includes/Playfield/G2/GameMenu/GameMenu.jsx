@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './GameMenu.module.css';
 
-const GameMenu = ({time, difficulty, handleClick}) => {
+const GameMenu = ({difficulty, time, moves, handleClick}) => {
   const items = [1, 2, 3];
 
   return (
@@ -16,7 +16,8 @@ const GameMenu = ({time, difficulty, handleClick}) => {
           })
         }
       </div>
-      <div className={css.time}>Время: {time}</div>
+      <div>Время: {time}</div>
+      <div>Ходы: {moves}</div>
     </div>
   );
 }

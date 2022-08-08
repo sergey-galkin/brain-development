@@ -8,6 +8,7 @@
   background: black;
   color: white;
   box-shadow: black 0px 0px 5px 0px;
+  z-index: 1;
 }
 .nav-container {
   display: flex;
