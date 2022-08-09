@@ -11,7 +11,7 @@ const GameModal = ({result, startGame}) => {
             <td>Текущий:</td>
             <Points value={result.total} />
             {
-              result.total < result.previousBest && result.previousBest &&
+              result.total < result.previousBest && result.previousBest !== null &&
               <Deviation value={result.total - result.best} />
             }
           </tr>
@@ -19,7 +19,7 @@ const GameModal = ({result, startGame}) => {
             <td>Лучший:</td>
             <Points value={result.best} />
             {
-              result.best > result.previousBest &&
+              result.best > result.previousBest && result.previousBest !== null &&
               <Deviation value={'+' + (result.best - result.previousBest)} />
             }
           </tr>
