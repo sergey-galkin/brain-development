@@ -1,0 +1,23 @@
+{
+  "port": 3001,
+  "https": false,
+  "db": {
+    "uri": {
+      "main": "mongodb://127.0.0.1:27017/main_4",
+      "sessionStore": "mongodb://127.0.0.1:27017/sessionStore"
+    },
+    "options": {
+      "useNewUrlParser": true,
+      "useUnifiedTopology": true,
+      "useCreateIndex": true,
+      "useFindAndModify": false
+    }
+  },
+  "url": "http://localhost:3001",
+  "io": {
+    "origins": [
+      "localhost:*",
+      "www.localhost:*"
+    ]
+  }
+}
