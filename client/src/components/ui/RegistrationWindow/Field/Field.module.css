@@ -1,0 +1,20 @@
+.fild {
+  padding: 15px;
+  margin: 5px 0 15px;
+  font-size: 1em;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #8d8d8d;
+  border-radius: 5px;
+  border-style: double;
+}
+.fild:focus {
+  background: #f3e5ff;
+}
+.warning { 
+  color: red;
+  font-size: 0.75em;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 500px;
+}

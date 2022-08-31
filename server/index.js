@@ -1,12 +1,12 @@
 process.env.NODE_ENV = 'development';
 // process.env.NODE_ENV = 'production';
 
-import fs from 'fs';
-import http from 'http';
-import https from 'https';
-import express from 'express';
-import config from 'config';
-import routes from './routes/index.js';
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const express = require('express');
+const config = require('config');
+const routes = require('./routes/index');
 
 const app = express();
 const httpApp = express();
@@ -36,5 +36,6 @@ if ( config.get('https') ) {
 server.listen( config.get('port') );
 
 console.log('Server is running at port ' + config.get('port'));
+
 
 routes(app);

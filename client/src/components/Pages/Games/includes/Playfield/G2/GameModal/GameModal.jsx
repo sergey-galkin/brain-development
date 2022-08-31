@@ -4,7 +4,6 @@ import css from './GameModal.module.css';
 const GameModal = ({result, startGame}) => {
   return (
     <div>
-      <h1 className={css.header}>Результаты</h1>
       <table className={css['result-container']}>
         <tbody>
           <tr>

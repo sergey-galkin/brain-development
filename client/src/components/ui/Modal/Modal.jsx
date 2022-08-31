@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../../contex';
 import css from './Modal.module.css';
 
-const Modal = ({visible, setVisible, children}) => {
+const Modal = () => {
+  const {visible, update, header, children} = useContext(ModalContext);
+
   const containerClasses = [css['modal-container']];
   containerClasses.push(visible ? css.visible : '');
   
-  const modalClasses = [css.modal, css.info];
+  const modalClasses = [css.modal];
   modalClasses.push(visible ? '' : css.invisible);
   
   return (
-    <div 
-      className={containerClasses.join(' ')} 
-    >
-      <div 
-        className={modalClasses.join(' ')} 
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-        <div className={css.cross} onClick={() => setVisible(false)} />
+    <div className={containerClasses.join(' ')} >
+      <div className={modalClasses.join(' ')} >
+        <div className={css['content-holder']}>
+          <h1 className={css.header}>{header}</h1>
+          {children}
+        </div>
+        <div className={css.cross} onClick={() => update()} />
       </div>
     </div>
   );

@@ -8,15 +8,18 @@
 h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-@media screen and (max-width: 600px) {
-  .container{
-    width: 100%;
-  }
-}
 .container{
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+}
+.invisible {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .container{
+    width: 100%;
+  }
 }

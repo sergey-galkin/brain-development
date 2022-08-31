@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NavLinksList from '../NavLinksList/NavLinksList';
 
 const NavLinksGroup = ({capture, routes, visible, hideLinksList}) => {

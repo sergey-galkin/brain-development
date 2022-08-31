@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Modal from '../../../../../ui/Modal/Modal';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { playfield } from './Playfield';
 import GameModal from './GameModal/GameModal';
+import { ModalContext } from '../../../../../../contex';
 
 const generalData = {
   startTime: null,
@@ -46,7 +47,7 @@ const G1 = () => {
     indexes: createIndexes(),
   });
 
-  const [modal, setModal] = useState(false);
+  const modal = useContext(ModalContext);
 
   useEffect(() => {
     const playfieldHolder = document.getElementById('playfieldHolder');
@@ -61,6 +62,19 @@ const G1 = () => {
   useEffect(() => {
     const playfieldHolder = document.getElementById('playfieldHolder');
     playfield.create(playfieldHolder, generalData, gameData, handleGameButtonClick);
+    // if game over show results
+    if (!gameData.active) {
+      setTimeout(
+        modal.update(
+          true,
+          'Результаты',
+          <GameModal
+            result={gameData.result}
+            startGame={startGame}
+          />
+        )
+      , 700);
+    }
     return () => {
       playfieldHolder.innerHTML = '';
     }
@@ -152,7 +166,7 @@ const G1 = () => {
   }
 
   function startGame() {
-    setModal(false);
+    modal.update();
     generalData.startTime = Date.now();
     generalData.moveTimeLimit = 2000 + 100;
     generalData.level = 1;
@@ -192,48 +206,39 @@ const G1 = () => {
       const active = errors.current === errors.max ? false : true;
 
       if (active) return {...prevGameData, errors: errors};
-      
+
       bodyOnKeyDown(false);
       clearTimeout(generalData.waitingNextMoveTimerId);
       clearTimeout(generalData.moveTimerId);
-      setTimeout(setModal, 700, true);
 
-      let bestResult = prevGameData.result.best;
-      const previousBest = bestResult;
-      if (prevGameData.result.total > prevGameData.result.best || bestResult === null) {
-        bestResult = prevGameData.result.total;
+      const result = prevGameData.result;
+      result.previousBest = result.best;
+      if (result.total > result.best || result.best === null) {
+        result.best = result.total;
       }
+
+      // axios.get('/api')
+      //   .then(res => console.log(res))
+      //   .catch(err => console.log(err))
+      // ;
+      // axios.post('/api', {bestResult})
+      //   .then(res => console.log(res))
+      //   .catch(err => console.log(err))
+      // ;
+
 
       return {
         ...prevGameData,
         active: false,
         figureIndex: null,
-        result: {
-          ...prevGameData.result,
-          best: bestResult,
-          previousBest: previousBest,
-        },
+        result: result,
         errors: errors,
       }
     }
   }
 
   return (
-    <div>
-      <div id={'playfieldHolder'}>
-      </div>
-      {modal && 
-        <Modal 
-          visible={modal}
-          setVisible={setModal}
-        >
-          <GameModal
-            result={gameData.result}
-            startGame={startGame}
-          />
-        </Modal>
-      }
-    </div>
+    <div id={'playfieldHolder'} />
   );
 }
 

@@ -3,14 +3,7 @@
   "https": false,
   "db": {
     "uri": {
-      "main": "mongodb://127.0.0.1:27017/main_4",
-      "sessionStore": "mongodb://127.0.0.1:27017/sessionStore"
-    },
-    "options": {
-      "useNewUrlParser": true,
-      "useUnifiedTopology": true,
-      "useCreateIndex": true,
-      "useFindAndModify": false
+      "main": "postgresql://postgres:postgres@localhost:5432/main?schema=public",
     }
   },
   "url": "http://localhost:3001",

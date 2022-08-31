@@ -3,6 +3,7 @@
 # dependencies
 /client/node_modules
 /server/node_modules
+# /server/prisma/migrations/migration_lock.toml
 /.pnp
 .pnp.js
 
@@ -11,6 +12,9 @@
 
 # production
 /build
+
+# Keep environment variables out of version control
+/server/.env
 
 # misc
 .DS_Store
