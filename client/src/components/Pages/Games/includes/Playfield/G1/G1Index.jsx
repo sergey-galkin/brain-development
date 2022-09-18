@@ -3,6 +3,7 @@ import axios from 'axios';
 import { playfield } from './Playfield';
 import GameModal from './GameModal/GameModal';
 import { ModalContext } from '../../../../../../contex';
+import { useDispatch } from 'react-redux';
 
 const generalData = {
   startTime: null,
@@ -48,6 +49,7 @@ const G1 = () => {
   });
 
   const modal = useContext(ModalContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const playfieldHolder = document.getElementById('playfieldHolder');
