@@ -31,9 +31,9 @@
 .navigation a:hover {
   color: #e6caff !important;
 }
-.navigation .separator {
+/* .navigation .separator {
   padding: 10px 0;
-}
+} */
 .navigation + div {
   margin-top: 60px;
   min-width: 340px;

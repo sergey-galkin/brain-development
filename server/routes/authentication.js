@@ -21,8 +21,8 @@ module.exports = async (req, res, next) => {
     return;
   }
   req.session.user = {login: user.login};
-  console.log(req.session);
-  res.send({status: true});
+  // console.log(req.session);
+  res.send({status: true, login: user.login});
 }
 
 function encryptPassword(password, salt) {

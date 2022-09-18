@@ -34,8 +34,6 @@ if ( config.get('https') ) {
 }
 
 server.listen( config.get('port') );
-
-console.log('Server is running at port ' + config.get('port'));
-
+require('./libs/logger')(module.filename).info('Server is running at port ' + config.get('port'));
 
 routes(app);

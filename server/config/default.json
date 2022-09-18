@@ -3,7 +3,7 @@
   "https": false,
   "db": {
     "uri": {
-      "main": "postgresql://postgres:postgres@localhost:5432/main?schema=public",
+      "main": "postgresql://postgres:postgres@localhost:5432/main?schema=public"
     }
   },
   "url": "http://localhost:3001",

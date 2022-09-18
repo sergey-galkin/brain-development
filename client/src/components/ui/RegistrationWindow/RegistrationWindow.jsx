@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createUser } from '../../../api/dbRequest';
 import { ModalContext } from '../../../contex';
 import { regValidation } from '../../../libs/validation';
+import { close } from '../Modal/modalSlice';
 import Field from './Field/Field';
 import css from './RegistrationWindow.module.css';
 import RequestStageInterface from './RequestStageInterface/RequestStageInterface';
@@ -49,7 +51,8 @@ const LoginWindow = () => {
   const [regData, setRegData] = useState(setFormFieldInitialState(''));
   const [warnings, setWarnings] = useState(setFormFieldInitialState(''));
   const [requestStage, setRequestStage] = useState({index: 0, data: ''});
-  const modal = useContext(ModalContext);
+  // const modal = useContext(ModalContext);
+  const dispatch = useDispatch();
 
   function handleFormFieldChange(e) {
     setRegData({
@@ -96,7 +99,7 @@ const LoginWindow = () => {
 
   function handleRequestStageInterfaceClick(e) {
     setRequestStage({index: 0, data: ''});
-    modal.update();
+    dispatch(close());
   }
 
 

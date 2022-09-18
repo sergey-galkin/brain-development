@@ -32,8 +32,8 @@ const requestStages = [
   },
 ];
 
-const getRequestStage = ({index, data}) => {
-  return requestStages[index](data);
+const getRequestStage = (index) => {
+  return requestStages[index]();
 }
 
 const RequestStageInterface = ({stage, handleClick}) => {

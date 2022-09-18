@@ -1,6 +1,6 @@
 const { regValidation } = require('../libs/validation');
 const { User } = require('../db/request');
-const crypto = require('node:crypto')
+const crypto = require('node:crypto');
 
 
 module.exports = async (req, res, next) => {

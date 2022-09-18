@@ -10,6 +10,9 @@
 # testing
 /coverage
 
+# logs
+/server/log
+
 # production
 /build
 
