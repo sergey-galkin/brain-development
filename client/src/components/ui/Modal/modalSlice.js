@@ -6,6 +6,7 @@ export const modalSlice = createSlice({
     visible: false,
     header: null,
     childComponentName: null,
+    childComponentProps: null,
   },
   reducers: {
     open: openModal,
@@ -14,29 +15,32 @@ export const modalSlice = createSlice({
 });
 
 function openModal(state, action) {
-  const { header, childComponentName } = action.payload;
+  const { header, childComponentName, childComponentProps} = action.payload;
   state.visible = true;
   state.header = header;
   state.childComponentName = childComponentName;
+  state.childComponentProps = childComponentProps;
 }
 
 function closeModal(state) {
   state.visible = false;
   state.header = null;
   state.childComponentName = null;
+  state.childComponentProps = null;
 }
 
 export const { open, close } = modalSlice.actions;
 
 export const delayedOpen = (payload) => (dispatch, getState) => {
   const timerId = setInterval(() => {
-    const {visible, header, childComponentName} = getState().modal;
+    const visible = getState().modal.visible;
     if (visible) return;
     clearInterval(timerId);
     dispatch(
       open({
-        header: payload.header || header,
-        childComponentName: payload.childComponentName || childComponentName,
+        header: payload.header,
+        childComponentName: payload.childComponentName,
+        childComponentProps: payload.childComponentProps,
       })
     )
   }, 100);

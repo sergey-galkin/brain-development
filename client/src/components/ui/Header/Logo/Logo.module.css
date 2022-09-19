@@ -1,9 +1,18 @@
-.logo{
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo-img {
+  display: block;
+  height: 50px;
+  width: 50px;
+}
+.logo-text{
   margin-right: 30px;
   font-size: 25px;
 }
 @media screen and (max-width: 600px) {
-  .logo {
+  .logo-text {
     font-size: inherit;
   }
 }

@@ -5,7 +5,7 @@ const HomePage = () => {
   const {login} = useParams();
   return (
     <div>
-      <h1 style={{textAlign: 'center'}}>Profile of user {login}</h1>
+      <h1 style={{textAlign: 'center', marginTop: '50vh'}}>Profile of user {login}</h1>
     </div>
   );
 }

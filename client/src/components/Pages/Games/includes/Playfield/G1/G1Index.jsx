@@ -4,6 +4,7 @@ import { playfield } from './Playfield';
 import GameModal from './GameModal/GameModal';
 import { ModalContext } from '../../../../../../contex';
 import { useDispatch } from 'react-redux';
+import { close, delayedOpen } from '../../../../../ui/Modal/modalSlice';
 
 const generalData = {
   startTime: null,
@@ -28,6 +29,8 @@ function createIndexes() {
   return indexes.sort((a, b) => b.random - a.random)
 }
 
+let startGame;
+
 const G1 = () => {
   const [gameData, setGameData] = useState({
     active: true,
@@ -48,7 +51,7 @@ const G1 = () => {
     indexes: createIndexes(),
   });
 
-  const modal = useContext(ModalContext);
+  // const modal = useContext(ModalContext);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -67,14 +70,25 @@ const G1 = () => {
     // if game over show results
     if (!gameData.active) {
       setTimeout(
-        modal.update(
-          true,
-          'Результаты',
-          <GameModal
-            result={gameData.result}
-            startGame={startGame}
-          />
-        )
+        dispatch(delayedOpen({
+          visible: true,
+          header: 'Результаты',
+          childComponentName: 'Game1Modal',
+          childComponentProps: {
+            result: gameData.result,
+            handlers: {
+              startGame: 'startGame1'
+            }
+          }
+        }))
+        // modal.update(
+        //   true,
+        //   'Результаты',
+        //   <GameModal
+        //     result={gameData.result}
+        //     startGame={startGame}
+        //   />
+        // )
       , 700);
     }
     return () => {
@@ -167,8 +181,9 @@ const G1 = () => {
     }
   }
 
-  function startGame() {
-    modal.update();
+  startGame = () => {
+    dispatch(close())
+    // modal.update();
     generalData.startTime = Date.now();
     generalData.moveTimeLimit = 2000 + 100;
     generalData.level = 1;
@@ -245,3 +260,4 @@ const G1 = () => {
 }
 
 export default G1;
+export { startGame as startGame1 };

@@ -20,12 +20,13 @@
 }
 .nav-container > div {
   display: flex;
+  align-items: center;
 }
 .navigation a {
   text-decoration: none;
   color: inherit;
   padding: 10px;
-  display: block;
+  /* display: block; */
   transition: linear 0.1s;
 }
 .navigation a:hover {
