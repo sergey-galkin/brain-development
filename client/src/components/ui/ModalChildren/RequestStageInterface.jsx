@@ -1,7 +1,7 @@
 import React from 'react';
-import * as Buttons from '../../Buttons/Buttons';
+import * as Buttons from '../Buttons/Buttons';
 
-const requestStages = [
+const generalStages = [
   // 0 - preparing request 
   () => {},
   // 1 - request was send
@@ -12,9 +12,7 @@ const requestStages = [
       cancelBtn: false,
     }
   },
-  // 2 - response was received with status code 2xx 
-  () => {},
-  // 3 - response was received with status code <> 2xx
+  // 2 - response was received with status code <> 2xx
   () => {
     return {
       msg: ['Что-то пошло не так'],
@@ -22,22 +20,16 @@ const requestStages = [
       cancelBtn: true,
     }
   },
-  // 4 - response was received with status code 2xx, but credentials are not right
-  () => {
-    return {
-      msg: [`Пользователь с введёнными учётными данными не найден`],
-      acceptBtn: false,
-      cancelBtn: true,
-    }
-  },
 ];
 
-const getRequestStage = (index) => {
-  return requestStages[index]();
+const getRequestStage = (stages, {index, data}) => {
+  return stages[index](data);
 }
 
-const RequestStageInterface = ({stage, handleClick}) => {
-  const stageData = getRequestStage(stage);
+const RequestStageInterface = ({additionalStages, stage, handleClick}) => {
+  const stages = generalStages.concat(additionalStages);
+  const stageData = getRequestStage(stages, stage);
+  
   return (
     <div>
       <div style={{'lineHeight': '25px'}}>
@@ -48,7 +40,7 @@ const RequestStageInterface = ({stage, handleClick}) => {
         { stageData.cancelBtn && <Buttons.CancelButton handleClick={handleClick} />}
       </Buttons.Container>
     </div>
-  );
+  )
 }
 
 export default RequestStageInterface;

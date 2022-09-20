@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { playfield } from './Playfield';
-import GameModal from './GameModal/GameModal';
-import { ModalContext } from '../../../../../../contex';
 import { useDispatch } from 'react-redux';
-import { close, delayedOpen } from '../../../../../ui/Modal/modalSlice';
 
 const generalData = {
   startTime: null,
@@ -52,7 +49,7 @@ const G1 = () => {
   });
 
   // const modal = useContext(ModalContext);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     const playfieldHolder = document.getElementById('playfieldHolder');
@@ -69,18 +66,18 @@ const G1 = () => {
     playfield.create(playfieldHolder, generalData, gameData, handleGameButtonClick);
     // if game over show results
     if (!gameData.active) {
-      setTimeout(
-        dispatch(delayedOpen({
-          visible: true,
-          header: 'Результаты',
-          childComponentName: 'Game1Modal',
-          childComponentProps: {
-            result: gameData.result,
-            handlers: {
-              startGame: 'startGame1'
-            }
-          }
-        }))
+      // setTimeout(
+        // dispatch(delayedOpen({
+        //   visible: true,
+        //   header: 'Результаты',
+        //   childComponentName: 'Game1Modal',
+        //   childComponentProps: {
+        //     result: gameData.result,
+        //     handlers: {
+        //       startGame: 'startGame1'
+        //     }
+        //   }
+        // }))
         // modal.update(
         //   true,
         //   'Результаты',
@@ -89,7 +86,7 @@ const G1 = () => {
         //     startGame={startGame}
         //   />
         // )
-      , 700);
+      // , 700);
     }
     return () => {
       playfieldHolder.innerHTML = '';
@@ -182,7 +179,7 @@ const G1 = () => {
   }
 
   startGame = () => {
-    dispatch(close())
+    // dispatch(close())
     // modal.update();
     generalData.startTime = Date.now();
     generalData.moveTimeLimit = 2000 + 100;

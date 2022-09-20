@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { close } from '../Modal/modalSlice';
 import Field from './Field/Field';
 import css from './LoginWindow.module.css';
-import RequestStageInterface from './RequestStageInterface/RequestStageInterface';
-import { useAuthenticationMutation } from '../../../api/apiSlice';
+import RequestStageInterface from '../RequestStageInterface';
+import additionalStages from "./requestStages";
+import { useAuthenticationMutation } from '../../../../api/apiSlice';
 
 
 const fields = [
@@ -26,11 +25,10 @@ const setFormFieldInitialState = (value) => {
   return state;
 }
 
-const LoginWindow = () => {
+const LoginWindow = ({closeModal}) => {
   const [authData, setAuthData] = useState(setFormFieldInitialState(''));
-  const [requestStage, setRequestStage] = useState(0);
-  const dispatch = useDispatch();
-  const [authentication, { isLoading }] = useAuthenticationMutation();
+  const [requestStage, setRequestStage] = useState({index: 0, data: ''});
+  const [authentication, {}] = useAuthenticationMutation();
 
   function handleFormFieldChange(e) {
     setAuthData({
@@ -41,33 +39,26 @@ const LoginWindow = () => {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-
+    
     // const authData = {
     //   login: 'Johny',
     //   password: 'aaaaA1!',
     // };
-    setRequestStage(1);
+    setRequestStage({index: 1, data: ''});
     authentication(authData).unwrap()
       .then(res => {
-        // console.log(res)
         if (res) closeModal();
-        else setRequestStage(4);
+        else setRequestStage({index: 4, data: ''});
       })
-      .catch(err => {console.log(err); setRequestStage(3)})
+      .catch(err => setRequestStage({index: 2, data: ''}))
     ;
   }
-
-  function closeModal(e) {
-    setRequestStage(0);
-    dispatch(close());
-  }
-
-
+    
   return (
     <div className={css.container}>
-      { requestStage
+      { requestStage.index
         ?
-        <RequestStageInterface stage={requestStage} handleClick={closeModal} />
+        <RequestStageInterface additionalStages={additionalStages} stage={requestStage} handleClick={closeModal} />
         :
         <form onSubmit={handleFormSubmit}>
           {fields.map((f) => {

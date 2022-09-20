@@ -4,7 +4,7 @@ import Logo from '../Logo/Logo';
 import NavLinkActive from '../NavLink/NavLink';
 import NavLinksGroup from '../NavLinksGroup/NavLinksGroup';
 import gamesData from '../../../../games_data/index';
-import RegistrationWindow from '../../RegistrationWindow/RegistrationWindow';
+import RegistrationWindow from '../../ModalChildren/RegistrationWindow/RegistrationWindow';
 import { ModalContext } from '../../../../contex';
 
 const Header = () => {

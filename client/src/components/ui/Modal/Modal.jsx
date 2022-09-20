@@ -1,39 +1,28 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import css from './Modal.module.css';
-import { close, selectModal } from './modalSlice';
-import * as ModalChildren from "./ModalChildren";
-import * as ModalChildrenHandlers from "./ModalChildrenHandlers";
 
-const Modal = () => {
-  const dispatch = useDispatch();
-  const { visible, header, childComponentName, childComponentProps } = useSelector(selectModal);
-  const ChildComponent = ModalChildren[childComponentName || 'Empty'];
-  
-  const handlers = {};
-  if (childComponentProps && childComponentProps.handlers) {
-    for (const key in childComponentProps.handlers) {
-      if (Object.hasOwnProperty.call(childComponentProps.handlers, key)) {
-        handlers[key] = ModalChildrenHandlers[childComponentProps.handlers[key]];
-      }
-    }
-  }
-  const props = {...childComponentProps, handlers: handlers};
-  
-  const containerClasses = [css['modal-container']];
-  containerClasses.push(visible ? css.visible : '');
-  
-  const modalClasses = [css.modal];
-  modalClasses.push(visible ? '' : css.invisible);
+const Modal = ({header, handleCrossClick, children }) => {
+  const container = useRef(null);
+
+  useEffect(() => {
+    container.current.classList.add(css.visible);
+  }, [])
+
+  const closeModal = () => {
+    container.current.classList.remove(css.visible);
+    setTimeout(() => {
+      handleCrossClick();
+    }, 100)
+  };
 
   return (
-    <div className={containerClasses.join(' ')} >
-      <div className={modalClasses.join(' ')} >
+    <div ref={container} className={css['modal-container']} >
+      <div className={css.modal} >
         <div className={css['content-holder']}>
           <h1 className={css.header}>{header}</h1>
-          <ChildComponent {...props} />
+          { React.cloneElement(children, { closeModal: closeModal }) }
         </div>
-        <div className={css.cross} onClick={() => dispatch(close())} />
+        <div className={css.cross} onClick={closeModal} />
       </div>
     </div>
   );

@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createUser } from '../../../api/dbRequest';
-import { ModalContext } from '../../../contex';
-import { regValidation } from '../../../libs/validation';
-import { close } from '../Modal/modalSlice';
+import React, { useState } from 'react';
+import { createUser } from '../../../../api/dbRequest';
+import { regValidation } from '../../../../libs/validation';
 import Field from './Field/Field';
 import css from './RegistrationWindow.module.css';
-import RequestStageInterface from './RequestStageInterface/RequestStageInterface';
+import RequestStageInterface from '../RequestStageInterface';
+import additionalStages from "./requestStages";
 
 
 const fields = [
@@ -47,12 +45,10 @@ const isRegDataCorrect = (warnings) => {
   return true;
 }
 
-const LoginWindow = () => {
+const RegistrationWindow = ({closeModal}) => {
   const [regData, setRegData] = useState(setFormFieldInitialState(''));
   const [warnings, setWarnings] = useState(setFormFieldInitialState(''));
   const [requestStage, setRequestStage] = useState({index: 0, data: ''});
-  // const modal = useContext(ModalContext);
-  const dispatch = useDispatch();
 
   function handleFormFieldChange(e) {
     setRegData({
@@ -82,7 +78,7 @@ const LoginWindow = () => {
       setRequestStage(1);
       createUser(regData)
         .then(res => {
-          if (res.data.status) setRequestStage({index: 2, data: ''});
+          if (res.data.status) setRequestStage({index: 3, data: ''});
           else {
             const field = res.data.notUnique;
             const value = regData[field];
@@ -90,24 +86,18 @@ const LoginWindow = () => {
             if (field === 'email') setRequestStage({index: 5, data: value})
           }
         })
-        .catch(err => {console.log(err); setRequestStage(3)})
+        .catch(err => {console.log(err); setRequestStage(2)})
       ;
     } else {
       setWarnings(newW);
     }
   }
 
-  function handleRequestStageInterfaceClick(e) {
-    setRequestStage({index: 0, data: ''});
-    dispatch(close());
-  }
-
-
   return (
     <div className={css.container}>
       { requestStage.index  
         ?
-        <RequestStageInterface stage={requestStage} handleClick={handleRequestStageInterfaceClick} />
+        <RequestStageInterface additionalStages={additionalStages} stage={requestStage} handleClick={closeModal} />
         :
         <form onSubmit={handleFormSubmit}>
           {fields.map((f) => {
@@ -125,4 +115,4 @@ const LoginWindow = () => {
   );
 }
 
-export default LoginWindow;
+export default RegistrationWindow;
