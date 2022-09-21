@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import css from './Modal.module.css';
 
-const Modal = ({header, handleCrossClick, children }) => {
+const Modal = ({header, closeModal, children }) => {
   const container = useRef(null);
 
   useEffect(() => {
     container.current.classList.add(css.visible);
   }, [])
 
-  const closeModal = () => {
+  const modalHandler = (handler) => {
     container.current.classList.remove(css.visible);
-    setTimeout(() => {
-      handleCrossClick();
-    }, 100)
+    setTimeout(handler || closeModal, 100);
   };
 
   return (
@@ -20,9 +18,9 @@ const Modal = ({header, handleCrossClick, children }) => {
       <div className={css.modal} >
         <div className={css['content-holder']}>
           <h1 className={css.header}>{header}</h1>
-          { React.cloneElement(children, { closeModal: closeModal }) }
+          { React.cloneElement(children, { closeModal: modalHandler }) }
         </div>
-        <div className={css.cross} onClick={closeModal} />
+        <div className={css.cross} onClick={() => modalHandler()} />
       </div>
     </div>
   );

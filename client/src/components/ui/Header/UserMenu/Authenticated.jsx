@@ -1,13 +1,13 @@
 import React from 'react';
 import { useLogoutMutation } from '../../../../api/apiSlice';
-import NavLinkActive from '../NavLink/NavLink';
+import CustomLink from '../CustomLink/CustomLink';
 
 const Authenticated = ({ login }) => {
   const [logout, {}] = useLogoutMutation();
 
   return (
     <div>
-      <NavLinkActive 
+      <CustomLink 
         path={'profile/' + login}
         capture={login}
       />

@@ -5,21 +5,21 @@ import Layout from './components/Pages/Layout';
 import HomePage from './components/Pages/HomePage';
 import Profile from './components/Pages/Profile';
 import NotFound from './components/Pages/NotFound';
-import Intro from './components/Pages/Games/includes/Intro/IntroIndex';
-import Game from './components/Pages/Games/GameIndex';
+import Intro from './components/Pages/Games/Intro/Intro';
+import Playfield from './components/Pages/Games/Playfield/Playfield';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route index element={<HomePage/>} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<HomePage />} />
           <Route path='games/:gameURL'>
-            <Route index element={<Intro/>} />
-            <Route path='playfield' element={<Game/>} />
+            <Route index element={<Intro />} />
+            <Route path='playfield' element={<Playfield />} />
           </Route>
-          <Route path='profile/:login' element={<Profile/>} />
-          <Route path='*' element={<NotFound/>} />
+          <Route path='profile/:login' element={<Profile />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

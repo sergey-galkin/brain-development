@@ -1,5 +1,5 @@
 import React from 'react';
-import NavLinkActive from '../NavLink/NavLink';
+import CustomLink from '../CustomLink/CustomLink';
 import classes from './NavLinksList.module.css';
 
 const NavLinksList = ({routes, groupList, visible, hideLinksList}) => {
@@ -15,7 +15,7 @@ const NavLinksList = ({routes, groupList, visible, hideLinksList}) => {
             key={route.capture} 
             onClick={hideLinksList}
           >
-            <NavLinkActive {...route} />
+            <CustomLink {...route} />
           </li>
         )
       })}

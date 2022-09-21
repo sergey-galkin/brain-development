@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import CustomLink from '../NavLink/NavLink';
+import CustomLink from '../CustomLink/CustomLink';
 import css from './Logo.module.css';
 import logoSrc from '../../../../images/icons/logo.png'
 

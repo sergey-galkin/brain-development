@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { playfield } from './Playfield';
-import { useDispatch } from 'react-redux';
+import Modal from '../../../../ui/Modal/Modal';
+import GameResult from '../../../../ui/ModalChildren/G1/GameResult';
 
 const generalData = {
   startTime: null,
@@ -29,6 +30,7 @@ function createIndexes() {
 let startGame;
 
 const G1 = () => {
+  const [modal, setModal] = useState(false);
   const [gameData, setGameData] = useState({
     active: true,
     steps: 0,
@@ -48,9 +50,6 @@ const G1 = () => {
     indexes: createIndexes(),
   });
 
-  // const modal = useContext(ModalContext);
-  // const dispatch = useDispatch();
-
   useEffect(() => {
     const playfieldHolder = document.getElementById('playfieldHolder');
     playfield.create(playfieldHolder, generalData, gameData, handleGameButtonClick);
@@ -66,27 +65,7 @@ const G1 = () => {
     playfield.create(playfieldHolder, generalData, gameData, handleGameButtonClick);
     // if game over show results
     if (!gameData.active) {
-      // setTimeout(
-        // dispatch(delayedOpen({
-        //   visible: true,
-        //   header: 'Результаты',
-        //   childComponentName: 'Game1Modal',
-        //   childComponentProps: {
-        //     result: gameData.result,
-        //     handlers: {
-        //       startGame: 'startGame1'
-        //     }
-        //   }
-        // }))
-        // modal.update(
-        //   true,
-        //   'Результаты',
-        //   <GameModal
-        //     result={gameData.result}
-        //     startGame={startGame}
-        //   />
-        // )
-      // , 700);
+      setTimeout(() => setModal(true), 700);
     }
     return () => {
       playfieldHolder.innerHTML = '';
@@ -179,8 +158,7 @@ const G1 = () => {
   }
 
   startGame = () => {
-    // dispatch(close())
-    // modal.update();
+    setModal(false);
     generalData.startTime = Date.now();
     generalData.moveTimeLimit = 2000 + 100;
     generalData.level = 1;
@@ -252,7 +230,14 @@ const G1 = () => {
   }
 
   return (
-    <div id={'playfieldHolder'} />
+    <>
+      <div id={'playfieldHolder'} />
+      { modal &&
+        <Modal header='Результаты' closeModal={() => setModal(false)}>
+          <GameResult result={gameData.result} startGame={startGame} />
+        </Modal>
+      }
+    </>
   );
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import classes from './NavLink.module.css';
+import classes from './CustomLink.module.css';
 
-const NavLinkCustom = ({path, capture}) => {
+const CustomLink = ({path, capture}) => {
   return (
     <NavLink 
       to={path}
@@ -15,4 +15,4 @@ const NavLinkCustom = ({path, capture}) => {
   );
 }
 
-export default NavLinkCustom;
+export default CustomLink;

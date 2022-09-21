@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import css from './G2Index.module.css';
 import Card from './Card/Card';
 import GameMenu from './GameMenu/GameMenu';
-import GameModal from './GameModal/GameModal';
-import { ModalContext } from '../../../../../../contex';
+import Modal from '../../../../ui/Modal/Modal';
+import GameModal from '../../../../ui/ModalChildren/G2/GameResult';
 
 function createCards(difficulty) {
-  // const uniqueCardsAmount = 1;
-  const uniqueCardsAmount = 12;
+  const uniqueCardsAmount = 1;
+  // const uniqueCardsAmount = 12;
   const maxDifficulty = 3;
   const uniqueCardsAmountInGame = uniqueCardsAmount / (maxDifficulty + 1 - difficulty);
   const indexes = createRandomIndexes(uniqueCardsAmount);
   const cards = [];
-  // for (let i = 0; i < 2 + 0 * (4 - difficulty); i++) {
-  for (let i = 0; i < 4 * (4 - difficulty); i++) {
+  for (let i = 0; i < 2 + 0 * (4 - difficulty); i++) {
+  // for (let i = 0; i < 4 * (4 - difficulty); i++) {
     for (let j = 0; j < uniqueCardsAmountInGame; j++) {
       cards.push({
         pictureId: indexes[j].i,
@@ -57,7 +57,7 @@ const generalData = {
 }
 
 const G2 = () => {
-  const modal = useContext(ModalContext);
+  const [modal, setModal] = useState(false);
   const [gameData, setGameData] = useState({
     difficulty: 1,
     cards: createCards(1),
@@ -66,7 +66,6 @@ const G2 = () => {
     time: '0:00',
     moves: 0,
   });
-
 
   useEffect(startGame, []);
 
@@ -109,6 +108,7 @@ const G2 = () => {
   }
   
   function startGame() {
+    setModal(false);
     const newResult = [...gameData.result];
     newResult.forEach((r) => r.current = null);
     setGameData((p) => {
@@ -155,14 +155,7 @@ const G2 = () => {
       return {...p, result: newResult}
     });
     
-    modal.update(
-      true,
-      'Результаты',
-      <GameModal
-        result={gameData.result[gameData.difficulty - 1]}
-        startGame={() => {modal.update(); startGame()}}
-      />
-    );
+    setModal(true);
   }
 
   return (
@@ -180,6 +173,14 @@ const G2 = () => {
           })
         }
       </div>
+      { modal &&
+        <Modal header='Результаты' closeModal={() => setModal(false)}>
+          <GameModal
+            result={gameData.result[gameData.difficulty - 1]}
+            startGame={startGame}
+          />
+        </Modal>
+      }
     </div>
   );
 }

@@ -5,6 +5,7 @@
   top: 0;
   height: 60px;
   width: 100%;
+  min-width: 340px;
   background: black;
   color: white;
   box-shadow: black 0px 0px 5px 0px;
@@ -14,7 +15,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
   font-size: 20px;
   line-height: 25px;
 }
@@ -38,4 +40,15 @@
 .navigation + div {
   margin-top: 60px;
   min-width: 340px;
+}
+.menu-icon {
+  height: 30px;
+  width: 30px;
+  background-image: url('../../../../images/icons/menu.svg');
+  cursor: pointer;
+  user-select: none;
+  transition: .3s;
+}
+.menu-icon.opened {
+  background-image: url('../../../../images/icons/menu_opened.svg');
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import css from './GameModal.module.css';
+import css from './GameResult.module.css';
 
-const GameModal = ({result, startGame}) => {
+const GameModal = ({result, startGame, closeModal}) => {
   return (
     <div>
       <table className={css['result-container']}>
@@ -26,7 +26,7 @@ const GameModal = ({result, startGame}) => {
       </table>
       <button 
         className={css.btn}
-        onClick={() => startGame()}
+        onClick={() => startGame(closeModal)}
       >
         Новая игра
       </button>

@@ -1,50 +1,34 @@
 import React, { useContext, useState } from 'react';
 import css from './Header.module.css';
 import Logo from '../Logo/Logo';
-import NavLinkActive from '../NavLink/NavLink';
+import CustomLink from '../CustomLink/CustomLink';
 import NavLinksGroup from '../NavLinksGroup/NavLinksGroup';
-import gamesData from '../../../../games_data/index';
+import gamesData from '../../../../games_meta_data/gamesMetaData';
 import RegistrationWindow from '../../ModalChildren/RegistrationWindow/RegistrationWindow';
 import { ModalContext } from '../../../../contex';
+import { NavLink } from 'react-router-dom';
+import UserMenu from '../UserMenu/Mobile'
 
 const Header = () => {
-  const modal = useContext(ModalContext);
-  const [visible, setVisible] = useState(false);
+  // const routes = gamesData.map(
+  //   d => {return {
+  //     path: 'games/' + d.urls[0],
+  //     capture: d.name
+  //   }
+  // });
+  const [isMenuOpened, setIsMenuOpened] = useState(false)
+  const menuClasses = [css['menu-icon']];
+  if (isMenuOpened) menuClasses.push(css['opened'])
 
-  const routes = gamesData.map(
-    d => {return {
-      path: 'games/' + d.urls[0],
-      capture: d.name
-    }
-  });
+  const menuIcon = <div className={menuClasses.join(' ')} onClick={() => setIsMenuOpened(!isMenuOpened)}></div>
 
   return (
     <nav className={css.navigation}>
       <div className='container'>
         <div className={css['nav-container']}>
-          <div>
-            <Logo hideLinksList={() => setVisible(false)}/>
-            <NavLinksGroup 
-              capture={'Игры'} 
-              routes={routes}
-              visible={visible}
-              hideLinksList={setVisible}
-            />
-          </div>
-          <div onClick={() => setVisible(false)}>
-            <a 
-              href='#'
-              onClick={() => {
-                modal.update(true, 'Регистрация', <RegistrationWindow />);
-              }}
-            >
-              Регистрация
-            </a>
-            {/* <NavLinkActive 
-              path='profile/John' 
-              capture='Profile'
-            /> */}
-          </div>
+          <Logo />
+          {menuIcon}
+          {/* <div className={menuClasses.join(' ')} onClick={() => setIsMenuOpened(!isMenuOpened)}></div> */}
         </div>
       </div>
     </nav>

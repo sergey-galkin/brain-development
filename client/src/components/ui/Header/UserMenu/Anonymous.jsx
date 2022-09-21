@@ -8,10 +8,10 @@ const Anonymous = () => {
 
   const dialogs = [
     null,
-    <Modal header={'Вход'} handleCrossClick={() => setDialogIndex(0)}>
+    <Modal header={'Вход'} closeModal={() => setDialogIndex(0)}>
       <LoginWindow/>
     </Modal>,
-    <Modal header={'Регистрация'} handleCrossClick={() => setDialogIndex(0)}>
+    <Modal header={'Регистрация'} closeModal={() => setDialogIndex(0)}>
       <RegistrationWindow/>
     </Modal>,
   ];
