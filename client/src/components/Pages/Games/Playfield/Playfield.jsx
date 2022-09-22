@@ -2,19 +2,19 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import NotFound from '../../NotFound';
 import { getGameData } from '../../../../games_meta_data/gamesMetaData';
-import * as Games from './collector';
+import * as Games from '../../../ui/Playfield/collector';
 
-const GameIndex = () => {
+const Playfield = () => {
   const {gameURL} = useParams();
 
   const gameData = getGameData(gameURL);
   if (!gameData) return <NotFound/>
   
-  const CurentGame = Games[gameData.id];
-  
+  const CurrentGame = Games[gameData.id];
+
   return (
-    <CurentGame/>
+    <CurrentGame/>
   )
 }
 
-export default GameIndex;
+export default Playfield;

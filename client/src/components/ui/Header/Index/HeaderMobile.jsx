@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import css from './Header.module.css';
 import Logo from '../Logo/Logo';
 import CustomLink from '../CustomLink/CustomLink';
 import NavLinksGroup from '../NavLinksGroup/NavLinksGroup';
 import gamesData from '../../../../games_meta_data/gamesMetaData';
 import RegistrationWindow from '../../ModalChildren/RegistrationWindow/RegistrationWindow';
-import { ModalContext } from '../../../../contex';
 import { NavLink } from 'react-router-dom';
 import UserMenu from '../UserMenu/Mobile'
 

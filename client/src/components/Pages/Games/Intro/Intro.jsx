@@ -30,7 +30,7 @@ const Intro = () => {
   const { gameURL } = useParams();
 
   const gameData = getGameData(gameURL);
-  if (!gameData) return <NotFound/>
+  if (!gameData) return <NotFound />
   
   return (
     <div>
