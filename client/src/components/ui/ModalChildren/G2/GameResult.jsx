@@ -26,7 +26,7 @@ const GameModal = ({result, startGame, closeModal}) => {
       </table>
       <button 
         className={css.btn}
-        onClick={() => startGame(closeModal)}
+        onClick={() => {closeModal(); startGame()}}
       >
         Новая игра
       </button>

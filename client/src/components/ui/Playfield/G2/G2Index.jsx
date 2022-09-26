@@ -4,6 +4,7 @@ import Card from './Card/Card';
 import GameMenu from './GameMenu/GameMenu';
 import Modal from '../../../ui/Modal/Modal';
 import GameModal from '../../../ui/ModalChildren/G2/GameResult';
+import { delayedOpen } from '../../Modal/handlers';
 
 function createCards(difficulty) {
   const uniqueCardsAmount = 1;
@@ -108,7 +109,6 @@ const G2 = () => {
   }
   
   function startGame() {
-    setModal(false);
     const newResult = [...gameData.result];
     newResult.forEach((r) => r.current = null);
     setGameData((p) => {
@@ -155,23 +155,25 @@ const G2 = () => {
       return {...p, result: newResult}
     });
     
-    setModal(true);
+    delayedOpen( () => setModal(true) );
   }
 
   return (
-    <div className={'container ' + css.flex}>
-      <GameMenu 
-        difficulty={gameData.difficulty}
-        time={gameData.time} 
-        moves={gameData.moves} 
-        handleClick={changeDifficulty}
-      />
-      <div className={css.playfield}>
-        {
-          gameData.cards.map((card, i) => {
-            return <Card key={card.random} {...card} handleClick={() => turnCard(i)}/>
-          })
-        }
+    <>
+      <div className={'container ' + css.flex}>
+        <GameMenu 
+          difficulty={gameData.difficulty}
+          time={gameData.time} 
+          moves={gameData.moves} 
+          handleClick={changeDifficulty}
+        />
+        <div className={css.playfield}>
+          {
+            gameData.cards.map((card, i) => {
+              return <Card key={card.random} {...card} handleClick={() => turnCard(i)}/>
+            })
+          }
+        </div>
       </div>
       { modal &&
         <Modal header='Результаты' closeModal={() => setModal(false)}>
@@ -181,7 +183,7 @@ const G2 = () => {
           />
         </Modal>
       }
-    </div>
+    </>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LoginWindow from '../../ModalChildren/LoginWindow/LoginWindow';
 import RegistrationWindow from '../../ModalChildren/RegistrationWindow/RegistrationWindow';
 import Modal from '../../Modal/Modal';
+import { delayedOpen } from '../../Modal/handlers';
 
 const Anonymous = () => {
   const [dialogIndex, setDialogIndex] = useState(0);
@@ -15,14 +16,14 @@ const Anonymous = () => {
       <RegistrationWindow/>
     </Modal>,
   ];
-
+  
   return (
     <div>
-      <a href='#' onClick={() => setDialogIndex(1)} >
+      <a href='#' onClick={() => delayedOpen( () => setDialogIndex(1))} >
         Войти
       </a>
       <div style={{'padding': '10px 0'}}>|</div>
-      <a href='#' onClick={() => setDialogIndex(2)}>
+      <a href='#' onClick={() => delayedOpen( () => setDialogIndex(2))} >
         Регистрация
       </a>
       { dialogs[dialogIndex] }

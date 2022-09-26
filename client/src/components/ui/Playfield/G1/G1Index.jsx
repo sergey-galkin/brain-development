@@ -3,6 +3,7 @@ import axios from 'axios';
 import { playfield } from './Playfield';
 import Modal from '../../../ui/Modal/Modal';
 import GameResult from '../../../ui/ModalChildren/G1/GameResult';
+import { delayedOpen } from '../../Modal/handlers';
 
 const generalData = {
   startTime: null,
@@ -26,8 +27,6 @@ function createIndexes() {
   }
   return indexes.sort((a, b) => b.random - a.random)
 }
-
-let startGame;
 
 const G1 = () => {
   const [modal, setModal] = useState(false);
@@ -56,7 +55,6 @@ const G1 = () => {
     startGame();
     return () => {
       playfieldHolder.innerHTML = '';
-      // clearInterval(generalData.setTimeTimerId);
     }
   }, []);
 
@@ -65,7 +63,7 @@ const G1 = () => {
     playfield.create(playfieldHolder, generalData, gameData, handleGameButtonClick);
     // if game over show results
     if (!gameData.active) {
-      setTimeout(() => setModal(true), 700);
+      setTimeout(() => delayedOpen( () => setModal(true) ), 700);
     }
     return () => {
       playfieldHolder.innerHTML = '';
@@ -157,8 +155,7 @@ const G1 = () => {
     }
   }
 
-  startGame = () => {
-    setModal(false);
+  const startGame = () => {
     generalData.startTime = Date.now();
     generalData.moveTimeLimit = 2000 + 100;
     generalData.level = 1;
@@ -242,4 +239,3 @@ const G1 = () => {
 }
 
 export default G1;
-export { startGame as startGame1 };

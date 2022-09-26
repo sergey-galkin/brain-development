@@ -4,6 +4,7 @@
   "proxy": "http://localhost:3001",
   "private": true,
   "dependencies": {
+    "@react-spring/web": "^9.5.5",
     "@reduxjs/toolkit": "^1.8.5",
     "@svgdotjs/svg.js": "^3.1.2",
     "@testing-library/jest-dom": "^5.16.4",
