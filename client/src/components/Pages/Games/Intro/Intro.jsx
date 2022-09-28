@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import css from './Intro.module.css';
 import NotFound from '../../NotFound';
 import { getGameData } from '../../../../games_meta_data/gamesMetaData';
+import Container from '../../../common/Container/Container';
 
 const Description = ({header, internals}) => {
   return (
@@ -34,16 +35,16 @@ const Intro = () => {
   
   return (
     <div>
-      <div className={css['header-holder']}>
-        <div className={'container ' + css['header-container']}>
+      <div className={css.headerHolder}>
+        <Container stylesArr={[css.headerContainer]}>
           <h1>{gameData.header}</h1>
-        </div>
+        </Container>
       </div>
-      <div className={'container ' + css['description-container']}>
+      <Container stylesArr={[css.descriptionContainer]}>
         {
           gameData.description.map((d => <Description key={d.header} {...d}/>))
         }
-      </div>
+      </Container>
       <StartButton />
     </div>
   );

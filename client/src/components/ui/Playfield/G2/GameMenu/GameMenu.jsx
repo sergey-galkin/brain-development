@@ -10,7 +10,7 @@ const GameMenu = ({difficulty, time, moves, handleClick}) => {
         <div>Сложность:</div>
         {
           items.map((v) => {
-            const classes = [css['difficulty-item']];
+            const classes = [css.difficultyItem];
             if (difficulty === v) classes.push(css.active);
             return <div key={v} className={classes.join(' ')} onClick={() => handleClick(v)}>{v}</div>
           })

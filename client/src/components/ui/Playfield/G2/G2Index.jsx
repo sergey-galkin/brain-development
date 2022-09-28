@@ -5,6 +5,7 @@ import GameMenu from './GameMenu/GameMenu';
 import Modal from '../../../ui/Modal/Modal';
 import GameModal from '../../../ui/ModalChildren/G2/GameResult';
 import { delayedOpen } from '../../Modal/handlers';
+import Container from '../../../common/Container/Container';
 
 function createCards(difficulty) {
   const uniqueCardsAmount = 1;
@@ -160,7 +161,7 @@ const G2 = () => {
 
   return (
     <>
-      <div className={'container ' + css.flex}>
+      <Container stylesArr={[css.container]}>
         <GameMenu 
           difficulty={gameData.difficulty}
           time={gameData.time} 
@@ -174,7 +175,9 @@ const G2 = () => {
             })
           }
         </div>
-      </div>
+        {/* <div className={'container ' + css.flex}>
+        </div> */}
+      </Container>
       { modal &&
         <Modal header='Результаты' closeModal={() => setModal(false)}>
           <GameModal

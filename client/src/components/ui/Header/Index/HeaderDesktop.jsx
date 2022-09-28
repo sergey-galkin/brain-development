@@ -6,6 +6,7 @@ import gamesData from '../../../../games_meta_data/gamesMetaData';
 import Authenticated from '../UserMenu/Authenticated';
 import Anonymous from '../UserMenu/Anonymous';
 import { useIdentificationQuery } from '../../../../api/apiSlice';
+import Container from '../../../common/Container/Container';
 
 const Header = () => {
   const { data: user, isLoading } = useIdentificationQuery();
@@ -26,15 +27,15 @@ const Header = () => {
 
   return (
     <nav className={css.navigation}>
-      <div className='container'>
-        <div className={css['nav-container']}>
+      <Container>
+        <div className={css.navContainer}>
           <Logo/>
           {/* <div> */}
             {/* <NavLinksList routes={routes}/>  */}
           {/* </div> */}
           {UserMenu}
         </div>
-      </div>
+      </Container>
     </nav>
   );
 }

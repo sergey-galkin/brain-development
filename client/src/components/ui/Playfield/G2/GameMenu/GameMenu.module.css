@@ -9,10 +9,7 @@
 .difficulty > div {
   display: inline-block;
 }
-.difficulty-item.active {
-  background-color: #e6caff;
-}
-.difficulty-item {
+.difficultyItem {
   margin-left: 5px;
   border-radius: 50%;
   width: 35px;
@@ -21,6 +18,9 @@
   text-align: center;
   cursor: pointer;
 }
+.difficultyItem.active {
+  background-color: #e6caff;
+}
 @media screen and (max-width: 600px){
   .menu {
     font-size: 20px;
@@ -28,7 +28,7 @@
     align-items: start;
     padding-left: 20px;
   }
-  .difficulty-item {
+  .difficultyItem {
     width: 30px;
     height: 30px;
   }

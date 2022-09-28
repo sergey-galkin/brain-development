@@ -1,0 +1,4 @@
+.containerHolder {
+  background: var(--main-color);
+  height: 100vh;
+}

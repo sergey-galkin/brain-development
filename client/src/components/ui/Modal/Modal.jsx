@@ -1,19 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import css from './Modal.module.css';
 import { close, open } from './modalSlice';
+import { useSpring, animated } from '@react-spring/web'
 
 const Modal = ({header, closeModal, children }) => {
-  const container = useRef(null);
   const dispatch = useDispatch();
+  const [styles, api] = useSpring(() => ({
+    from: { opacity: 0 },
+    config: {
+      duration: 100,
+    }
+  }))
 
   useEffect(() => {
     dispatch( open() );
-    container.current.classList.add(css.visible);
+    api.start({ opacity: 1 })
   }, [])
 
   const closeModalHandler = () => {
-    container.current.classList.remove(css.visible);
+    api.start({ opacity: 0 })
     setTimeout( () => {
       closeModal();
       dispatch( close() );
@@ -21,7 +27,7 @@ const Modal = ({header, closeModal, children }) => {
   };
 
   return (
-    <div ref={container} className={css['modal-container']} >
+    <animated.div style={styles} className={css['modal-container']} >
       <div className={css.modal} >
         <div className={css['content-holder']}>
           <h1 className={css.header}>{header}</h1>
@@ -29,7 +35,7 @@ const Modal = ({header, closeModal, children }) => {
         </div>
         <div className={css.cross} onClick={() => closeModalHandler()} />
       </div>
-    </div>
+    </animated.div>
   );
 }
 

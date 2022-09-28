@@ -1,3 +1,4 @@
 .active-link {
-  color: #e6caff !important;
+  /* color: #e6caff !important; */
+  color: var(--main-color) !important;
 }

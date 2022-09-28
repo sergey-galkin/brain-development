@@ -7,6 +7,7 @@ import Profile from './components/Pages/Profile';
 import NotFound from './components/Pages/NotFound';
 import Intro from './components/Pages/Games/Intro/Intro';
 import Playfield from './components/Pages/Games/Playfield/Playfield';
+import Games from './components/Pages/Games/Games';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path='games'element={<Games />} />
           <Route path='games/:gameURL'>
             <Route index element={<Intro />} />
             <Route path='playfield' element={<Playfield />} />

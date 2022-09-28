@@ -1,3 +1,7 @@
+:root {
+  --main-color: #faf
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,18 +12,18 @@
 h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.container{
+/* .container{
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-}
+} */
 .invisible {
   display: none;
 }
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .container{
     width: 100%;
   }
-}
+} */

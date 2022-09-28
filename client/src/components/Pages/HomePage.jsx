@@ -12,6 +12,9 @@ const routes = Object.values( getGamesData() ).map(
 const HomePage = () => {
   return (
     <>
+      <NavLink to={'/games'} >
+        <h1 style={{textAlign: 'center', marginTop: '150px'}}>{'Games'}</h1>
+      </NavLink>
       {
         routes.map(r => 
           <NavLink key={r.path} to={r.path} >

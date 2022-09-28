@@ -5,7 +5,7 @@
   margin: 5px;
   perspective: 500px;
 }
-.card-side {
+.cardSide {
   box-shadow: rgb(0 0 0 / 50%) 0 0 2px 1px;
   position: absolute;
   top: 0;
@@ -19,21 +19,21 @@
   backface-visibility: hidden;
   border-radius: 5px;
 }
-.card-side.front {
+.cardSide.front {
   transform: rotateY(0deg);
   background-color: aqua;
 }
-.card-side.back {
+.cardSide.back {
   transform: rotateY(-180deg);
   background-color: #e6caff;
 }
-.card.turned .card-side.front {
+.card.turned .cardSide.front {
   transform: rotateY(180deg);
 }
-.card.turned .card-side.back {
+.card.turned .cardSide.back {
   transform: rotateY(0deg);
 }
-.card-side.front.matched {
+.cardSide.front.matched {
   box-shadow: none;
   background-color: transparent;
 }
@@ -43,14 +43,14 @@
     width: 40px;
     margin: 3px;
   }
-  .card-side {
+  .cardSide {
     box-shadow: rgb(0 0 0 / 50%) 0 0 1px 1px;
   }
 }
-/* .card:hover .card-side.front {
+/* .card:hover .cardSide.front {
   transform: rotateY(180deg);
 }
-.card:hover .card-side.back {
+.card:hover .cardSide.back {
   transform: rotateY(0deg);
 } */
 .picture-1 {

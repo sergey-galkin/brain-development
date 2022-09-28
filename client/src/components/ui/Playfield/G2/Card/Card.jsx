@@ -3,8 +3,8 @@ import css from './Card.module.css';
 
 const Card = ({pictureId, active, turned, matched, handleClick}) => {
   const cardClasses = [css.card];
-  const frontClasses = [css['card-side'], css.front];
-  const backClasses = [css['card-side'], css.back];
+  const frontClasses = [css.cardSide, css.front];
+  const backClasses = [css.cardSide, css.back];
   
   if (turned) {
     cardClasses.push(css.turned);
