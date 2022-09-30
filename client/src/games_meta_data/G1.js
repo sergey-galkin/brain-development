@@ -1,3 +1,5 @@
+import logoSVG from '../images/background/gameSlab_1.svg';
+
 export default {
   id: 'G1',
   urls: [
@@ -5,6 +7,7 @@ export default {
     'igra-1',
   ],
   name: 'Игра 1',
+  logo: logoSVG,
   header: 'Игра на внимательность и реакцию',
   description: [
     {

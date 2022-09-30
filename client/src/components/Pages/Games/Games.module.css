@@ -1,4 +1,8 @@
 .containerHolder {
   background: var(--main-color);
-  height: 100vh;
+  height: var(--visible-height);
+}
+.container {
+  flex-direction: column;
+  align-items: center;
 }

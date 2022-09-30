@@ -1,0 +1,56 @@
+.container {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 200px;
+  height: 200px;
+}
+.card {
+  position: relative;
+  height: 90px;
+  width: 70px;
+  margin: 5px;
+  perspective: 500px;
+}
+.cardSide {
+  box-shadow: rgb(0 0 0 / 50%) 0 0 2px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: 1s transform;
+  backface-visibility: hidden;
+  border-radius: 5px;
+}
+.cardSide.front {
+  transform: rotateY(0deg);
+  background-color: aqua;
+}
+.cardSide.back {
+  transform: rotateY(-180deg);
+  background-color: #e6caff;
+}
+.card.turned .cardSide.front {
+  transform: rotateY(180deg);
+}
+.card.turned .cardSide.back {
+  transform: rotateY(0deg);
+}
+.cardSide.front.matched {
+  box-shadow: none;
+  background-color: transparent;
+}
+.picture-3 {
+  background-image: url(../../../../images/g2/3.svg);
+}
+.picture-4 {
+  background-image: url(../../../../images/g2/4.svg);
+}
+.picture-6 {
+  background-image: url(../../../../images/g2/6.svg);
+}

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import css from './G2Index.module.css';
 import Card from './Card/Card';
 import GameMenu from './GameMenu/GameMenu';
-import Modal from '../../../ui/Modal/Modal';
-import GameModal from '../../../ui/ModalChildren/G2/GameResult';
+import Modal from '../../Modal/Modal';
+import GameModal from '../../ModalChildren/G2/GameResult';
 import { delayedOpen } from '../../Modal/handlers';
 import Container from '../../../common/Container/Container';
 

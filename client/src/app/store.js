@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../api/apiSlice';
-import modalSlice from '../components/ui/Modal/modalSlice';
+import modalSlice from '../components/features/Modal/modalSlice';
 
 export default configureStore({
   reducer: {

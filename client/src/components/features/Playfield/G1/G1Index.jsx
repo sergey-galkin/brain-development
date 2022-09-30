@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { playfield } from './Playfield';
-import Modal from '../../../ui/Modal/Modal';
-import GameResult from '../../../ui/ModalChildren/G1/GameResult';
+import Modal from '../../Modal/Modal';
+import GameResult from '../../ModalChildren/G1/GameResult';
 import { delayedOpen } from '../../Modal/handlers';
 
 const generalData = {
