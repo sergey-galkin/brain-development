@@ -1,4 +1,4 @@
-import logoSVG from '../images/background/gameSlab_1.svg';
+import logoSVG from '../../images/background/gameSlab_1.svg';
 
 export default {
   id: 'G1',

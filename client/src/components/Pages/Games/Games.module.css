@@ -1,8 +1,18 @@
 .containerHolder {
-  background: var(--main-color);
-  height: var(--visible-height);
+  background: var(--main-bg);
+  min-height: var(--visible-height);
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .container {
-  flex-direction: column;
-  align-items: center;
+  /* flex-direction: column;
+  align-items: center; */
+  justify-content: space-around;
+  /* width: 90%; */
+  flex-wrap: wrap;
 }
+/* .container > div + div {
+  margin-left: 20px;
+} */

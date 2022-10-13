@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<defs>
+    <radialGradient id="RadialGradient">
+      <stop offset="0%" stop-color="#fafafa" />
+      <stop offset="50%" stop-color="#afa6ff" />
+      <stop offset="100%" stop-color="#8383ff" />
+    </radialGradient>
+    <linearGradient id="LinearGradient">
+      <stop offset="0%" stop-color="black" />
+      <stop offset="20%" stop-color="#6a67ff" />
+      <stop offset="50%" stop-color="#ffffff" />
+      <stop offset="80%" stop-color="#6a67ff" />
+      <stop offset="100%" stop-color="#black" />
+    </linearGradient>
+    <linearGradient id="LinearGradientRotated" gradientTransform="rotate(90)">
+      <stop offset="0%" stop-color="black" />
+      <stop offset="20%" stop-color="#6a67ff" />
+      <stop offset="50%" stop-color="#ffffff" />
+      <stop offset="80%" stop-color="#6a67ff" />
+      <stop offset="100%" stop-color="#black" />
+    </linearGradient>
+		<path id="diamond" d="M 20 0 Q 15 20 0 30 Q 15 40 20 60 Q 25 40 40 30 Q 25 20 20 0 Z" />
+  </defs>
+	<g fill="url(#RadialGradient)" stroke="black" stroke-linejoin="round" stroke-linecap="round">
+		<use href="#diamond" style="transform: scale(0.7)" x="calc(12.5/0.7)" y="calc(5/0.7)" stroke-width="calc(1/0.7)"/>
+		<use href="#diamond" style="transform: scale(0.5)" x="calc(12.5/0.5 + 20*0.7/0.5 - 20)" y="calc(95/0.5 - 30*0.7/0.5 - 30)" stroke-width="calc(1/0.5)" />
+		<use href="#diamond" style="transform: scale(0.5)" x="calc(87.5/0.5 - 20*0.7/0.5 - 20)" y="calc(5/0.5 + 30*0.7/0.5 - 30)" stroke-width="calc(1/0.5)"/>
+		<use href="#diamond" style="transform: scale(0.7)" x="calc(87.5/0.7 - 40)" y="calc(95/0.7 - 60)" stroke-width="calc(1/0.7)" />
+	</g>
+	<g stroke="url(#LinearGradient)" >
+		<path d="M 40.5 26 L 64 26.001" />
+		<path d="M 59.5 74 L 36 74.001" />
+	</g>
+	<g stroke="url(#LinearGradientRotated)" >
+		<path d="M 26.5 47 L 26.499 59" />
+		<path d="M 73.5 41 L 73.499 53" />
+	</g>
+</svg>

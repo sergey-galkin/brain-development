@@ -3,6 +3,13 @@
 }
 .icon {
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+}
+
+@media screen and (width < 600px) {
+  .icon {
+    width: 100px;
+    height: 100px;
+  }
 }

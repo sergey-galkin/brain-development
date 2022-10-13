@@ -2,7 +2,7 @@ import './css/App.css';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Pages/Layout';
-import HomePage from './components/Pages/HomePage';
+import HomePage from './components/Pages/HomePage/HomePage';
 import Profile from './components/Pages/Profile';
 import NotFound from './components/Pages/NotFound';
 import Intro from './components/Pages/Games/Intro/Intro';

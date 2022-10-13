@@ -161,7 +161,7 @@ const G2 = () => {
 
   return (
     <>
-      <Container stylesArr={[css.container]}>
+      <Container classesArr={[css.container]}>
         <GameMenu 
           difficulty={gameData.difficulty}
           time={gameData.time} 

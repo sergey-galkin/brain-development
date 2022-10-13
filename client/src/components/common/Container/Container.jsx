@@ -1,11 +1,11 @@
 import React from 'react'
 import css from './Container.module.css'
 
-const Container = ({ stylesArr = [], children }) => {
-  stylesArr.push(css.container);
+const Container = ({ classesArr = [], children }) => {
+  classesArr.push(css.container);
 
   return (
-    <div className={stylesArr.join(' ')}>
+    <div className={classesArr.join(' ')}>
       {children}
     </div>
   )

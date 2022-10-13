@@ -18,8 +18,10 @@
   align-items: center;
   width: 95%;
   margin: 0 auto;
-  font-size: 20px;
-  line-height: 25px;
+  /* font-size: 20px; */
+  /* line-height: 25px; */
+  font-size: 1.25em;
+  line-height: 1.25em;
 }
 .navContainer > div {
   display: flex;
@@ -34,7 +36,7 @@
 }
 .navigation a:hover {
   /* color: #e6caff !important; */
-  color: var(--main-color) !important;
+  color: var(--second-color) !important;
 }
 /* .navigation .separator {
   padding: 10px 0;

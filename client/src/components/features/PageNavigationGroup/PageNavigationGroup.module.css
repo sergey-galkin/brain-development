@@ -1,0 +1,48 @@
+.pageNavigationGroup {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  right: 50%;
+  padding: 0px;
+}
+.topGroup {
+  top: var(--header-height);
+  transform: translateX(50%) rotate(180deg);
+}
+.bottomGroup {
+  bottom: 0px;
+  transform: translateX(50%) rotateY(180deg);
+}
+button:last-child {
+  margin-left: 10px;
+}
+button:hover path {
+  stroke: black;
+}
+.pushedButton circle {
+  fill: black;
+}
+.pushedButton path, .pushedButton:hover path {
+  stroke: var(--main-bg-color);
+}
+.disabledBlock {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .pageNavigationGroup {
+    flex-direction: column;
+    right: 0px;
+    padding: 50px;
+  }
+  .topGroup {
+    transform: translateX(0) rotate(180deg);
+  }
+  .bottomGroup {
+    transform: translateX(0) rotateY(0);
+  }
+  .pageNavigationGroup > button:last-child {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}

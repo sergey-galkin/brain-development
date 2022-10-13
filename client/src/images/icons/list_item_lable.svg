@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<!-- <g style="background-image: radial-gradient(circle, white, blue)"> -->
+	<defs>
+    <radialGradient id="RadialGradient">
+      <stop offset="0%" stop-color="#fafafa" />
+      <stop offset="50%" stop-color="#afa6ff" />
+      <stop offset="100%" stop-color="#8383ff" />
+    </radialGradient>
+		<path id="diamond" d="M 20 0 Q 15 20 0 30 Q 15 40 20 60 Q 25 40 40 30 Q 25 20 20 0 Z" />
+  </defs>
+	<g fill="url(#RadialGradient)" stroke="black" stroke-linejoin="round" stroke-linecap="round">
+		<use href="#diamond" style="transform: scale(1.6)" x="11.25" y="1.5" stroke-width=""/>
+	</g>
+</svg>

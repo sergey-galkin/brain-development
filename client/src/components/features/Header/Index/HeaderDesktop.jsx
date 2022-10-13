@@ -2,7 +2,7 @@ import React from 'react';
 import css from './Header.module.css';
 import Logo from '../Logo/Logo';
 import NavLinksList from '../NavLinksList/NavLinksList';
-import gamesData from '../../../../games_meta_data/gamesMetaData';
+import gamesData from '../../../../meta_data/games/gamesMetaData';
 import Authenticated from '../UserMenu/Authenticated';
 import Anonymous from '../UserMenu/Anonymous';
 import { useIdentificationQuery } from '../../../../api/apiSlice';

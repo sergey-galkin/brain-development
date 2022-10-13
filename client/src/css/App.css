@@ -1,5 +1,15 @@
 :root {
-  --main-color: #faf;
+  /* --main-color: #faf; */
+  /* --main-color: #ff7c00;
+  --main-color: #ffbe3d;
+  --main-color: #d1a7ff ; */
+  /* --second-color: #ff7c00;
+  --second-color: #ffbe3d; */
+  /* --main-color: #d9d7ff;
+  --second-color: #6a67ff; */
+  --main-bg-color: #d1a7ff;
+  --main-bg: radial-gradient(circle, #fee3ff 40%, var(--main-bg-color) 70%);
+  --second-color: #d1a7ff;
   --header-height: 60px;
   --visible-height: calc(100vh - var(--header-height));
 }
@@ -8,8 +18,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 100%;
+}
+body {
   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
   font-family: Helvetica, Arial, sans-serif;
+  /* font-size: 16px; */
 }
 h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;

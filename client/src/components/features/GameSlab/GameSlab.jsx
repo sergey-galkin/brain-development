@@ -16,18 +16,18 @@ const GameSlab = ({ id, url, description }) => {
       onClick={() => navigate(url)}
     >
       <Icon mouseOver={mouseOver}/>
-      <Description>{description}</Description>
+      {/* <Description>{description}</Description> */}
     </div>
   )
 }
 
-const Description = ({ children }) => {
-  return (
-    <div className={css.description}>
-      {children}
-    </div>
-  )
-}
+// const Description = ({ children }) => {
+//   return (
+//     <div className={css.description}>
+//       {children}
+//     </div>
+//   )
+// }
 
 
 export default GameSlab

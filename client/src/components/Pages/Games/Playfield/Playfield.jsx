@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import NotFound from '../../NotFound';
-import { getGameData } from '../../../../games_meta_data/gamesMetaData';
+import { getGameData } from '../../../../meta_data/games/gamesMetaData';
 import * as Games from '../../../features/Playfield/collector';
 
 const Playfield = () => {

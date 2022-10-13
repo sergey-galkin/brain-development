@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Buttons from '../Buttons/Buttons';
+import * as Buttons from '../Buttons/SVGButtons/SVGButtons';
 
 const generalStages = [
   // 0 - preparing request 

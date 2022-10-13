@@ -3,7 +3,7 @@ import css from './Header.module.css';
 import Logo from '../Logo/Logo';
 import CustomLink from '../CustomLink/CustomLink';
 import NavLinksGroup from '../NavLinksGroup/NavLinksGroup';
-import gamesData from '../../../../games_meta_data/gamesMetaData';
+import gamesData from '../../../../meta_data/games/gamesMetaData';
 import RegistrationWindow from '../../ModalChildren/RegistrationWindow/RegistrationWindow';
 import { NavLink } from 'react-router-dom';
 import UserMenu from '../UserMenu/Mobile'

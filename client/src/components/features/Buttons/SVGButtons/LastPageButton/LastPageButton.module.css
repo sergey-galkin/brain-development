@@ -1,0 +1,14 @@
+.nextPageTemplate {
+  width: 70px;
+  height: 70px;
+}
+.nextPage {
+  fill: transparent;
+  stroke: rgba(0, 0, 0, 0.2);
+}
+.nextPage circle, .nextPage path {
+  transition: 0.3s;
+}
+.nextPage circle {
+  stroke: transparent;
+}
