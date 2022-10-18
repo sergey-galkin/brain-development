@@ -1,4 +1,4 @@
-.navigation {
+.header {
   display: flex;
   align-items: center;
   position: fixed;
@@ -7,10 +7,16 @@
   width: 100%;
   min-width: 340px;
   background: black;
-  /* background-image: url('../../../../images/background/1.svg'); */
   color: white;
   box-shadow: black 0px 0px 5px 0px;
   z-index: 1;
+}
+.header a:hover {
+  color: var(--main-bg-color);
+}
+.header + div {
+  margin-top: 60px;
+  min-width: 340px;
 }
 .navContainer {
   display: flex;
@@ -21,30 +27,12 @@
   /* font-size: 20px; */
   /* line-height: 25px; */
   font-size: 1.25em;
-  line-height: 1.25em;
+  /* line-height: 1.25em; */
 }
 .navContainer > div {
   display: flex;
-  align-items: center;
 }
-.navigation a {
-  text-decoration: none;
-  color: inherit;
-  padding: 10px;
-  /* display: block; */
-  transition: linear 0.1s;
-}
-.navigation a:hover {
-  /* color: #e6caff !important; */
-  color: var(--second-color) !important;
-}
-/* .navigation .separator {
-  padding: 10px 0;
-} */
-.navigation + div {
-  margin-top: 60px;
-  min-width: 340px;
-}
+
 .menuIcon {
   height: 30px;
   width: 30px;

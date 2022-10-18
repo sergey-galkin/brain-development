@@ -13,10 +13,10 @@
   bottom: 0px;
   transform: translateX(50%) rotateY(180deg);
 }
-button:last-child {
+.pageNavigationGroup button:last-child {
   margin-left: 10px;
 }
-button:hover path {
+.pageNavigationGroup button:hover path {
   stroke: black;
 }
 .pushedButton circle {

@@ -1,14 +1,14 @@
 import React from 'react';
 import NavLinksList from '../NavLinksList/NavLinksList';
 
-const NavLinksGroup = ({capture, routes, visible, hideLinksList}) => {
+const NavLinksGroup = ({caption, routes, visible, hideLinksList}) => {
   return (
     <div>
       <a 
         href='#'
         onClick={() => hideLinksList(v => !v)}
       >
-        {capture}
+        {caption}
       </a>
       <NavLinksList 
         routes={routes} 

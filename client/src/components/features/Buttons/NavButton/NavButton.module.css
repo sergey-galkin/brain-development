@@ -1,0 +1,11 @@
+.navButton {
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 10px;
+  transition: linear 0.1s;
+  cursor: pointer;
+}
+.navButton:hover {
+  color: var(--second-color);
+}

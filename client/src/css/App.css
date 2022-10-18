@@ -12,6 +12,7 @@
   --second-color: #d1a7ff;
   --header-height: 60px;
   --visible-height: calc(100vh - var(--header-height));
+  --min-width: 340px;
 }
 
 * {
@@ -27,6 +28,13 @@ body {
 }
 h1 {
   font-family: Georgia, 'Times New Roman', Times, serif;
+}
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  padding: 10px;
+  transition: linear 0.1s;
 }
 /* .container{
   display: flex;

@@ -13,10 +13,8 @@ const Logo = ({hideLinksList}) => {
       className={css['logo-container']}
       onClick={hideLinksList}
     >
-      <NavLink to='/' style={{padding: 0}}>
-        {logo}
-      </NavLink>
-      <CustomLink path='/' capture={logoText}/>
+      <NavLink to='/' style={{padding: 0}}>{logo}</NavLink>
+      <CustomLink path='/'>{logoText}</CustomLink>
     </div>
   );
 }
