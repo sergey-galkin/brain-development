@@ -5,6 +5,7 @@ import { routes } from '../../../router/router'
 import Authenticated from '../Header/UserMenu/Authenticated'
 import Anonymous from '../Header/UserMenu/Anonymous'
 import { useIdentificationQuery } from '../../../api/apiSlice'
+import Container from '../../common/Container/Container'
 
 const MobileMenu = ({ closeMenu }) => {
   const { data: user, isLoading } = useIdentificationQuery();
@@ -19,7 +20,7 @@ const MobileMenu = ({ closeMenu }) => {
   const separator = <div className={css.separator} />
 
   return (
-    <div className={css.container}>
+    <Container classesArr={[css.container]}>
       <ul className={css.list}>
         { 
           routes.map( route =>
@@ -31,7 +32,7 @@ const MobileMenu = ({ closeMenu }) => {
       </ul>
       { separator }
       { UserMenu }
-    </div>
+    </Container>
   )
 }
 

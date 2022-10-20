@@ -1,7 +1,7 @@
 export default {
   id: 'G2',
   urls: [
-    'game-2',
+    '2',
     'igra-2',
   ],
   name: 'Игра 2',

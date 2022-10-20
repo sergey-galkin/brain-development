@@ -3,7 +3,7 @@ import logoSVG from '../../images/background/gameSlab_1.svg';
 export default {
   id: 'G1',
   urls: [
-    'game-1',
+    '1',
     'igra-1',
   ],
   name: 'Игра 1',

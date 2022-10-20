@@ -17,6 +17,8 @@
 .header + div {
   margin-top: 60px;
   min-width: 340px;
+  min-height: var(--visible-height);
+  background: var(--main-bg);
 }
 .navContainer {
   display: flex;

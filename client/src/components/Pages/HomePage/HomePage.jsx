@@ -77,7 +77,8 @@ const HomePage = () => {
   }
   
   return (
-    <div className={css.container}>
+    // <div className={css.container}>
+    <div>
       <div ref={topRef} />
       <animated.div style={styles} className={css.sectionHolder}>
         { index !== maxIndex
