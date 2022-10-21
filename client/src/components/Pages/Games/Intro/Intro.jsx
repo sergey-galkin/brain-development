@@ -7,6 +7,7 @@ import Container from '../../../common/Container/Container';
 import GameSlab from '../../../features/GameSlab/GameSlab';
 import * as Icons from '../../../features/GameSlabIcons/collector'
 import { useSpring, animated, config } from '@react-spring/web';
+import StartGameButton from '../../../features/Buttons/StartGameButton/StartGameButton';
 
 const Description = ({header, internals}) => {
   return (
@@ -18,14 +19,6 @@ const Description = ({header, internals}) => {
         }
       </div>
     </div>
-  );
-}
-
-const StartButton = ({ handleClick }) => {
-  return (
-    <button className={css.btn} onClick={handleClick}>
-      НАЧАЛО
-    </button>
   );
 }
 
@@ -74,7 +67,7 @@ const Intro = () => {
               gameData.description.map((d => <div className={css.contentHolder}><Description key={d.header} {...d}/></div>))
             }
           </div>
-          <StartButton handleClick={navigateToPlayfield} />
+          <StartGameButton handleClick={navigateToPlayfield} />
         </Container>
       </animated.div>
     </div>

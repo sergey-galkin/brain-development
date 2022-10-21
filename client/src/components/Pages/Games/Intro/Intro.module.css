@@ -86,30 +86,3 @@
   }
 }
 
-.btn {
-  display: block;
-  margin: 30px auto;
-  border: 0;
-  border-radius: 10px;
-  background: black;
-  background-image:
-    url('../../../../images/icons/list_item_lable.svg'),
-    url('../../../../images/icons/list_item_lable.svg')
-  ;
-  background-repeat: no-repeat;
-  background-size: 35px, 35px;
-  background-position: -35px 50%, calc(100% + 35px) 50%;
-  width: 50%;
-  min-width: 300px;
-  max-width: 500px;
-  padding: 50px 0;
-  font-size: 2em;
-  letter-spacing: 2px;
-  color: white;
-  cursor: pointer;
-  transition: 0.5s;
-}
-.btn:hover {
-  color: var(--main-bg-color);
-  background-position: 10% 50%, 90% 50%;
-}
