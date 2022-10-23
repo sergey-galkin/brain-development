@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Container from '../../common/Container/Container'
 import css from './Games.module.css'
 import { getGamesData } from '../../../meta_data/games/gamesMetaData'
@@ -8,11 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const Games = () => {
-  const [items, setItems] = useState( createItems() );
-  const length = useRef(items.length);
-  const navigate = useNavigate();
-  
-  function createItems () {
+  const initialItems = useMemo(() => {
     return Object.values( getGamesData() ).map((game) => {
       return {
         id: game.id,
@@ -20,10 +16,12 @@ const Games = () => {
         handleClick: () => navigateToGamePage(game.urls[0]),
       }
     })
-  }
-
+  }, []);
+  const [items, setItems] = useState(initialItems);
+  const navigate = useNavigate();
+  
   const aProps = {
-    duration: 100 * length.current,
+    duration: 100 * initialItems.length,
     trail: 200,
     states: [
       { opacity: 0, scale: 0.2 },
@@ -35,10 +33,10 @@ const Games = () => {
     setItems([]);
     setTimeout(() => {
       navigate(url);
-    }, aProps.trail * length.current + aProps.duration);
+    }, aProps.trail * initialItems.length + aProps.duration);
   }
 
-  const transition = useTransition(items, {
+  const transitions = useTransition(items, {
     from: aProps.states[0],
     enter: aProps.states[1],
     leave: aProps.states[0],
@@ -54,7 +52,7 @@ const Games = () => {
   return (
     <div className={css.containerHolder}>
       <Container classesArr={[css.container]}>
-        {transition((styles, item) => (
+        {transitions((styles, item) => (
           <AnimatedGameSlab {...item} style={styles} />
         ))}
       </Container>
