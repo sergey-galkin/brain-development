@@ -1,10 +1,13 @@
 import React from 'react'
+import css from './RectButton.module.css'
 import Template from '../../Template/Template'
 
-const RectButton = ({classesArr, ...props}) => {
+const RectButton = ({classesArr = [], handleClick, ...props}) => {
+  classesArr.push(css.default)
+
   return (
-    <Template>
-      <rect className={classesArr.join(' ')} {...props} width="94" height="94" x="3" y="3" stroke="gray" fill="none" strokeWidth="6" strokeLinejoin="round" strokeLinecap="round"/>
+    <Template classesArr={classesArr} handleClick={handleClick}>
+      <rect className={css.default} {...props} width="92" height="92" x="4" y="4" strokeWidth="8" />
     </Template>
   )
 }

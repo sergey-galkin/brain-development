@@ -15,10 +15,11 @@
   color: var(--main-bg-color);
 }
 .header + div {
+  background: var(--main-bg);
   margin-top: 60px;
   min-width: 340px;
-  min-height: var(--visible-height);
-  background: var(--main-bg);
+  height: var(--visible-height);
+  overflow: auto;
 }
 .navContainer {
   display: flex;

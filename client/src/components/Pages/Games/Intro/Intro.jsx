@@ -5,26 +5,11 @@ import NotFound from '../../NotFound';
 import { getGameData } from '../../../../meta_data/games/gamesMetaData';
 import Container from '../../../common/Container/Container';
 import GameSlab from '../../../features/GameSlab/GameSlab';
-import * as Icons from '../../../features/GameSlabIcons/collector'
+import * as Headers from '../../../features/IntroPage/Header/collector'
 import { useSpring, animated, config, useTransition } from '@react-spring/web';
 import StartGameButton from '../../../features/Buttons/StartGameButton/StartGameButton';
-
-const Description = ({ description, ...props }) => {
-  return (
-    <div className={[css.descriptionContainer].join(' ')} {...props} >
-      { description.map(({ header, internals }) => 
-        <div key={header} className={css.contentHolder}>
-          <div className={css.block}>
-            <h3 className={css.header}>{header}</h3>
-            <div className={css.internals}>
-              { internals.map((text) => <p key={text}>{text}</p>) }
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+import Header from '../../../features/IntroPage/Header/G1/Header';
+import Description from '../../../features/IntroPage/Desctiption/Description';
 
 const CheckingWrapper = () => {
   const { gameURL } = useParams();
@@ -38,13 +23,15 @@ const CheckingWrapper = () => {
 
 const Intro = ({ gameData }) => {
   const { id, description } = gameData;
-  const Icon = Icons[id];
+  const Header = Headers[id];
   
   const initialItems = [
     ({...props}) => <div className={css.contentHolder} {...props} >
-      <Icon />
+      <Header />
     </div>,
-    ({...props}) => <Description description={description} {...props} />,
+    ({...props}) => <div className={css.contentHolder} {...props} >
+      <Description description={description} />
+    </div>,
     ({...props}) => <StartGameButton handleClick={navigateToPlayfield} {...props} />,
   ];
   const [items, setItems] = useState(initialItems);

@@ -50,12 +50,14 @@ const Games = () => {
   const AnimatedGameSlab = animated(GameSlab);
 
   return (
-    <div className={css.containerHolder}>
-      <Container classesArr={[css.container]}>
-        {transitions((styles, item) => (
-          <AnimatedGameSlab {...item} style={styles} />
-        ))}
-      </Container>
+    <div>
+      <div className={css.containerHolder}>
+        <Container classesArr={[css.container]}>
+          {transitions((styles, item) => (
+            <AnimatedGameSlab {...item} style={styles} />
+          ))}
+        </Container>
+      </div>
     </div>
   )
 }

@@ -19,7 +19,8 @@
   cursor: pointer;
 }
 .difficultyItem.active {
-  background-color: #e6caff;
+  background-color: black;
+  color: var(--main-bg-color);
 }
 @media screen and (max-width: 600px){
   .menu {

@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './Template.module.css';
 
-const Template = ({handleClick, classesArr =[], children}) => {
+const Template = ({classesArr = [], handleClick, children}) => {
   const classes = [css.default, ...classesArr];
   return (
     <button type='button' className={classes.join(' ')} onClick={handleClick || (() => {})}>

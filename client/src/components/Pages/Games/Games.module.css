@@ -1,18 +1,11 @@
 .containerHolder {
-  background: var(--main-bg);
-  min-height: var(--visible-height);
-  overflow: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: var(--visible-height);
+  overflow: auto;
 }
 .container {
-  /* flex-direction: column;
-  align-items: center; */
   justify-content: center;
-  /* width: 90%; */
   flex-wrap: wrap;
 }
-/* .container > div + div {
-  margin-left: 20px;
-} */

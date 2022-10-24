@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.9) 0 0 5px 0px;
+}
+.item {
+  padding: 15px;
+  width: 100px;
+  height: 100px;
+  stroke: grey;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  cursor: default;
+  transition: 0.5s;
+}
+.wrong {
+  stroke: red;
+}
+.container:hover .right {
+  stroke: green;
+}
+.container:hover .wrong {
+  stroke: grey;
+}
+
+@media screen and (min-width: 600px) {
+  .item {
+    padding: 20px;
+    width: 120px;
+    height: 120px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .item {
+    width: 140px;
+    height: 140px;
+  }
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
+}

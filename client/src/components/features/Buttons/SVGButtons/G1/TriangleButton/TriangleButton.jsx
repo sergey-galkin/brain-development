@@ -1,10 +1,10 @@
 import React from 'react'
 import Template from '../../Template/Template'
 
-const TriangleButton = ({classesArr, ...props}) => {
+const TriangleButton = ({classesArr = [], ...props}) => {
   return (
-    <Template>
-      <path className={classesArr.join(' ')} {...props} d="M 3 97 H 97 L 50 3 z" stroke="gray" fill="none" strokeWidth="6" strokeLinejoin="round" strokeLinecap="round"/>
+    <Template classesArr={classesArr}>
+      <path {...props} d="M 4 96 H 96 L 50 4 z" strokeWidth="8" />
     </Template>
   )
 }
