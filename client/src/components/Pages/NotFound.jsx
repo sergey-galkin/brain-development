@@ -1,10 +1,11 @@
 import React from 'react';
+import MainBackground from '../features/MainBackground/MainBackground';
 
 const HomePage = () => {
   return (
-    <div>
-      <h1 style={{textAlign: 'center', marginTop: '50vh'}}>404 Not Found</h1>
-    </div>
+    <MainBackground>
+      <h1 style={{textAlign: 'center', marginTop: '45vh', fontSize: '3em'}}>404 Not Found</h1>
+    </MainBackground>
   );
 }
 

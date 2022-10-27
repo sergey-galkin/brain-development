@@ -4,9 +4,6 @@
   min-height: calc(100vh - var(--header-height));
   overflow: auto;
 }
-.active {
-  background: radial-gradient(circle, white 40%, var(--main-bg-color) 70%);
-}
 .button {
   align-self: center;
   background: transparent;
@@ -20,13 +17,15 @@
   letter-spacing: 5px;
 }
 
-@media screen and (min-width: 600px) {}
+@media screen and (min-width: 600px) {
+}
 @media screen and (min-width: 768px) {
   .button > h1 {
     font-size: 2.3em;
   }
 }
-@media screen and (min-width: 992px) {}
+@media screen and (min-width: 992px) {
+}
 @media screen and (min-width: 1200px) {
   .button > h1 {
     font-size: 3em;

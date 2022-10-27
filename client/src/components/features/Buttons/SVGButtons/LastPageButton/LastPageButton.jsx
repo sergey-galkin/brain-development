@@ -2,7 +2,7 @@ import React from 'react';
 import Template from '../Template/Template';
 import css from './LastPageButton.module.css';
 
-const NextPageButton = ({handleClick, classesArr=[] }) => {
+const NextPageButton = ({ handleClick, classesArr=[] }) => {
   const templateClasses = [css.nextPageTemplate, ...classesArr];
   const buttonClasses = [css.nextPage];
 

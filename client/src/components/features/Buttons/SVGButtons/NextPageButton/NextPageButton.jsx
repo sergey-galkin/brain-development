@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Template from '../Template/Template';
 import css from './NextPageButton.module.css';
 
-const NextPageButton = ({handleClick, classesArr=[], animationDuration}) => {
+const NextPageButton = ({ handleClick, classesArr=[] }) => {
   const templateClasses = [css.nextPageTemplate, ...classesArr];
   const buttonClasses = [css.nextPage];
 

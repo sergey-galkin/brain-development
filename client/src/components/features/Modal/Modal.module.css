@@ -8,18 +8,13 @@
   justify-content: center;
   align-items: center;
   background: rgba(0,0,0,0.5);
-  /* opacity: 0; */
   z-index: 1;
-  /* transition: .1s; */
 }
-/* .modal-container.visible {
-  opacity: 1;
-} */
 .modal {
   background: white;
   width: 90%;
   max-width: 800px;
-  min-width: 340px;
+  min-width: var(--min-width);
   max-height: 80vh;
   padding: 20px;
   border-radius: 20px;
@@ -28,57 +23,62 @@
 }
 .header {
   width: 100%;
-  /* background: #e6caff; */
-  background: var(--second-color);
-  color: black;
+  background: linear-gradient(45deg, var(--main-bg-color), var(--second-color), var(--main-bg-color));
+  font-size: 1.5em;
   text-align: center;
+  letter-spacing: 2px;
+  color: black;
   padding: 50px 0;
+  border-radius: 10px;
 }
 .content-holder {
   overflow: auto;
   max-height: calc(80vh - 40px);
 }
 .cross {
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
   background-image: url(../../../images/icons/closure_cross.svg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 50%;
   position: absolute;
-  right: calc(50% - 20px);
-  top: -50px;
+  right: calc(50% - 17.5px);
+  top: -45px;
   cursor: pointer;
   transition: 0.1s;
 }
 .cross:hover {
-  height: 45px;
-  width: 45px;
-  right: calc(50% - 22.5px);
-  top: -52.5px;
+  height: 40px;
+  width: 40px;
+  right: calc(50% - 20px);
+  top: -47.5px;
 }
 .modal.invisible {
   display: none;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 600px) {
   .header {
-    font-size: 24px;
-  }
-  .content-holder {
-    max-height: calc(80vh - 40px);
+    font-size: 2em;
   }
   .cross {
-    height: 35px;
-    width: 35px;
-    right: calc(50% - 17.5px);
-    top: -45px;
-  }
-  .cross:hover {
     height: 40px;
     width: 40px;
     right: calc(50% - 20px);
-    top: -47.5px;
+    top: -50px;
   }
+  .cross:hover {
+    height: 45px;
+    width: 45px;
+    right: calc(50% - 22.5px);
+    top: -52.5px;
+  }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
 }

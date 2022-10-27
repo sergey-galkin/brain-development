@@ -1,0 +1,6 @@
+.bgContainer {
+  background: var(--main-bg);
+  margin-top: 60px;
+  height: var(--visible-height);
+  overflow: auto;
+}

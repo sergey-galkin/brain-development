@@ -1,15 +1,46 @@
 .container {
-  align-self: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100px;
+  height: 100px;
 }
-.icon {
-  display: block;
-  width: 150px;
-  height: 150px;
+.item {
+  padding: 5px;
+  width: 46px;
+  height: 46px;
+  stroke: grey;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  cursor: default;
+  transition: 0.5s stroke;
+}
+.wrong {
+  stroke: red;
+}
+.container:hover .right {
+  stroke: green;
+}
+.container:hover .wrong {
+  stroke: grey;
 }
 
-@media screen and (width < 600px) {
-  .icon {
-    width: 100px;
-    height: 100px;
+@media screen and (min-width: 600px) {
+  .container {
+    width: 150px;
+    height: 150px;
   }
+  .item {
+    padding: 10px;
+    width: 71px;
+    height: 71px;
+  }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
 }

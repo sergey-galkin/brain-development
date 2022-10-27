@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer'
 import { useSpring, animated } from '@react-spring/web'
 import css from './HomePage.module.css'
@@ -6,13 +6,15 @@ import { sectionsData } from '../../../meta_data/home_page/homePageMetaData'
 import Section from '../../features/HomePageSection/HomePageSection';
 import useAnimatedScroll from '../../../hooks/useAnimatedScroll';
 import EventHandler from '../../../libs/EventHandler';
-import StartDevelopmentButton from '../../features/Buttons/StartDevelopmentButton/StartDevelopmentButton';
+import StartDevelopmentButton from '../../features/Buttons/CSSButtons/StartDevelopmentButton/StartDevelopmentButton';
 import PageNavigationGroup from '../../features/PageNavigationGroup/PageNavigationGroup';
+import MainBackground from '../../features/MainBackground/MainBackground';
 
 
 const HomePage = () => {
   const [topRef, topInView, topEntry] = useInView({ threshold: 0 })
   const [bottomRef, bottomInView, bottomEntry] = useInView({ threshold: 0 })
+  const [activeBG, setActiveBG] = useState(false)
   const animationDuration = 500;
   const [styles, api] = useSpring(() => ({
     from: { opacity: 0 },
@@ -75,21 +77,20 @@ const HomePage = () => {
     animationDuration: animation.duration,
     show: {top: topInView, bottom: bottomInView},
   }
-  
+
   return (
-    // <div className={css.container}>
-    <div>
+    <MainBackground classesArr={[activeBG ? css.activeBG : '']} >
       <div ref={topRef} />
       <animated.div style={styles} className={css.sectionHolder}>
         { index !== maxIndex
           ? <Section {...sectionData} pageIndex={index} />
-          : <StartDevelopmentButton animation={animation} />
+          : <StartDevelopmentButton animation={animation} handleMouseOver={setActiveBG} />
         }
       </animated.div>
       <PageNavigationGroup {...navigationProps} direction={-1} />
       <PageNavigationGroup {...navigationProps} direction={1} />
       <div ref={bottomRef} />
-    </div>
+    </MainBackground>
   );
 }
 

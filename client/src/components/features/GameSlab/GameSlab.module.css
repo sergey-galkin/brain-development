@@ -1,9 +1,8 @@
 .container {
   display: flex;
-  /* width: 90%; */
   background: black;
-  padding: 20px;
-  margin: 20px;
+  padding: 10px;
+  margin: 10px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.9) 0 0 5px 0px;
   cursor: pointer;
@@ -13,29 +12,19 @@
   box-shadow: rgba(0, 0, 0, 0.9) 0 0 20px 0px;
   scale: 1.01;
 }
-.logo, .description {
+.logo {
   display: inline-block;
 }
-/* .logo {
-  height: 100px;
-  width: 100px;
-  background-repeat: no-repeat;
-} */
-.description {
-  align-self: center;
-  width: calc(100% - 200px);
-  color: white;
-  padding: 30px 50px;
-}
 
-@media screen and (width < 600px) {
-  /* .container {
-    flex-direction: column;
-  } */
-  /* .logo {
-    margin: 0 auto;
-  } */
-  .description {
-    width: 100%;
+@media screen and (min-width: 600px) {
+  .container {
+    padding: 20px;
+    margin: 20px;
   }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
 }

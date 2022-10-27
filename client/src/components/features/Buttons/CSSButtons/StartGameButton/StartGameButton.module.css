@@ -5,8 +5,8 @@
   border-radius: 10px;
   background: black;
   background-image:
-    url('../../../../images/icons/list_item_lable.svg'),
-    url('../../../../images/icons/list_item_lable.svg')
+    url('../../../../../images/icons/list_item_lable.svg'),
+    url('../../../../../images/icons/list_item_lable.svg')
   ;
   background-repeat: no-repeat;
   background-size: 25px, 25px;

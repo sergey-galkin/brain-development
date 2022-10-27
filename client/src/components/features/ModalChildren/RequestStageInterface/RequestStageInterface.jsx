@@ -1,5 +1,7 @@
 import React from 'react';
-import * as Buttons from '../Buttons/SVGButtons/SVGButtons';
+import css from './RequestStageInterface.module.css'
+import AcceptButton from '../../Buttons/SVGButtons/AcceptButton/AcceptButton';
+import CancelButton from '../../Buttons/SVGButtons/CancelButton/CancelButton';
 
 const generalStages = [
   // 0 - preparing request 
@@ -32,13 +34,13 @@ const RequestStageInterface = ({additionalStages, stage, handleClick}) => {
   
   return (
     <div>
-      <div style={{'lineHeight': '25px'}}>
+      <div className={css.message}>
         { stageData.msg.map((m) => <p key={m}>{m}</p>) }
       </div>
-      <Buttons.Container>
-        { stageData.acceptBtn && <Buttons.AcceptButton handleClick={handleClick} />}
-        { stageData.cancelBtn && <Buttons.CancelButton handleClick={handleClick} />}
-      </Buttons.Container>
+      <div className={css.buttonsContainer}>
+        { stageData.acceptBtn && <AcceptButton handleClick={handleClick} />}
+        { stageData.cancelBtn && <CancelButton handleClick={handleClick} />}
+      </div>
     </div>
   )
 }

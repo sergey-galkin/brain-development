@@ -9,7 +9,7 @@ const cards = [
   },
   {
     id: 2,
-    pictureId: 5,
+    pictureId: 4,
     matched: true,
   },
   {
@@ -19,7 +19,7 @@ const cards = [
   },
   {
     id: 3,
-    pictureId: 5,
+    pictureId: 4,
     matched: true,
   },
 ];

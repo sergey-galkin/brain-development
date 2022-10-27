@@ -1,0 +1,9 @@
+.acceptBtn {
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.acceptBtn:hover {
+  color: #0b0;
+}

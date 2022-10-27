@@ -1,7 +1,3 @@
-.container {
-  background: var(--main-bg);
-  min-height: var(--visible-height);
-}
 .contentContainer {
   flex-direction: column;
   justify-content: start;

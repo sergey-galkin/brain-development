@@ -3,8 +3,9 @@ import { createUser } from '../../../../api/dbRequest';
 import { regValidation } from '../../../../libs/validation';
 import Field from './Field/Field';
 import css from './RegistrationWindow.module.css';
-import RequestStageInterface from '../RequestStageInterface';
+import RequestStageInterface from '../RequestStageInterface/RequestStageInterface';
 import additionalStages from "./requestStages";
+import ModalWindowButton from '../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
 
 
 const fields = [
@@ -108,7 +109,7 @@ const RegistrationWindow = ({closeModal}) => {
               msg={warnings[f.id]}
             />;
           })}
-          <input type="submit" className={css.btn} value='Зарегистрироваться' />
+          <ModalWindowButton type="submit" value='Зарегистрироваться' />
         </form>
       }
     </div>

@@ -22,13 +22,11 @@ const MobileMenu = ({ closeMenu }) => {
   return (
     <Container classesArr={[css.container]}>
       <ul className={css.list}>
-        { 
-          routes.map( route =>
-            <li key={route.caption} onClick={closeMenu}>
-              <CustomLink path={route.path}>{route.caption}</CustomLink>
-            </li>
-          )
-        }
+        {routes.map( route =>
+          <li key={route.caption} onClick={closeMenu}>
+            <CustomLink path={route.path}>{route.caption}</CustomLink>
+          </li>
+        )}
       </ul>
       { separator }
       { UserMenu }

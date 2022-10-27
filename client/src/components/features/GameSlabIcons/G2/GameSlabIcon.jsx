@@ -6,37 +6,26 @@ const cards = [
   {
     id: 1,
     pictureId: 3,
-    turned: false,
     matched: false,
   },
   {
     id: 2,
-    pictureId: 5,
-    turned: false,
-    matched: false,
+    pictureId: 4,
+    matched: true,
   },
   {
     id: 3,
-    pictureId: 5,
-    turned: false,
-    matched: false,
+    pictureId: 4,
+    matched: true,
   },
   {
     id: 4,
     pictureId: 2,
-    turned: false,
     matched: false,
   },
 ];
 
-const GameSlabIcon = ({ mouseOver }) => {
-  if (mouseOver) {
-    cards[1].turned = true;
-    cards[2].turned = true;
-  } else {
-    cards.forEach(c => c.turned = false)
-  }
-
+const GameSlabIcon = () => {
   return (
     <div className={css.container}>
       { cards.map((card) => <Card key={card.id} {...card}/>) }
@@ -44,15 +33,12 @@ const GameSlabIcon = ({ mouseOver }) => {
   )
 }
 
-const Card = ({ pictureId, turned, matched }) => {
+const Card = ({ pictureId, matched }) => {
   const cardClasses = [css.card];
   const frontClasses = [css.cardSide, css.front];
   const backClasses = [css.cardSide, css.back];
 
-  if (turned) {
-    cardClasses.push(css.turned);
-    backClasses.push(css['picture-' + ++pictureId]);
-  }
+  backClasses.push(css['picture-' + ++pictureId]);
   if (matched) {
     frontClasses.push(css.matched);
     backClasses.push(css.matched);

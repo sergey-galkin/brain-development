@@ -2,24 +2,20 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import css from './StartDevelopmentButton.module.css'
 
-const StartDevelopmentButton = ({ animation }) => {
-  const [mouseOver, setMouseOver] = useState(false);
+const StartDevelopmentButton = ({ animation, handleMouseOver }) => {
   const navigate = useNavigate();
   
-  const containerClasses = [css.container, mouseOver ? css.active : ''];
-
   const handleClick = () => {
     animation.close();
     setTimeout(navigate, animation.duration, 'games')
-    // navigate('games')
   }
 
   return (
-    <div className={containerClasses.join(' ')}>
+    <div className={css.container}>
       <button
         className={css.button}
-        onMouseEnter={() => setMouseOver(true)}
-        onMouseLeave={() => setMouseOver(false)}
+        onMouseEnter={() => handleMouseOver(true)}
+        onMouseLeave={() => handleMouseOver(false)}
         onClick={handleClick}
       >
         <h1>НАЧАТЬ РАЗВИТИЕ</h1>

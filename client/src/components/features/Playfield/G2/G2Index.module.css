@@ -13,7 +13,7 @@
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 }
 .playfield {
   display: flex;
@@ -21,4 +21,6 @@
   align-items: center;
   flex-wrap: wrap;
   max-width: 1000px;
+  /* margin-top: 50px; */
+  padding: 20px;
 }

@@ -7,9 +7,10 @@ import Container from '../../../common/Container/Container';
 import GameSlab from '../../../features/GameSlab/GameSlab';
 import * as Headers from '../../../features/IntroPage/Header/collector'
 import { useSpring, animated, config, useTransition } from '@react-spring/web';
-import StartGameButton from '../../../features/Buttons/StartGameButton/StartGameButton';
+import StartGameButton from '../../../features/Buttons/CSSButtons/StartGameButton/StartGameButton';
 import Header from '../../../features/IntroPage/Header/G1/Header';
 import Description from '../../../features/IntroPage/Desctiption/Description';
+import MainBackground from '../../../features/MainBackground/MainBackground';
 
 const CheckingWrapper = () => {
   const { gameURL } = useParams();
@@ -68,13 +69,13 @@ const Intro = ({ gameData }) => {
   })  
   
   return (
-    <div className={css.container}>
+    <MainBackground>
       <Container classesArr={[css.contentContainer]}>
         {transitions((styles, Item) => {
           return <Item style={styles} />;
         })}
       </Container>
-    </div>
+    </MainBackground>
   );
 }
 

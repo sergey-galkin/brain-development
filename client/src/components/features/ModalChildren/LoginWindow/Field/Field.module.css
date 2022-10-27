@@ -1,7 +1,7 @@
 .fild {
   padding: 15px;
   margin: 5px 0 15px;
-  font-size: 1em;
+  font-size: 0.8em;
   width: 100%;
   max-width: 500px;
   border: 1px solid #8d8d8d;
@@ -9,6 +9,5 @@
   border-style: double;
 }
 .fild:focus {
-  /* background: #f3e5ff; */
-  background: #fec;
+  background: var(--second-color);
 }

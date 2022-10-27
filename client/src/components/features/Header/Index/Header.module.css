@@ -5,7 +5,7 @@
   top: 0;
   height: var(--header-height);
   width: 100%;
-  min-width: 340px;
+  /* min-width: var(--min-width); */
   background: black;
   color: white;
   box-shadow: black 0px 0px 5px 0px;
@@ -13,13 +13,6 @@
 }
 .header a:hover {
   color: var(--main-bg-color);
-}
-.header + div {
-  background: var(--main-bg);
-  margin-top: 60px;
-  min-width: 340px;
-  height: var(--visible-height);
-  overflow: auto;
 }
 .navContainer {
   display: flex;
@@ -40,6 +33,7 @@
   height: 30px;
   width: 30px;
   background-image: url('../../../../images/icons/menu.svg');
+  background-repeat: no-repeat;
   cursor: pointer;
   user-select: none;
   transition: .3s;

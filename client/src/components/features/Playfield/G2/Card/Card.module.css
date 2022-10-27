@@ -1,12 +1,12 @@
 .card {
   position: relative;
-  height: 100px;
-  width: 70px;
-  margin: 5px;
+  width: 40px;
+  height: 60px;
+  margin: 3px;
   perspective: 500px;
 }
 .cardSide {
-  box-shadow: rgb(0 0 0 / 50%) 0 0 2px 1px;
+  box-shadow: rgb(0 0 0 / 50%) 0 0 1px 1px;
   position: absolute;
   top: 0;
   left: 0;
@@ -21,11 +21,18 @@
 }
 .cardSide.front {
   transform: rotateY(0deg);
-  background-color: aqua;
+  background: black;
+  background-image: url('../../../../../images/icons/logo.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  /* background-image: url('../../../../../images/icons/logo.svg'), linear-gradient(45deg, #9330ff, #e6caff, #9331ff); */
+  /* background-image: url('../../../../../images/icons/logo.svg'), linear-gradient(45deg, #000000, #9331ff, #000000); */
+  /* background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff); */
 }
 .cardSide.back {
   transform: rotateY(-180deg);
-  background-color: #e6caff;
+  background-image: linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
 .card.turned .cardSide.front {
   transform: rotateY(180deg);
@@ -35,57 +42,59 @@
 }
 .cardSide.front.matched {
   box-shadow: none;
-  background-color: transparent;
+  background: transparent;
 }
-@media screen and (max-width: 600px) {
+
+@media screen and (min-width: 600px) {
   .card {
-    height: 60px;
-    width: 40px;
-    margin: 3px;
+    width: 70px;
+    height: 100px;
+    margin: 5px;
   }
   .cardSide {
-    box-shadow: rgb(0 0 0 / 50%) 0 0 1px 1px;
+    box-shadow: rgb(0 0 0 / 50%) 0 0 2px 1px;
   }
 }
-/* .card:hover .cardSide.front {
-  transform: rotateY(180deg);
+@media screen and (min-width: 768px) {
 }
-.card:hover .cardSide.back {
-  transform: rotateY(0deg);
-} */
-.picture-1 {
-  background-image: url(../../../../../images/g2//1.svg);
+@media screen and (min-width: 992px) {
 }
-.picture-2 {
-  background-image: url(../../../../../images/g2/2.svg);
+@media screen and (min-width: 1200px) {
 }
-.picture-3 {
-  background-image: url(../../../../../images/g2/3.svg);
+
+.cardSide.back.picture-1 {
+  background-image: url(../../../../../images/g2//1.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-4 {
-  background-image: url(../../../../../images/g2/4.svg);
+.cardSide.back.picture-2 {
+  background-image: url(../../../../../images/g2/2.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-5 {
-  background-image: url(../../../../../images/g2/5.svg);
+.cardSide.back.picture-3 {
+  background-image: url(../../../../../images/g2/3.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-6 {
-  background-image: url(../../../../../images/g2/6.svg);
+.cardSide.back.picture-4 {
+  background-image: url(../../../../../images/g2/4.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-7 {
-  background-image: url(../../../../../images/g2/7.svg);
+.cardSide.back.picture-5 {
+  background-image: url(../../../../../images/g2/5.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-8 {
-  background-image: url(../../../../../images/g2/8.svg);
+.cardSide.back.picture-6 {
+  background-image: url(../../../../../images/g2/6.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-9 {
-  background-image: url(../../../../../images/g2/9.svg);
+.cardSide.back.picture-7 {
+  background-image: url(../../../../../images/g2/7.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-10 {
-  background-image: url(../../../../../images/g2/10.svg);
+.cardSide.back.picture-8 {
+  background-image: url(../../../../../images/g2/8.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-11 {
-  background-image: url(../../../../../images/g2/11.svg);
+.cardSide.back.picture-9 {
+  background-image: url(../../../../../images/g2/9.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-12 {
-  background-image: url(../../../../../images/g2/12.svg);
+.cardSide.back.picture-10 {
+  background-image: url(../../../../../images/g2/10.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+}
+.cardSide.back.picture-11 {
+  background-image: url(../../../../../images/g2/11.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+}
+.cardSide.back.picture-12 {
+  background-image: url(../../../../../images/g2/12.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }

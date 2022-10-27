@@ -9,7 +9,7 @@
   --second-color: #6a67ff; */
   --main-bg-color: #d1a7ff;
   --main-bg: radial-gradient(circle, #fee3ff 40%, var(--main-bg-color) 70%);
-  --second-color: #d1a7ff;
+  --second-color: #fee3ff;
   --header-height: 60px;
   --visible-height: calc(100vh - var(--header-height));
   --min-width: 340px;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLogoutMutation } from '../../../../api/apiSlice';
-import NavButton from '../../Buttons/NavButton/NavButton';
+import NavButton from '../../Buttons/CSSButtons/NavButton/NavButton';
 import CustomLink from '../CustomLink/CustomLink';
 
 const Authenticated = ({ login, closeMobileMenu }) => {

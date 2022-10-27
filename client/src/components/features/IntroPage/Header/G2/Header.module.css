@@ -9,8 +9,8 @@
 }
 .card {
   position: relative;
-  height: 100px;
-  width: 80px;
+  width: 48px;
+  height: 60px;
   margin: 7px;
   perspective: 500px;
 }
@@ -30,19 +30,17 @@
 }
 .cardSide.front.matched {
   transform: rotateY(0deg);
-  background-color: aqua;
+  background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff);
 }
 .cardSide.back.matched {
   transform: rotateY(-180deg);
-  background-color: #e6caff;
 }
 .cardSide.front {
   transform: rotateY(180deg);
-  background-color: aqua;
+  background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff);
 }
 .cardSide.back {
   transform: rotateY(0deg);
-  background-color: #e6caff;
 }
 .container:hover .cardSide.front.matched {
   transform: rotateY(180deg);
@@ -56,17 +54,23 @@
 .container:hover .cardSide.back {
   transform: rotateY(-180deg);
 }
-.picture-3 {
-  background-image: url(../../../../../images/g2/3.svg);
+.cardSide.back.picture-3 {
+  background-image: url(../../../../../images/g2/3.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-4 {
-  background-image: url(../../../../../images/g2/4.svg);
+.cardSide.back.picture-4 {
+  background-image: url(../../../../../images/g2/4.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
-.picture-6 {
-  background-image: url(../../../../../images/g2/6.svg);
+.cardSide.back.matched.picture-5 {
+  background-image: url(../../../../../images/g2/5.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
 
 
+@media screen and (min-width: 400px) {
+  .card {
+    width: 80px;
+    height: 100px;
+  }
+}
 @media screen and (min-width: 600px) {
 }
 @media screen and (min-width: 768px) {

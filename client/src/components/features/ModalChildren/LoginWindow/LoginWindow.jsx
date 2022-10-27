@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Field from './Field/Field';
 import css from './LoginWindow.module.css';
-import RequestStageInterface from '../RequestStageInterface';
+import RequestStageInterface from '../RequestStageInterface/RequestStageInterface';
 import additionalStages from "./requestStages";
 import { useAuthenticationMutation } from '../../../../api/apiSlice';
+import ModalWindowButton from '../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
 
 
 const fields = [
@@ -67,7 +68,7 @@ const LoginWindow = ({closeModal}) => {
               onChange={handleFormFieldChange}
             />;
           })}
-          <input type="submit" className={css.btn} value='Войти' />
+          <ModalWindowButton type="submit" value='Войти' />
         </form>
       }
     </div>

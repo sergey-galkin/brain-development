@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import css from './G2Index.module.css';
 import Card from './Card/Card';
 import GameMenu from './GameMenu/GameMenu';
@@ -6,6 +6,8 @@ import Modal from '../../Modal/Modal';
 import GameModal from '../../ModalChildren/G2/GameResult';
 import { delayedOpen } from '../../Modal/handlers';
 import Container from '../../../common/Container/Container';
+import { useSpring, animated } from '@react-spring/web';
+import MainBackground from '../../MainBackground/MainBackground';
 
 function createCards(difficulty) {
   // const uniqueCardsAmount = 1;
@@ -52,14 +54,9 @@ function createResultObject() {
   return result;
 }
 
-const generalData = {
-  startTime: null,
-  finishTime: null,
-  setTimeTimerId: null,
-}
-
 const G2 = () => {
   const [modal, setModal] = useState(false);
+  const [playfield, setPlayfield] = useState(false);
   const [gameData, setGameData] = useState({
     difficulty: 1,
     cards: createCards(1),
@@ -69,10 +66,35 @@ const G2 = () => {
     moves: 0,
   });
 
-  useEffect(startGame, []);
+  const aProps = {
+    duration: 1000,
+  };  
+  const { gradientPositions } = useSpring({
+    from: {
+      gradientPositions: [40, 70]
+    },
+    gradientPositions: [100, 100],
+    config: {
+      duration: aProps.duration,
+    }
+  })
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPlayfield(true);
+      startGame();
+    }, aProps.duration + 300);
+  }, [])
+
+  // general data that do not need to be stored in state
+  const gd = useRef({
+    startTime: null,
+    finishTime: null,
+    setTimeTimerId: null,
+  })
 
   function changeDifficulty(value) {
-    clearInterval(generalData.setTimeTimerId);
+    clearInterval(gd.current.setTimeTimerId);
     setGameData((p) => {
       return {...p, difficulty: value}
     });
@@ -123,16 +145,16 @@ const G2 = () => {
       }
     });
 
-    generalData.startTime = Date.now();
-    if (generalData.setTimeTimerId) clearInterval(generalData.setTimeTimerId);
-    generalData.setTimeTimerId = setInterval(() => {
+    gd.current.startTime = Date.now();
+    if (gd.current.setTimeTimerId) clearInterval(gd.current.setTimeTimerId);
+    gd.current.setTimeTimerId = setInterval(() => {
       setGameData((p) => {
         return {...p, time: getTime()}
       });
     }, 1000);
 
     function getTime() {
-      const time = (Date.now() - generalData.startTime) / 1000;
+      const time = (Date.now() - gd.current.startTime) / 1000;
       const minutes = Math.floor(time / 60);
       const seconds = Math.round(time % 60);
       const prefix = seconds < 10 ? '0' : '';
@@ -143,12 +165,12 @@ const G2 = () => {
   function gameOverCheck() {
     if (gameData.cards.filter(c => !c.matched).length) return;
     
-    generalData.finishTime = Date.now();
-    clearInterval(generalData.setTimeTimerId);
+    gd.current.finishTime = Date.now();
+    clearInterval(gd.current.setTimeTimerId);
     
     const newResult = [...gameData.result];
     const index = gameData.difficulty - 1;
-    newResult[index].current = generalData.finishTime - generalData.startTime;
+    newResult[index].current = gd.current.finishTime - gd.current.startTime;
     newResult[index].previousBest = newResult[index].best;
     
     if (!newResult[index].best || newResult[index].current < newResult[index].best) newResult[index].best = newResult[index].current;
@@ -159,26 +181,32 @@ const G2 = () => {
     delayedOpen( () => setModal(true) );
   }
 
+  const AnimatedMainBackGround = animated(MainBackground);
+
   return (
-    <div>
-      <Container classesArr={[css.container]}>
-        <GameMenu 
-          difficulty={gameData.difficulty}
-          time={gameData.time} 
-          moves={gameData.moves} 
-          handleClick={changeDifficulty}
-        />
-        <div className={css.playfieldHolder}>
-          <div className={css.playfield}>
-            {gameData.cards.map((card, i) => {
-              return <Card key={card.random} {...card} handleClick={() => turnCard(i)}/>
-            })}
+    <AnimatedMainBackGround style={{
+      backgroundImage: gradientPositions.to(
+        (p1, p2) => `radial-gradient(circle, #fee3ff ${p1}%, var(--main-bg-color) ${p2}%)`
+      )
+    }}>
+      {playfield &&
+        <Container classesArr={[css.container]}>
+          <GameMenu 
+            difficulty={gameData.difficulty}
+            time={gameData.time} 
+            moves={gameData.moves} 
+            handleClick={changeDifficulty}
+          />
+          <div className={css.playfieldHolder}>
+            <div className={css.playfield}>
+              {gameData.cards.map((card, i) => {
+                return <Card key={card.random} {...card} handleClick={() => turnCard(i)}/>
+              })}
+            </div>
           </div>
-        </div>
-        {/* <div className={'container ' + css.flex}>
-        </div> */}
-      </Container>
-      { modal &&
+        </Container>
+      }
+      {modal &&
         <Modal header='Результаты' closeModal={() => setModal(false)}>
           <GameModal
             result={gameData.result[gameData.difficulty - 1]}
@@ -186,7 +214,7 @@ const G2 = () => {
           />
         </Modal>
       }
-    </div>
+    </AnimatedMainBackGround>
   );
 }
 

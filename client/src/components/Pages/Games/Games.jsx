@@ -5,6 +5,7 @@ import { getGamesData } from '../../../meta_data/games/gamesMetaData'
 import GameSlab from '../../features/GameSlab/GameSlab'
 import { animated, config, useTransition } from '@react-spring/web'
 import { useNavigate } from 'react-router-dom'
+import MainBackground from '../../features/MainBackground/MainBackground'
 
 
 const Games = () => {
@@ -50,7 +51,7 @@ const Games = () => {
   const AnimatedGameSlab = animated(GameSlab);
 
   return (
-    <div>
+    <MainBackground>
       <div className={css.containerHolder}>
         <Container classesArr={[css.container]}>
           {transitions((styles, item) => (
@@ -58,7 +59,7 @@ const Games = () => {
           ))}
         </Container>
       </div>
-    </div>
+    </MainBackground>
   )
 }
 

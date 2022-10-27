@@ -4,7 +4,7 @@ import RegistrationWindow from '../../ModalChildren/RegistrationWindow/Registrat
 import Modal from '../../Modal/Modal';
 import { delayedOpen } from '../../Modal/handlers';
 import { useMediaQuery } from 'react-responsive';
-import NavButton from '../../Buttons/NavButton/NavButton';
+import NavButton from '../../Buttons/CSSButtons/NavButton/NavButton';
 
 const Anonymous = () => {
   const [dialogIndex, setDialogIndex] = useState(0);
