@@ -3,9 +3,7 @@
   align-items: center;
   position: fixed;
   top: 0;
-  height: var(--header-height);
   width: 100%;
-  /* min-width: var(--min-width); */
   background: black;
   color: white;
   box-shadow: black 0px 0px 5px 0px;
@@ -19,25 +17,11 @@
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  height: var(--header-height);
   margin: 0 auto;
-  /* font-size: 20px; */
-  /* line-height: 25px; */
   font-size: 1.25em;
-  /* line-height: 1.25em; */
+  background: black;
 }
 .navContainer > div {
   display: flex;
-}
-
-.menuIcon {
-  height: 30px;
-  width: 30px;
-  background-image: url('../../../../images/icons/menu.svg');
-  background-repeat: no-repeat;
-  cursor: pointer;
-  user-select: none;
-  transition: .3s;
-}
-.menuIcon.opened {
-  background-image: url('../../../../images/icons/menu_opened.svg');
 }

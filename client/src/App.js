@@ -7,7 +7,7 @@ import Profile from './components/Pages/Profile';
 import NotFound from './components/Pages/NotFound';
 import Intro from './components/Pages/Games/Intro/Intro';
 import Playfield from './components/Pages/Games/Playfield/Playfield';
-import Games from './components/Pages/Games/Games';
+import Games from './components/Pages/Games/Index/Games';
 
 function App() {
   return (

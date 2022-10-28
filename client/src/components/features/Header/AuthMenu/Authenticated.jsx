@@ -4,13 +4,13 @@ import { useLogoutMutation } from '../../../../api/apiSlice';
 import NavButton from '../../Buttons/CSSButtons/NavButton/NavButton';
 import CustomLink from '../CustomLink/CustomLink';
 
-const Authenticated = ({ login, closeMobileMenu }) => {
+const Authenticated = ({ login, closeMenu }) => {
   const [logout, {}] = useLogoutMutation();
   const isDesktop = useMediaQuery({minWidth: 768});
 
   return (
     <>
-      <span onClick={closeMobileMenu}>
+      <span onClick={closeMenu}>
         <CustomLink path={'profile/' + login}>{login}</CustomLink>
       </span>
       {

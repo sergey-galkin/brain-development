@@ -32,14 +32,16 @@
 @media screen and (min-width: 768px) {
   .pageNavigationGroup {
     flex-direction: column;
-    right: 0px;
+    right: 50px;
     padding: 50px;
   }
   .topGroup {
     transform: translateX(0) rotate(180deg);
+    padding-left: 0px;
   }
   .bottomGroup {
     transform: translateX(0) rotateY(0);
+    padding-right: 0px;
   }
   .pageNavigationGroup > button:last-child {
     margin-top: 10px;

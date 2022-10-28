@@ -1,14 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import css from './Intro.module.css';
 import NotFound from '../../NotFound';
 import { getGameData } from '../../../../meta_data/games/gamesMetaData';
 import Container from '../../../common/Container/Container';
-import GameSlab from '../../../features/GameSlab/GameSlab';
 import * as Headers from '../../../features/IntroPage/Header/collector'
-import { useSpring, animated, config, useTransition } from '@react-spring/web';
+import { animated, useTransition } from '@react-spring/web';
 import StartGameButton from '../../../features/Buttons/CSSButtons/StartGameButton/StartGameButton';
-import Header from '../../../features/IntroPage/Header/G1/Header';
 import Description from '../../../features/IntroPage/Desctiption/Description';
 import MainBackground from '../../../features/MainBackground/MainBackground';
 
@@ -62,7 +60,6 @@ const Intro = ({ gameData }) => {
     enter: aProps.states[1],
     leave: aProps.states[0],
     trail: aProps.trail,
-    // config: config.gentle,
     config: {
       duration: aProps.duration,
     },  

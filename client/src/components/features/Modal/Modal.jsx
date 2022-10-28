@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import css from './Modal.module.css';
 import { close, open } from './modalSlice';
 import { useSpring, animated } from '@react-spring/web'
+import EventHandler from '../../../libs/EventHandler';
 
 const Modal = ({header, closeModal, children }) => {
   const dispatch = useDispatch();
@@ -15,7 +16,10 @@ const Modal = ({header, closeModal, children }) => {
 
   useEffect(() => {
     dispatch( open() );
-    api.start({ opacity: 1 })
+    api.start({ opacity: 1 });
+    escapeKeydownEH.current.add();
+
+    return () => escapeKeydownEH.current.remove();
   }, [])
 
   const closeModalHandler = () => {
@@ -25,6 +29,17 @@ const Modal = ({header, closeModal, children }) => {
       dispatch( close() );
     }, 100);
   };
+
+  const escapeKeydownEH = useRef(
+    new EventHandler(
+      document, { 'keydown': handleEscapeButton }
+    )
+  )
+
+  function handleEscapeButton(e) {
+    if (e.code !== 'Escape') return;
+    closeModalHandler();
+  }
 
   return (
     <animated.div style={styles} className={css['modal-container']} >

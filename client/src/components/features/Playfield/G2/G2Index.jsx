@@ -10,14 +10,14 @@ import { useSpring, animated } from '@react-spring/web';
 import MainBackground from '../../MainBackground/MainBackground';
 
 function createCards(difficulty) {
-  // const uniqueCardsAmount = 1;
-  const uniqueCardsAmount = 12;
+  const uniqueCardsAmount = 1;
+  // const uniqueCardsAmount = 12;
   const maxDifficulty = 3;
   const uniqueCardsAmountInGame = uniqueCardsAmount / (maxDifficulty + 1 - difficulty);
   const indexes = createRandomIndexes(uniqueCardsAmount);
   const cards = [];
-  // for (let i = 0; i < 2 + 0 * (4 - difficulty); i++) {
-  for (let i = 0; i < 4 * (4 - difficulty); i++) {
+  for (let i = 0; i < 2 + 0 * (4 - difficulty); i++) {
+  // for (let i = 0; i < 4 * (4 - difficulty); i++) {
     for (let j = 0; j < uniqueCardsAmountInGame; j++) {
       cards.push({
         pictureId: indexes[j].i,

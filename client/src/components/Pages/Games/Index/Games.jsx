@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react'
-import Container from '../../common/Container/Container'
+import Container from '../../../common/Container/Container'
 import css from './Games.module.css'
-import { getGamesData } from '../../../meta_data/games/gamesMetaData'
-import GameSlab from '../../features/GameSlab/GameSlab'
-import { animated, config, useTransition } from '@react-spring/web'
+import { getGamesData } from '../../../../meta_data/games/gamesMetaData'
+import GameSlab from '../../../features/GameSlab/GameSlab'
+import { animated, useTransition } from '@react-spring/web'
 import { useNavigate } from 'react-router-dom'
-import MainBackground from '../../features/MainBackground/MainBackground'
+import MainBackground from '../../../features/MainBackground/MainBackground'
 
 
 const Games = () => {
@@ -42,7 +42,6 @@ const Games = () => {
     enter: aProps.states[1],
     leave: aProps.states[0],
     trail: aProps.trail,
-    // config: config.gentle,
     config: {
       duration: aProps.duration,
     },
