@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: var(--visible-height);
+  max-width: 1000px;
+}
+.playfield {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.button {
+  --button-size: 50px;
+  width: var(--button-size);
+  height: var(--button-size);
+  stroke: grey;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: none;
+}
+
+@media screen and (min-width: 600px) {
+  .button {
+    --button-size: 80px;
+    width: var(--button-size);
+    height: var(--button-size);
+  }
+}
+@media screen and (min-width: 768px) {
+  .button {
+    --button-size: 100px;
+    width: var(--button-size);
+    height: var(--button-size);
+  }
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
+}

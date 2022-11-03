@@ -68,7 +68,9 @@ const LoginWindow = ({closeModal}) => {
               onChange={handleFormFieldChange}
             />;
           })}
-          <ModalWindowButton type="submit" value='Войти' />
+          <ModalWindowButton type="submit">
+            Войти
+          </ModalWindowButton>
         </form>
       }
     </div>

@@ -37,6 +37,7 @@ const Modal = ({header, closeModal, children }) => {
   )
 
   function handleEscapeButton(e) {
+    e = e || window.event;
     if (e.code !== 'Escape') return;
     closeModalHandler();
   }

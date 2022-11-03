@@ -109,7 +109,9 @@ const RegistrationWindow = ({closeModal}) => {
               msg={warnings[f.id]}
             />;
           })}
-          <ModalWindowButton type="submit" value='Зарегистрироваться' />
+          <ModalWindowButton type="submit">
+            Зарегистрироваться
+          </ModalWindowButton>
         </form>
       }
     </div>

@@ -1,7 +1,8 @@
 import React from 'react';
+import ModalWindowButton from '../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
 import css from './GameResult.module.css';
 
-const GameModal = ({result, startGame, closeModal}) => {
+const GameModal = ({result, startNewGame, closeModal}) => {
   return (
     <div>
       <table className={css['result-container']}>
@@ -24,12 +25,14 @@ const GameModal = ({result, startGame, closeModal}) => {
           </tr>
         </tbody>
       </table>
-      <button 
-        className={css.btn}
-        onClick={() => {closeModal(); startGame()}}
+      <ModalWindowButton
+        type='button'
+        autoFocus={true}
+        classesArr={[css.button]}
+        onClick={() => {closeModal(); startNewGame()}}
       >
         Новая игра
-      </button>
+      </ModalWindowButton>
     </div>
   );
 }

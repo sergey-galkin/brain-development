@@ -1,0 +1,19 @@
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+}
+.totalScore {
+  font-size: 2em;
+}
+.currentScore {
+  font-size: 1.5em;
+}
+.plus {
+  color: #0c0;
+}
+.minus {
+  color: red;
+}

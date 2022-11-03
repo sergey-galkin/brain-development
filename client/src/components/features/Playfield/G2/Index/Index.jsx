@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
-import css from './G2Index.module.css';
-import Card from './Card/Card';
-import GameMenu from './GameMenu/GameMenu';
-import Modal from '../../Modal/Modal';
-import GameModal from '../../ModalChildren/G2/GameResult';
-import { delayedOpen } from '../../Modal/handlers';
-import Container from '../../../common/Container/Container';
+import css from './Index.module.css';
+import Card from '../Card/Card';
+import GameMenu from '../GameMenu/GameMenu';
+import Modal from '../../../Modal/Modal';
+import GameModal from '../../../ModalChildren/G2/GameResult';
+import { delayedOpen } from '../../../Modal/handlers';
+import Container from '../../../../common/Container/Container';
 import { useSpring, animated } from '@react-spring/web';
-import MainBackground from '../../MainBackground/MainBackground';
+import MainBackground from '../../../MainBackground/MainBackground';
 
 function createCards(difficulty) {
-  const uniqueCardsAmount = 1;
-  // const uniqueCardsAmount = 12;
+  // const uniqueCardsAmount = 1;
+  const uniqueCardsAmount = 12;
   const maxDifficulty = 3;
   const uniqueCardsAmountInGame = uniqueCardsAmount / (maxDifficulty + 1 - difficulty);
   const indexes = createRandomIndexes(uniqueCardsAmount);
   const cards = [];
-  for (let i = 0; i < 2 + 0 * (4 - difficulty); i++) {
-  // for (let i = 0; i < 4 * (4 - difficulty); i++) {
+  // for (let i = 0; i < 2 + 0 * (4 - difficulty); i++) {
+  for (let i = 0; i < 4 * (4 - difficulty); i++) {
     for (let j = 0; j < uniqueCardsAmountInGame; j++) {
       cards.push({
         pictureId: indexes[j].i,
@@ -66,24 +66,13 @@ const G2 = () => {
     moves: 0,
   });
 
-  const aProps = {
-    duration: 1000,
-  };  
-  const { gradientPositions } = useSpring({
-    from: {
-      gradientPositions: [40, 70]
-    },
-    gradientPositions: [100, 100],
-    config: {
-      duration: aProps.duration,
-    }
-  })
+  const animationDuration = 1000;
 
   useEffect(() => {
     setTimeout(() => {
       setPlayfield(true);
       startGame();
-    }, aProps.duration + 300);
+    }, animationDuration + 300);
   }, [])
 
   // general data that do not need to be stored in state
@@ -148,9 +137,9 @@ const G2 = () => {
     gd.current.startTime = Date.now();
     if (gd.current.setTimeTimerId) clearInterval(gd.current.setTimeTimerId);
     gd.current.setTimeTimerId = setInterval(() => {
-      setGameData((p) => {
-        return {...p, time: getTime()}
-      });
+      setGameData((p) => (
+        {...p, time: getTime()}
+      ));
     }, 1000);
 
     function getTime() {
@@ -181,14 +170,8 @@ const G2 = () => {
     delayedOpen( () => setModal(true) );
   }
 
-  const AnimatedMainBackGround = animated(MainBackground);
-
   return (
-    <AnimatedMainBackGround style={{
-      backgroundImage: gradientPositions.to(
-        (p1, p2) => `radial-gradient(circle, #fee3ff ${p1}%, var(--main-bg-color) ${p2}%)`
-      )
-    }}>
+    <MainBackground animationDuration={1000}>
       {playfield &&
         <Container classesArr={[css.container]}>
           <GameMenu 
@@ -214,7 +197,7 @@ const G2 = () => {
           />
         </Modal>
       }
-    </AnimatedMainBackGround>
+    </MainBackground>
   );
 }
 
