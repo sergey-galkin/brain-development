@@ -8,7 +8,7 @@ import * as Headers from '../../../features/IntroPage/Header/collector'
 import { animated, useTransition } from '@react-spring/web';
 import StartGameButton from '../../../features/Buttons/CSSButtons/StartGameButton/StartGameButton';
 import Description from '../../../features/IntroPage/Desctiption/Description';
-import MainBackground from '../../../features/MainBackground/MainBackground';
+import MainBackground from '../../../common/MainBackground/MainBackground';
 
 const CheckingWrapper = () => {
   const { gameURL } = useParams();

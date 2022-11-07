@@ -5,7 +5,7 @@ import { getGamesData } from '../../../../meta_data/games/gamesMetaData'
 import GameSlab from '../../../features/GameSlab/GameSlab'
 import { animated, useTransition } from '@react-spring/web'
 import { useNavigate } from 'react-router-dom'
-import MainBackground from '../../../features/MainBackground/MainBackground'
+import MainBackground from '../../../common/MainBackground/MainBackground'
 
 
 const Games = () => {

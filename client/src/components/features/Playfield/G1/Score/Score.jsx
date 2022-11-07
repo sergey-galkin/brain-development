@@ -3,10 +3,10 @@ import React, { useEffect } from 'react'
 import css from './Score.module.css'
 
 const Score = ({score}) => {
-  const {current, total} = score;
-  const currentClassesArr = [css.currentScore];
-  if (current > 0) currentClassesArr.push(css.plus);
-  if (current < 0) currentClassesArr.push(css.minus);
+  const {currentMove, current} = score;
+  const currentMoveClassesArr = [css.currentMoveScore];
+  if (currentMove > 0) currentMoveClassesArr.push(css.plus);
+  if (currentMove < 0) currentMoveClassesArr.push(css.minus);
 
   const [styles, api] = useSpring(() => ({
     from: {opacity: 0},
@@ -16,19 +16,19 @@ const Score = ({score}) => {
   }))
 
   useEffect(() => {
-    if (current === 0) return;
+    if (currentMove === 0) return;
     api.start({opacity: 1})
     setTimeout(() => {
       api.start({opacity: 0})
     }, 750)
-  }, [current])
+  }, [currentMove])
   
 
   return (
     <div className={css.score}>
-      <div className={css.totalScore}>{total}</div>
-      <animated.div style={styles} className={currentClassesArr.join(' ')}>
-        {current > 0 ? '+' + current : current}
+      <div className={css.currentScore}>{current}</div>
+      <animated.div style={styles} className={currentMoveClassesArr.join(' ')}>
+        {currentMove > 0 ? '+' + currentMove : currentMove}
       </animated.div>
     </div>
   )

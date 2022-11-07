@@ -1,5 +1,5 @@
 import React from 'react';
-import MainBackground from '../features/MainBackground/MainBackground';
+import MainBackground from '../common/MainBackground/MainBackground';
 
 const HomePage = () => {
   return (

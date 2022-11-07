@@ -9,10 +9,10 @@ const GameModal = ({result, startNewGame, closeModal}) => {
         <tbody>
           <tr>
             <td>Текущий:</td>
-            <Points value={result.total} />
+            <Points value={result.current} />
             {
-              result.total < result.previousBest && result.previousBest !== null &&
-              <Deviation value={result.total - result.best} />
+              result.current < result.previousBest && result.previousBest !== null &&
+              <Deviation value={(result.current - result.best)} />
             }
           </tr>
           <tr>
@@ -20,7 +20,7 @@ const GameModal = ({result, startNewGame, closeModal}) => {
             <Points value={result.best} />
             {
               result.best > result.previousBest && result.previousBest !== null &&
-              <Deviation value={'+' + (result.best - result.previousBest)} />
+              <Deviation value={(result.best - result.previousBest)} />
             }
           </tr>
         </tbody>
@@ -40,15 +40,21 @@ const GameModal = ({result, startNewGame, closeModal}) => {
 const Points = ({value}) => {
   return (
     <td className={css['result-value']}>
-      {value}
+      {value.toLocaleString()}
     </td>
   )
 }
 
 const Deviation = ({value}) => {
   const classes = [];
-  if (value < 0) classes.push([css.minus]);
-  if (value > 0) classes.push([css.plus]);
+  if (value < 0) {
+    classes.push([css.minus]);
+    value = value.toLocaleString();
+  }
+  if (value > 0) {
+    classes.push([css.plus]);
+    value = '+' + value.toLocaleString()
+  }
 
   return (
     <td className={classes.join(' ')}>

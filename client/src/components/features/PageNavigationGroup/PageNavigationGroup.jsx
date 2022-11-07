@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import css from './PageNavigationGroup.module.css'
 import LastPageButton from '../Buttons/SVGButtons/LastPageButton/LastPageButton';
 import NextPageButton from '../Buttons/SVGButtons/NextPageButton/NextPageButton';
 
-const PageNavigationGroup = ({allowScroll, handleScroll, currentPageIndex, lastPageIndex, direction, animationDuration, show}) => {
+const PageNavigationGroup = ({allowScroll, handleScroll, currentPageIndex, lastPageIndex, direction, show}) => {
   const buttonsAmount = 2;
   const [buttonsPushedStatus, setButtonsPushedStatus] = useState(Array(buttonsAmount).fill(false));
 
-  function handlePageButtonClick(delta, buttonIndex) {
-    setButtonsPushedStatus((prevStatuses) => {
-      const newStatuses = [...prevStatuses];
+  const handlePageButtonClick = useCallback((delta, buttonIndex) => {
+    setButtonsPushedStatus((prev) => {
+      const newStatuses = [...prev];
       newStatuses[buttonIndex] = true;
       return newStatuses;
     });
@@ -19,7 +19,7 @@ const PageNavigationGroup = ({allowScroll, handleScroll, currentPageIndex, lastP
     }, 150);
 
     handleScroll(delta);
-  }
+  }, []);
 
   const groupClasses = [css.pageNavigationGroup];
   if (direction === -1) groupClasses.push(css.topGroup);

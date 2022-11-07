@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer'
 import { useSpring, animated } from '@react-spring/web'
 import css from './HomePage.module.css'
 import { sectionsData } from '../../../meta_data/home_page/homePageMetaData'
 import Section from '../../features/HomePageSection/HomePageSection';
-import useAnimatedScroll from '../../../hooks/useAnimatedScroll';
-import EventHandler from '../../../libs/EventHandler';
+import useScroll from '../../../hooks/HomePage/useScroll';
 import StartDevelopmentButton from '../../features/Buttons/CSSButtons/StartDevelopmentButton/StartDevelopmentButton';
 import PageNavigationGroup from '../../features/PageNavigationGroup/PageNavigationGroup';
-import MainBackground from '../../features/MainBackground/MainBackground';
+import MainBackground from '../../common/MainBackground/MainBackground';
 
 
 const HomePage = () => {
-  const [topRef, topInView, topEntry] = useInView({ threshold: 0 })
-  const [bottomRef, bottomInView, bottomEntry] = useInView({ threshold: 0 })
-  const [activeBG, setActiveBG] = useState(false)
+  const [topRef, topInView] = useInView({ threshold: 0 })
+  const [bottomRef, bottomInView] = useInView({ threshold: 0 })
+  const [activeBG, setActiveBG] = useState(false);
+  
   const animationDuration = 500;
   const [styles, api] = useSpring(() => ({
     from: { opacity: 0 },
@@ -24,50 +24,15 @@ const HomePage = () => {
     }
   }))
 
-  const animation = {
+  const animation = useMemo(() => ({
     close: () => api.start({ opacity: 0 }),
     open: () => api.start({ opacity: 1 }),
     duration: animationDuration,
-  }
-
-  const scrollEventsHandler = useRef(
-    new EventHandler(
-      document,
-      {
-        'wheel': handleMouseWheel,
-        'keydown': handleScrollButtons,
-      }
-    )
-  )
+  }), [])
 
   const maxIndex = sectionsData.length
-  const [index, allowScroll, scroll] = useAnimatedScroll(0, maxIndex, {animation, scrollEventsHandler});
+  const [index, allowScroll, scroll] = useScroll(0, maxIndex, animation);
 
-  function handleMouseWheel(e) {
-    const delta = e.deltaY > 0 ? 1 : -1;
-    scroll(delta);
-  }
-
-  function handleScrollButtons(e) {
-    const delta = getDelta(e);
-    scroll(delta);
-    
-    function getDelta(event) {
-      if (['ArrowDown', 'PageDown'].indexOf(event.code) > -1) return 1;
-      if (['ArrowUp', 'PageUp'].indexOf(event.code) > -1) return -1;
-      if (['End'].indexOf(event.code) > -1) return sectionsData.length;
-      if (['Home'].indexOf(event.code) > -1) return -sectionsData.length;
-      return 0;
-    }
-  }
-
-  useEffect(() => {
-    scrollEventsHandler.current.add();
-    return () => {
-      scrollEventsHandler.current.remove();
-    }
-  }, [])
-  
   const sectionData = sectionsData[index];
   const navigationProps = {
     allowScroll: allowScroll,

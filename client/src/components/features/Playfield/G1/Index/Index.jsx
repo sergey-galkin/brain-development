@@ -9,7 +9,7 @@ import RectButton from '../../../Buttons/SVGButtons/G1/RectButton/RectButton';
 import TriangleButton from '../../../Buttons/SVGButtons/G1/TriangleButton/TriangleButton';
 import CrossButton from '../../../Buttons/SVGButtons/G1/CrossButton/CrossButton';
 import CircleButton from '../../../Buttons/SVGButtons/G1/CircleButton/CircleButton';
-import MainBackground from '../../../MainBackground/MainBackground';
+import MainBackground from '../../../../common/MainBackground/MainBackground';
 import GameMenu from '../GameMenu/GameMenu';
 import Score from '../Score/Score';
 import Controllers from '../Controllers/Controllers';
@@ -21,8 +21,8 @@ const G1 = () => {
     gameOver: false,
     steps: 0,
     score: {
+      currentMove: 0,
       current: 0,
-      total: 0,
       best: null,
       previousBest: null,
     },
@@ -109,14 +109,14 @@ const G1 = () => {
 
     const score = {
       ...gameData.score,
-      current: points,
-      total: gameData.score.total + points,
+      currentMove: points,
+      current: gameData.score.current + points,
     }
 
     if (isGameOver) {
       score.previousBest = score.best;
-      if (score.total > score.best || score.best === null) {
-        score.best = score.total;
+      if (score.current > score.best || score.best === null) {
+        score.best = score.current;
       }
     }
 
@@ -157,7 +157,7 @@ const G1 = () => {
           figureIndex: newIndex, 
           score: {
             ...prev.score, 
-            current: 0,
+            currentMove: 0,
           },
         }
       })
@@ -176,7 +176,7 @@ const G1 = () => {
     setGameData((prev) => ({
       ...prev,
       active: true,
-      session: prev.session + 1,
+      session: 1,
     }));
     scheduleNextMove();
   }
@@ -191,8 +191,8 @@ const G1 = () => {
         gameOver: false,
         score: {
           ...prev.score,
+          currentMove: 0,
           current: 0,
-          total: 0,
         },
         errors: {
           current: 0,
