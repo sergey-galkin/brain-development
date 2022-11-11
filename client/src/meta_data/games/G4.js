@@ -1,10 +1,10 @@
 export default {
-  id: 'G2',
+  id: 'G4',
   urls: [
-    '2',
-    'igra-2',
+    '4',
+    'igra-4',
   ],
-  difficulty: 1,
+  difficulty: 3,
   header: 'Игра на память',
   description: [
     {
@@ -17,7 +17,7 @@ export default {
       header: 'Правила',
       internals: [
         'Всего карточек - 48',
-        'Уникальных карточкек - 4',
+        'Уникальных карточкек - 16',
         'Одновременно можно открыть 2 карточки',
       ],
     },

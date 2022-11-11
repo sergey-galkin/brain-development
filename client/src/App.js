@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Pages/Layout';
 import HomePage from './components/Pages/HomePage/HomePage';
-import Profile from './components/Pages/Profile';
+import Profile from './components/Pages/Profile/Profile';
 import NotFound from './components/Pages/NotFound';
 import Intro from './components/Pages/Games/Intro/Intro';
 import Playfield from './components/Pages/Games/Playfield/Playfield';

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import css from './Description.module.css'
 
-const Description = ({ description, ...props }) => {
+const Description = memo(({ description, ...props }) => {
   return (
     <div className={[css.container].join(' ')} {...props} >
       { description.map(({ header, internals }) => 
@@ -14,6 +14,6 @@ const Description = ({ description, ...props }) => {
       )}
     </div>
   );
-}
+})
 
 export default Description

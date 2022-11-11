@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import css from './Intro.module.css';
 import NotFound from '../../NotFound';
@@ -24,7 +24,7 @@ const Intro = ({ gameData }) => {
   const { id, description } = gameData;
   const Header = Headers[id];
   
-  const initialItems = [
+  const initialItems = useMemo(() => [
     ({...props}) => <div className={css.contentHolder} {...props} >
       <Header />
     </div>,
@@ -32,29 +32,26 @@ const Intro = ({ gameData }) => {
       <Description description={description} />
     </div>,
     ({...props}) => <StartGameButton handleClick={navigateToPlayfield} {...props} />,
-  ];
+  ], []);
   const [items, setItems] = useState(initialItems);
 
-  const aProps = {
+  const aProps ={
     duration: 100 * description.length,
     trail: 200,
     states: [
       { opacity: 0, scale: 0.2 },
       { opacity: 1, scale: 1 },
     ],  
-  };  
+  };
   
   const navigate = useNavigate();
   function navigateToPlayfield() {
     setItems([]);
     const timeout = aProps.duration + aProps.trail * description.length;
     setTimeout(navigate, timeout, 'playfield');
-  }    
-
-  function animate(items) {
-    return items.map(item => animated(item))
   }
 
+  const animate = items => items.map(item => animated(item));
   const transitions = useTransition( animate(items), {
     from: aProps.states[0],
     enter: aProps.states[1],

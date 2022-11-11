@@ -31,6 +31,12 @@ export default function() {
     if (!gameResult.best || gameResult.current > gameResult.best) {
       gameResult.best = gameResult.current;
     }
+    // dispatch(updateGameStat({
+    //   id: data.id,
+    //   result: result,
+    //   gamesPlayed: gamesPlayed,
+    //   level: level,
+    // }))
 
     return clone;
   }, []);

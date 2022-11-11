@@ -1,0 +1,41 @@
+.table {
+  margin: 0 auto;
+  width: 90%;
+}
+.name, .value, .gradeContainer {
+  padding: 5px;
+}
+.value {
+  text-align: right;
+}
+.grade {
+  height: 8px;
+  border-radius: 4px;
+  /* background: linear-gradient(90deg, green, yellow, red);
+  background: linear-gradient(-90deg, green, yellow, red); */
+}
+
+@media screen and (min-width: 400px) {
+  .table {
+    --icon-size: 100px;
+    width: calc(100% - var(--icon-size) - 50px);
+  }
+}
+@media screen and (min-width: 600px) {
+  .table {
+    --icon-size: 150px;
+    font-size: 1.2em;
+  }
+}
+@media screen and (min-width: 768px) {
+  .table {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .table {
+    width: calc(100% - var(--icon-size) - 30px);
+  }
+}
+@media screen and (min-width: 1200px) {
+}

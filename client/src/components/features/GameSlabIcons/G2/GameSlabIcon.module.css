@@ -8,8 +8,9 @@
 }
 .card {
   position: relative;
-  width: 35px;
-  height: 42px;
+  --size: 42px;
+  width: calc(var(--size) * 0.8);
+  height: var(--size);
   margin: 4px;
   perspective: 500px;
 }
@@ -65,15 +66,13 @@
   background-image: url(../../../../images/g2/5.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
 }
 
-
 @media screen and (min-width: 600px) {
   .container {
     width: 150px;
     height: 150px;
   }
   .card {
-    width: 53px;
-    height: 63px;
+    --size: 63px;
     margin: 6px;
   }
 }

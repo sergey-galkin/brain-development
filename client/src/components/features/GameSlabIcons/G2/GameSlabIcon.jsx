@@ -1,5 +1,4 @@
-import { useSpring, animated } from '@react-spring/web'
-import React from 'react'
+import React, { memo } from 'react'
 import css from './GameSlabIcon.module.css'
 
 const cards = [
@@ -25,13 +24,14 @@ const cards = [
   },
 ];
 
-const GameSlabIcon = () => {
+const GameSlabIcon = memo(({classesArr = [], ...props}) => {
+  classesArr.push(css.container);
   return (
-    <div className={css.container}>
+    <div className={classesArr.join(' ')} {...props}>
       { cards.map((card) => <Card key={card.id} {...card}/>) }
     </div>
   )
-}
+})
 
 const Card = ({ pictureId, matched }) => {
   const cardClasses = [css.card];

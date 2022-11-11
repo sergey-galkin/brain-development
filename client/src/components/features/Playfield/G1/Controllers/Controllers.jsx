@@ -5,7 +5,7 @@ import css from './Controllers.module.css'
 const Controllers = ({buttons, figureIndex, handleGameButtonClick}) => {
   const [classes, setClasses] = useState(Array(4).fill(''));
   const currentIndex = useRef(figureIndex);
-
+  
   // if figureIndex defined set keydown handler
   useEffect(() => {
     currentIndex.current = figureIndex;

@@ -1,25 +1,30 @@
-import React, { useMemo, useState } from 'react'
-import Container from '../../../common/Container/Container'
+import React, { useState } from 'react'
 import css from './Games.module.css'
-import { getGamesData } from '../../../../meta_data/games/gamesMetaData'
-import GameSlab from '../../../features/GameSlab/GameSlab'
-import { animated, useTransition } from '@react-spring/web'
 import { useNavigate } from 'react-router-dom'
+import { animated, useTransition } from '@react-spring/web'
+import { getGamesData } from '../../../../meta_data/games/gamesMetaData'
 import MainBackground from '../../../common/MainBackground/MainBackground'
-
+import Container from '../../../common/Container/Container'
+import GameSlab from '../../../features/GameSlab/GameSlab'
 
 const Games = () => {
-  const initialItems = useMemo(() => {
-    return Object.values( getGamesData() ).map((game) => {
-      return {
-        id: game.id,
-        url: game.urls[0],
-        handleClick: () => navigateToGamePage(game.urls[0]),
-      }
-    })
-  }, []);
+  const initialItems = Object.values( getGamesData() )
+    .map(game => ({
+      id: game.id,
+      url: game.urls[0],
+      handleClick: () => navigateToGamePage(game.urls[0]),
+    }))
+  ;
+
   const [items, setItems] = useState(initialItems);
+  
   const navigate = useNavigate();
+  function navigateToGamePage(url) {
+    setItems([]);
+    setTimeout(() => {
+      navigate(url);
+    }, aProps.trail * initialItems.length + aProps.duration);
+  };
   
   const aProps = {
     duration: 100 * initialItems.length,
@@ -30,13 +35,6 @@ const Games = () => {
     ],
   };
   
-  function navigateToGamePage(url) {
-    setItems([]);
-    setTimeout(() => {
-      navigate(url);
-    }, aProps.trail * initialItems.length + aProps.duration);
-  }
-
   const transitions = useTransition(items, {
     from: aProps.states[0],
     enter: aProps.states[1],

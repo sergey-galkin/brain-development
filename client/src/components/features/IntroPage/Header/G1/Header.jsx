@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import CircleButton from '../../../Buttons/SVGButtons/G1/CircleButton/CircleButton'
 import CrossButton from '../../../Buttons/SVGButtons/G1/CrossButton/CrossButton'
 import RectButton from '../../../Buttons/SVGButtons/G1/RectButton/RectButton'
 import TriangleButton from '../../../Buttons/SVGButtons/G1/TriangleButton/TriangleButton'
 import css from './Header.module.css'
 
-const Header = () => {
+const Header = memo(() => {
   return (
     <div className={css.container} >
       <RectButton classesArr={[css.item, css.right]} />
@@ -14,6 +14,6 @@ const Header = () => {
       <CircleButton classesArr={[css.item, css.wrong]} />
     </div>
   )
-}
+})
 
 export default Header

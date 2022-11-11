@@ -11,10 +11,10 @@ import useResult from '../../../../../hooks/G2/useResult';
 import useCards from '../../../../../hooks/G2/useCards';
 import useTime from '../../../../../hooks/G2/useTime';
 
-const G2 = () => {
+const G2 = ({ id, initialDifficulty }) => {
   const [modal, setModal] = useState(false);
   const [playfield, setPlayfield] = useState(false);
-  const [difficulty, setDifficulty] = useState(1);
+  const [difficulty, setDifficulty] = useState(initialDifficulty);
   const [cards, cardsDispatch] = useCards(difficulty);
   const [result, resultDispatch] = useResult();
   const [time, startTime, finishTime, timeDispatch] = useTime();
@@ -100,7 +100,7 @@ const G2 = () => {
           <div className={css.playfieldHolder}>
             <div className={css.playfield}>
               {cards.map((card, i) => 
-                <Card key={card.random} {...card} handleClick={() => turnCard(cards, i)}/>
+                <Card key={card.random} cards={cards} index={i} {...card} handleClick={turnCard}/>
               )}
             </div>
           </div>
