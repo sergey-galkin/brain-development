@@ -8,11 +8,15 @@ import MainBackground from '../../common/MainBackground/MainBackground';
 import Header from '../../features/ProfilePage/Header/Header';
 import Slab from '../../features/ProfilePage/Slab/Slab';
 import { selectAllGamesStat } from './gamesStatSlice';
+import { getGamesData } from '../../../meta_data/games/gamesMetaData';
 
 const ProfilePage = () => {
   // const {login} = useParams();
+  const gamesData = getGamesData();
   const gamesStat = useSelector(selectAllGamesStat);
-  const items = gamesStat.map((data) => ({...props}) => <Slab data={data} {...props} />);
+  const items = gamesStat.map((data) => ({...props}) =>
+    <Slab data={data} difficulty={gamesData[data.id].difficulty} {...props} />
+  );
   
   const aProps = {
     duration: 100 * items.length,

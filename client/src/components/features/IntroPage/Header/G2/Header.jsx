@@ -1,7 +1,7 @@
-import React, { memo, useMemo } from 'react'
+import React, { memo } from 'react'
 import css from './Header.module.css'
 
-const Header = memo(() => {
+const Header = memo(({ difficulty }) => {
   const cards = [
     {
       id: 1,
@@ -27,15 +27,15 @@ const Header = memo(() => {
   
   return (
     <div className={css.container}>
-      { cards.map((card) => <Card key={card.id} {...card}/>) }
+      { cards.map((card) => <Card key={card.id} difficulty={difficulty} {...card}/>) }
     </div>
   )
 })
 
-const Card = ({ pictureId, matched }) => {
+const Card = ({ difficulty, pictureId, matched }) => {
   const cardClasses = [css.card];
-  const frontClasses = [css.cardSide, css.front];
-  const backClasses = [css.cardSide, css.back];
+  const frontClasses = [css.cardSide, css.front, css['difficulty-' + difficulty]];
+  const backClasses = [css.cardSide, css.back, css['difficulty-' + difficulty]];
   
   backClasses.push(css['picture-' + ++pictureId]);
   if (matched) {

@@ -13,6 +13,12 @@
   fill: none;
   transition: stroke .25s;
 }
+.hotKey {
+  height: 40px;
+  font-size: 1.2em;
+  text-align: center;
+  user-select: none;
+}
 .right {
   stroke: #0c0;
 }
@@ -32,6 +38,9 @@
     --button-size: 100px;
     width: var(--button-size);
     height: var(--button-size);
+  }
+  .hotKey {
+    font-size: 1.5em;
   }
 }
 @media screen and (min-width: 992px) {

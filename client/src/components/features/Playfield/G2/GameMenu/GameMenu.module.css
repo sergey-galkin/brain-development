@@ -21,11 +21,6 @@
   height: 30px;
   padding: 5px;
   text-align: center;
-  cursor: pointer;
-}
-.difficultyItem.active {
-  background-color: black;
-  color: var(--second-color);
 }
 
 @media screen and (min-width: 600px) {

@@ -11,10 +11,9 @@ import useResult from '../../../../../hooks/G2/useResult';
 import useCards from '../../../../../hooks/G2/useCards';
 import useTime from '../../../../../hooks/G2/useTime';
 
-const G2 = ({ id, initialDifficulty }) => {
+const G2 = ({ gameId, difficulty }) => {
   const [modal, setModal] = useState(false);
   const [playfield, setPlayfield] = useState(false);
-  const [difficulty, setDifficulty] = useState(initialDifficulty);
   const [cards, cardsDispatch] = useCards(difficulty);
   const [result, resultDispatch] = useResult();
   const [time, startTime, finishTime, timeDispatch] = useTime();
@@ -30,7 +29,7 @@ const G2 = ({ id, initialDifficulty }) => {
       cardsDispatch({type: 'reset', payload: difficulty});
       resultDispatch({type: 'reset', payload: difficulty});
     }, modalAnimationDuration)
-  }, [difficulty]);
+  }, []);
 
   const turnCard = useCallback((cards, index) => {
     cards[index].active = false;
@@ -64,10 +63,6 @@ const G2 = ({ id, initialDifficulty }) => {
   }, [])
 
   useEffect(() => {
-    startGame();
-  }, [difficulty])
-
-  useEffect(() => {
     defineMatchedCards(cards);
   }, [cards])
 
@@ -95,7 +90,6 @@ const G2 = ({ id, initialDifficulty }) => {
             difficulty={difficulty}
             time={time} 
             moves={moves} 
-            handleClick={setDifficulty}
           />
           <div className={css.playfieldHolder}>
             <div className={css.playfield}>

@@ -11,7 +11,7 @@ const Games = () => {
   const initialItems = Object.values( getGamesData() )
     .map(game => ({
       id: game.id,
-      url: game.urls[0],
+      difficulty: game.difficulty,
       handleClick: () => navigateToGamePage(game.urls[0]),
     }))
   ;

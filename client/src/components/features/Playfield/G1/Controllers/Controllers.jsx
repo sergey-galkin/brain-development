@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import EventHandler from '../../../../../libs/EventHandler';
 import css from './Controllers.module.css'
 
@@ -9,8 +9,8 @@ const Controllers = ({buttons, figureIndex, handleGameButtonClick}) => {
   // if figureIndex defined set keydown handler
   useEffect(() => {
     currentIndex.current = figureIndex;
-    if (figureIndex > -1) digitsKeydownEH.current.add();
-    else digitsKeydownEH.current.remove();
+    if (figureIndex > -1) digitsKeydownEH.add();
+    else digitsKeydownEH.remove();
   }, [figureIndex]);
 
   const handleDigitButtons = useCallback((event) => {
@@ -20,11 +20,11 @@ const Controllers = ({buttons, figureIndex, handleGameButtonClick}) => {
     if (index > -1) handleClick(index);
   }, [])
 
-  const digitsKeydownEH = useRef(
-    new EventHandler(
+  const digitsKeydownEH = useMemo( () => {
+    return new EventHandler(
       document, { 'keydown': handleDigitButtons }
-    )
-  )
+    )}
+  , [])
 
   const handleClick = useCallback((i) => {
     const className = i === currentIndex.current ? css.right : css.wrong;
@@ -39,13 +39,15 @@ const Controllers = ({buttons, figureIndex, handleGameButtonClick}) => {
 
   return (
     <div className={css.buttonsHolder}>
-      {buttons.map(([Button, random], i) => 
-        <Button
-          key={random}
-          classesArr={[css.button, classes[i]]}
-          handleClick={() => figureIndex > -1 ? handleClick(i) : null}
-        />
-      )}
+      {buttons.map(([Button, random], i) => (
+        <div key={random} className={css.buttonHolder}>
+          <div className={css.hotKey}>{i + 1}</div>
+          <Button
+            classesArr={[css.button, classes[i]]}
+            handleClick={() => figureIndex > -1 ? handleClick(i) : null}
+          />
+        </div>
+      ))}
     </div>
   )
 }

@@ -21,12 +21,12 @@ const CheckingWrapper = () => {
 }
 
 const Intro = ({ gameData }) => {
-  const { id, description } = gameData;
+  const { id, description, difficulty } = gameData;
   const Header = Headers[id];
   
   const initialItems = useMemo(() => [
     ({...props}) => <div className={css.contentHolder} {...props} >
-      <Header />
+      <Header difficulty={difficulty}/>
     </div>,
     ({...props}) => <div className={css.contentHolder} {...props} >
       <Description description={description} />

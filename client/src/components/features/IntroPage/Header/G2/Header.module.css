@@ -9,8 +9,9 @@
 }
 .card {
   position: relative;
-  width: 48px;
-  height: 60px;
+  --size: 60px;
+  width: calc(var(--size) * 0.8);
+  height: var(--size);
   margin: 7px;
   perspective: 500px;
 }
@@ -28,16 +29,32 @@
   backface-visibility: hidden;
   border-radius: 5px;
 }
+.cardSide.front.difficulty-1 {
+  background-image: linear-gradient(45deg, #0f0, #caffca, #0f0);
+}
+.cardSide.front.difficulty-2 {
+  background-image: linear-gradient(45deg, #ff0, #fff5ca, #ff0);
+}
+.cardSide.front.difficulty-3 {
+  background-image: linear-gradient(45deg, #f00, #ffcaca, #f00);
+}
+.cardSide.back.difficulty-1 {
+  background-color: #caffca;
+}
+.cardSide.back.difficulty-2 {
+  background-color: #fff5ca;
+}
+.cardSide.back.difficulty-3 {
+  background-color: #ffcaca;
+}
 .cardSide.front.matched {
   transform: rotateY(0deg);
-  background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff);
 }
 .cardSide.back.matched {
   transform: rotateY(-180deg);
 }
 .cardSide.front {
   transform: rotateY(180deg);
-  background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff);
 }
 .cardSide.back {
   transform: rotateY(0deg);
@@ -55,23 +72,25 @@
   transform: rotateY(-180deg);
 }
 .cardSide.back.picture-3 {
-  background-image: url(../../../../../images/g2/3.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+  background-image: url(../../../../../images/g2/3.svg);
 }
 .cardSide.back.picture-4 {
-  background-image: url(../../../../../images/g2/4.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+  background-image: url(../../../../../images/g2/4.svg);
 }
 .cardSide.back.matched.picture-5 {
-  background-image: url(../../../../../images/g2/5.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+  background-image: url(../../../../../images/g2/5.svg);
 }
 
 
 @media screen and (min-width: 400px) {
   .card {
-    width: 80px;
-    height: 100px;
+    --size: 80px;
   }
 }
 @media screen and (min-width: 600px) {
+  .card {
+    --size: 100px;
+  }
 }
 @media screen and (min-width: 768px) {
 }

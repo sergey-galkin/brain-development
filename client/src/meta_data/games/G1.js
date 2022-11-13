@@ -22,6 +22,13 @@ export default {
       ],
     },
     {
+      header: 'Управление',
+      internals: [
+        'Мышь',
+        'Клавиатура',
+      ],
+    },
+    {
       header: 'Навыки',
       internals: [
         'Внимательность',

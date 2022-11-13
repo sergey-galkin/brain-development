@@ -13,7 +13,7 @@ const Playfield = () => {
   const CurrentGame = Games[gameData.id];
 
   return (
-    <CurrentGame gameId={gameData.id} initialDifficulty={gameData.difficulty} />
+    <CurrentGame gameId={gameData.id} difficulty={gameData.difficulty} />
   )
 }
 

@@ -22,6 +22,12 @@ export default {
       ],
     },
     {
+      header: 'Управление',
+      internals: [
+        'Мышь',
+      ],
+    },
+    {
       header: 'Навыки',
       internals: [
         'Память',

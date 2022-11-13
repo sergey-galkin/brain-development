@@ -28,21 +28,36 @@
   backface-visibility: hidden;
   border-radius: 5px;
 }
-.cardSide.front.matched {
-  transform: rotateY(0deg);
-  background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff);
+.cardSide.front.difficulty-1 {
+  background-image: linear-gradient(45deg, #0f0, #caffca, #0f0);
+  /* background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff); */
 }
-.cardSide.back.matched {
-  transform: rotateY(-180deg);
-  background-color: white;
+.cardSide.front.difficulty-2 {
+  background-image: linear-gradient(45deg, #ff0, #fff5ca, #ff0);
+}
+.cardSide.front.difficulty-3 {
+  background-image: linear-gradient(45deg, #f00, #ffcaca, #f00);
+}
+.cardSide.back.difficulty-1 {
+  background-color: #caffca;
+}
+.cardSide.back.difficulty-2 {
+  background-color: #fff5ca;
+}
+.cardSide.back.difficulty-3 {
+  background-color: #ffcaca;
 }
 .cardSide.front {
   transform: rotateY(180deg);
-  background-image: linear-gradient(45deg, #9330ff, #e6caff, #9331ff);
 }
 .cardSide.back {
   transform: rotateY(0deg);
-  background-color: white;
+}
+.cardSide.front.matched {
+  transform: rotateY(0deg);
+}
+.cardSide.back.matched {
+  transform: rotateY(-180deg);
 }
 .container:hover .cardSide.front.matched {
   transform: rotateY(180deg);
@@ -57,13 +72,13 @@
   transform: rotateY(-180deg);
 }
 .picture-3 {
-  background-image: url(../../../../images/g2/3.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+  background-image: url(../../../../images/g2/3.svg);
 }
 .picture-4 {
-  background-image: url(../../../../images/g2/4.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+  background-image: url(../../../../images/g2/4.svg);
 }
 .picture-5 {
-  background-image: url(../../../../images/g2/5.svg), linear-gradient(45deg, #d1a7ff, #fee3ff, #d1a7ff);
+  background-image: url(../../../../images/g2/5.svg);
 }
 
 @media screen and (min-width: 600px) {

@@ -14,7 +14,7 @@ import GameMenu from '../GameMenu/GameMenu';
 import Score from '../Score/Score';
 import Controllers from '../Controllers/Controllers';
 
-const G1 = () => {
+const G1 = ({ gameId }) => {
   const [modal, setModal] = useState(false);
   const [gameData, setGameData] = useState({
     active: false,
@@ -129,7 +129,6 @@ const G1 = () => {
   
   function getGameOverState() {
     return {
-      active: false,
       gameOver: true,
     }
 
@@ -187,7 +186,6 @@ const G1 = () => {
       gd.current.startTime = Date.now();
       setGameData((prev) => ({
         ...prev,
-        active: true,
         gameOver: false,
         score: {
           ...prev.score,
