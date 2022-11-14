@@ -1,0 +1,40 @@
+.block {
+  text-align: center;
+}
+.block +.block {
+  margin-top: 10px;
+}
+.header {
+  margin: 10px 0;
+  font-weight: initial;
+  color: var(--main-bg-color);
+}
+.list {
+  list-style: none;
+  font-size: 0.9em;
+}
+.listItem {
+  margin-top: 5px;
+}
+.listItem a {
+  padding: 0;
+}
+.listItem a:hover {
+  text-decoration: underline;
+  color: var(--main-bg-color);
+}
+
+@media screen and (min-width: 600px) {
+  .block {
+    text-align: left;
+  }
+  .block +.block {
+    margin-top: 0px;
+  }
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
+}

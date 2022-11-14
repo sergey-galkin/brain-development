@@ -1,7 +1,5 @@
-export const routes = [
-  {path: '/', caption: 'Главная'},
-  {path: 'games', caption: 'Игры'},
-  // {path: 'games', caption: 'Правила'},
-  // {path: 'games', caption: 'FAQ'},
-  // {path: 'games', caption: 'Обратная связь'},
+export default [
+  {path: '/', caption: 'Главная', tags: ['header', 'footer']},
+  {path: 'games', caption: 'Игры', tags: ['header', 'footer']},
+  {path: '/profile', caption: 'Страница профиля', tags: ['footer']},
 ]

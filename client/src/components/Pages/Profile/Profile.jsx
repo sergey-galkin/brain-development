@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './Profile.module.css'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
 import { animated, useTransition } from '@react-spring/web';
 import Container from '../../common/Container/Container';
 import MainBackground from '../../common/MainBackground/MainBackground';
@@ -11,7 +10,6 @@ import { selectAllGamesStat } from './gamesStatSlice';
 import { getGamesData } from '../../../meta_data/games/gamesMetaData';
 
 const ProfilePage = () => {
-  // const {login} = useParams();
   const gamesData = getGamesData();
   const gamesStat = useSelector(selectAllGamesStat);
   const items = gamesStat.map((data) => ({...props}) =>

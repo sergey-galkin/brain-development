@@ -131,15 +131,6 @@ const G1 = ({ gameId }) => {
     return {
       gameOver: true,
     }
-
-    // axios.get('/api')
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err))
-    // ;
-    // axios.post('/api', {bestResult})
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err))
-    // ;
   }
 
   function scheduleNextMove() {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import CustomLink from '../CustomLink/CustomLink'
 import css from './DropDownMenu.module.css'
-import { routes } from '../../../../router/router'
+import routes from '../../../../router/router'
 import Authenticated from '../AuthMenu/Authenticated'
 import Anonymous from '../AuthMenu/Anonymous'
 import { useIdentificationQuery } from '../../../../api/apiSlice'
@@ -30,11 +30,13 @@ const DropDownMenu = React.forwardRef(({ closeMenu, hideMenu }, ref) => {
     }, 300);
   }, [])
   
+  const headerRoutes = routes.filter(r => r.tags.includes('header'));
+
   return (
     <div ref={ref} className={css.menuHolder}>
       <Container classesArr={[css.container]}>
         <ul className={css.list}>
-          {routes.map( route =>
+          {headerRoutes.map( route =>
             <li key={route.caption} onClick={closeMenu}>
               <CustomLink path={route.path}>{route.caption}</CustomLink>
             </li>
