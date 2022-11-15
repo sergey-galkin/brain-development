@@ -1,29 +1,6 @@
 import { createSlice, createEntityAdapter, current } from '@reduxjs/toolkit';
 import { getGamesData } from '../../../meta_data/games/gamesMetaData';
 
-const fakeData = [
-  {
-    bestResult: 4257,
-    gamesPlayed: 55,
-    level: 0.25,
-  },
-  {
-    bestResult: 4257,
-    gamesPlayed: 55,
-    level: 0.60,
-  },
-  {
-    bestResult: 4257,
-    gamesPlayed: 55,
-    level: 0.75,
-  },
-  {
-    bestResult: 4257,
-    gamesPlayed: 55,
-    level: 1,
-  },
-]
-
 function createInitialState() {
   const gamesData = getGamesData();
   const ids = Object.keys(gamesData);

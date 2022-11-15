@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import css from './Index.module.css'
-import axios from 'axios';
 import Modal from '../../../Modal/Modal';
 import GameResult from '../../../ModalChildren/G1/GameResult';
 import { delayedOpen } from '../../../Modal/handlers';
@@ -13,30 +12,12 @@ import MainBackground from '../../../../common/MainBackground/MainBackground';
 import GameMenu from '../GameMenu/GameMenu';
 import Score from '../Score/Score';
 import Controllers from '../Controllers/Controllers';
+import useErrors from '../../../../../hooks/G1/useErrors';
+import useScore from '../../../../../hooks/G1/useScore';
+import useResult from '../../../../../hooks/G1/useResult';
 
 const G1 = ({ gameId }) => {
-  const [modal, setModal] = useState(false);
-  const [gameData, setGameData] = useState({
-    active: false,
-    gameOver: false,
-    steps: 0,
-    score: {
-      currentMove: 0,
-      current: 0,
-      best: null,
-      previousBest: null,
-    },
-    figureIndex: undefined,
-    chosenIndex: undefined,
-    errors: {
-      current: 0,
-      max: 3,
-    },
-    session: 0, // number of current game session, needed to know when update buttons positions
-  });
-
-  // general data that do not need to be stored in state
-  const gd = useRef({
+  const timer = useRef({
     startTime: null,
     moveStartTime: null,
     waitingNextMoveTimeLimit: 1000,
@@ -44,155 +25,106 @@ const G1 = ({ gameId }) => {
     waitingNextMoveTimerId: null,
     moveTimerId: null,
   })
+  const [modal, setModal] = useState(false);
+  const [active, setActive] = useState(false);
+  const [session, setSession] = useState(0); // number of current game session, needed to know when update buttons positions
+  const [steps, setSteps] = useState(0);
+  const [figureIndex, setFigureIndex] = useState(undefined);
+  const [chosenIndex, setChosenIndex] = useState(undefined);
+  const [errors, errorsDispatch] = useErrors();
+  const [score, scoreDispatch] = useScore(timer);
+  const [result, resultDispatch] = useResult();
+  const [gameOver, setGameOver] = useState(false);
   
   // start game after background animation will finished
   const animationDuration = 1000;
   useEffect(() => {
     setTimeout(() => {
       // escaping double start
-      clearTimeout(gd.current.waitingNextMoveTimerId);
-      clearTimeout(gd.current.moveTimerId);
+      clearTimeout(timer.current.waitingNextMoveTimerId);
+      clearTimeout(timer.current.moveTimerId);
 
       startGame();
     }, animationDuration + 300);
   }, []);
   
-  // if player pushed button clear timeouts, calculate errors, check game over,
-  // calculate score, finish game or make next move
+  // if player pushed button, then clear timeouts, calculate errors, 
+  // calculate score, schedule next move
   useEffect(() => {
-    if (gameData.chosenIndex === undefined) return;
+    if (chosenIndex === undefined) return;
     
-    clearTimeout(gd.current.waitingNextMoveTimerId);
-    clearTimeout(gd.current.moveTimerId);
+    clearTimeout(timer.current.moveTimerId);
     
-    const errors = calcErrors();
-    const isGameOver = errors.current === errors.max;
-    const score = calcScore(isGameOver);
-    const interMoveState = getInterMoveState();
-    const gameOverState = isGameOver ? getGameOverState() : {};
-    setGameData((prev) => ({
-      ...prev,
-      errors: {...errors},
-      score: {...score},
-      ...interMoveState,
-      ...gameOverState,
-    }))
+    errorsDispatch({type: 'update', payload: {figureIndex, chosenIndex}});
+    scoreDispatch({type: 'update', payload: {figureIndex, chosenIndex, steps}});
+    setFigureIndex(undefined);
+    setChosenIndex(undefined);
+    scheduleNextMove();
+  }, [chosenIndex]);
 
-    if (isGameOver) setTimeout(() => delayedOpen( () => setModal(true) ), 700);
-    else scheduleNextMove();
+  // if errors limit is over, then clear timeouts and finish game
+  useEffect(() => {
+    if (errors.current !== errors.max) return;
+    
+    clearTimeout(timer.current.waitingNextMoveTimerId);
+    clearTimeout(timer.current.moveTimerId);
 
-  }, [gameData.chosenIndex]);
+    setGameOver(true);
+  }, [errors.current]);
 
-  function handleGameButtonClick(chosenIndex) {
-    setGameData((prev) => {
-      return {...prev, chosenIndex: chosenIndex}
-    })
-  }
+  // if game is over, then set result and show modal window
+  useEffect(() => {
+    if (!gameOver) return;
+    
+    resultDispatch({type: 'update', payload: score.current});
+    setTimeout(() => delayedOpen( () => setModal(true) ), 700);
+  }, [gameOver]);
+
+  const handleGameButtonClick = useCallback((chosenIndex) => {
+    setChosenIndex(chosenIndex);
+  }, [])
   
-  function calcErrors() {
-    const errorsAmount = gameData.errors.current;
-    const newErrorCount = gameData.chosenIndex !== gameData.figureIndex ? 1 : 0;
-    return {
-      ...gameData.errors,
-      current: errorsAmount + newErrorCount,
-    }
-  }
-
-  function calcScore(isGameOver) {
-    const timeDelta = Date.now() - gd.current.moveStartTime;
-    const multiplier = gameData.chosenIndex === null 
-      ? 0 : gameData.chosenIndex === gameData.figureIndex 
-        ? 1 : -1
-    ;
-    const level = Math.ceil((gameData.steps + 1) / 5);
-    const points = Math.round((gd.current.moveTimeLimit - timeDelta) * multiplier * level / 100);
-
-    const score = {
-      ...gameData.score,
-      currentMove: points,
-      current: gameData.score.current + points,
-    }
-
-    if (isGameOver) {
-      score.previousBest = score.best;
-      if (score.current > score.best || score.best === null) {
-        score.best = score.current;
-      }
-    }
-
-    return score;
-  }
-
-  function getInterMoveState() {
-    return {figureIndex: undefined, chosenIndex: undefined}
-  }
-  
-  function getGameOverState() {
-    return {
-      gameOver: true,
-    }
-  }
-
-  function scheduleNextMove() {
-    const level = Math.ceil((gameData.steps + 1) / 5);
-    const timeLimit = gd.current.waitingNextMoveTimeLimit + gd.current.moveTimeLimit - level * 100;
-    gd.current.moveTimerId = setTimeout(handleGameButtonClick, timeLimit, null);
-    gd.current.waitingNextMoveTimerId = setTimeout(() => {
+  const scheduleNextMove = useCallback(() => {
+    const level = Math.ceil((steps + 1) / 5);
+    const timeLimit = timer.current.waitingNextMoveTimeLimit + timer.current.moveTimeLimit - level * 100;
+    timer.current.moveTimerId = setTimeout(handleGameButtonClick, timeLimit, null);
+    timer.current.waitingNextMoveTimerId = setTimeout(() => {
       const newIndex = getRandomIndex();
-      setGameData((prev) => {
-        if (prev.gameOver) return {...prev}
-        return {
-          ...prev,
-          steps: prev.steps + 1,
-          figureIndex: newIndex, 
-          score: {
-            ...prev.score, 
-            currentMove: 0,
-          },
-        }
-      })
       
-      gd.current.moveStartTime = Date.now();
-    }, gd.current.waitingNextMoveTimeLimit);
+      setSteps(p => p + 1);
+      scoreDispatch({type: 'reset current move score'});
+      setFigureIndex(newIndex);
+      
+      timer.current.moveStartTime = Date.now();
+    }, timer.current.waitingNextMoveTimeLimit);
 
     function getRandomIndex() {
       const controllersAmount = 4;
       return Math.round(Math.random() * (controllersAmount - 1));
     }
-  }
+  }, [])
   
-  function startGame() {
-    gd.current.startTime = Date.now();
-    setGameData((prev) => ({
-      ...prev,
-      active: true,
-      session: 1,
-    }));
+  const startGame = useCallback(() => {
+    timer.current.startTime = Date.now();
+    setActive(true);
+    setSession(p => p + 1);
     scheduleNextMove();
-  }
+  }, [])
 
-  function startNewGame() {
+  const startNewGame = useCallback(() => {
     const modalAnimationDuration = 100;
     setTimeout(() => {
-      gd.current.startTime = Date.now();
-      setGameData((prev) => ({
-        ...prev,
-        gameOver: false,
-        score: {
-          ...prev.score,
-          currentMove: 0,
-          current: 0,
-        },
-        errors: {
-          current: 0,
-          max: 3,
-        },
-        steps: 0,
-        session: prev.session + 1,
-      }));
+      timer.current.startTime = Date.now();
+
+      setSteps(0);
+      setSession(p => p + 1);
+      errorsDispatch({type: 'reset'});
+      scoreDispatch({type: 'reset'});
+      setGameOver(false);
       scheduleNextMove();
+
     }, modalAnimationDuration);
-  }
+  }, [])
 
   const buttons = useMemo(
     () => {
@@ -204,37 +136,37 @@ const G1 = ({ gameId }) => {
       ]
       return arr.sort((a, b) => a[1] - b[1]);
     },
-    [gameData.session]
+    [session]
   );
 
   const CurrentButton = useMemo(
     () => {
-      if (gameData.figureIndex === undefined || gameData.figureIndex === null) return null;
-      else return buttons[gameData.figureIndex][0];
+      if (figureIndex === undefined || figureIndex === null) return null;
+      else return buttons[figureIndex][0];
     },
-    [gameData.figureIndex]
+    [figureIndex]
   );
 
   return (
     <MainBackground animationDuration={animationDuration} >
       <Container classesArr={[css.container]}>
-        <GameMenu steps={gameData.steps} errors={gameData.errors} />
-        <Score score={gameData.score} />
+        <GameMenu steps={steps} errors={errors} />
+        <Score score={score} />
         <div className={css.playfield}>
           {CurrentButton && <CurrentButton classesArr={[css.button]} />}
         </div>
-        {gameData.active && 
+        {active && 
           <Controllers 
             buttons={buttons} 
-            figureIndex={gameData.figureIndex} 
-            chosenIndex={gameData.chosenIndex} 
+            figureIndex={figureIndex} 
+            chosenIndex={chosenIndex} 
             handleGameButtonClick={handleGameButtonClick} 
           />
         }
       </Container>
       { modal &&
         <Modal header='Результаты' closeModal={() => setModal(false)}>
-          <GameResult result={gameData.score} startNewGame={startNewGame} />
+          <GameResult result={{...result, ...score}} startNewGame={startNewGame} />
         </Modal>
       }
     </MainBackground>

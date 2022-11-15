@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import EventHandler from "../../libs/EventHandler";
 
 export default function (initIndex, maxIndex, animation) {
@@ -14,7 +14,7 @@ export default function (initIndex, maxIndex, animation) {
     
     animation.close();
     setAllowScroll(false);
-    scrollEventsHandler.current.remove();
+    scrollEventsHandler.remove();
     
     setTimeout(() => {
       setIndex((prevIndex) => {
@@ -30,7 +30,7 @@ export default function (initIndex, maxIndex, animation) {
     
     setTimeout(() => {
       setAllowScroll(true);
-      scrollEventsHandler.current.add();
+      scrollEventsHandler.add();
     }, animation.duration * 2);
   }, [])
 
@@ -52,7 +52,7 @@ export default function (initIndex, maxIndex, animation) {
     }
   }, [])
 
-  const scrollEventsHandler = useRef(
+  const scrollEventsHandler = useMemo(() =>
     new EventHandler(
       document,
       {
@@ -60,12 +60,12 @@ export default function (initIndex, maxIndex, animation) {
         'keydown': handleScrollButtons,
       }
     )
-  )
+  , [])
 
   useEffect(() => {
-    scrollEventsHandler.current.add();
+    scrollEventsHandler.add();
     return () => {
-      scrollEventsHandler.current.remove();
+      scrollEventsHandler.remove();
     }
   }, [])
 

@@ -20,10 +20,10 @@ const Controllers = ({buttons, figureIndex, handleGameButtonClick}) => {
     if (index > -1) handleClick(index);
   }, [])
 
-  const digitsKeydownEH = useMemo( () => {
-    return new EventHandler(
+  const digitsKeydownEH = useMemo(() => 
+    new EventHandler(
       document, { 'keydown': handleDigitButtons }
-    )}
+    )
   , [])
 
   const handleClick = useCallback((i) => {
