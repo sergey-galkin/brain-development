@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback, useContext } from 'react';
 import css from './Index.module.css'
-import Modal from '../../../Modal/Modal';
-import GameResult from '../../../ModalChildren/G1/GameResult';
-import { delayedOpen } from '../../../Modal/handlers';
+import GameResult from '../../../ModalChildren/GameResult/GameResult';
 import Container from '../../../../common/Container/Container';
 import RectButton from '../../../Buttons/SVGButtons/G1/RectButton/RectButton';
 import TriangleButton from '../../../Buttons/SVGButtons/G1/TriangleButton/TriangleButton';
@@ -15,8 +13,10 @@ import Controllers from '../Controllers/Controllers';
 import useErrors from '../../../../../hooks/G1/useErrors';
 import useScore from '../../../../../hooks/G1/useScore';
 import useResult from '../../../../../hooks/G1/useResult';
+import { ModalContext } from '../../../../../context/context';
 
 const G1 = ({ gameId }) => {
+  const { update: updateModal } = useContext(ModalContext);
   const timer = useRef({
     startTime: null,
     moveStartTime: null,
@@ -25,7 +25,6 @@ const G1 = ({ gameId }) => {
     waitingNextMoveTimerId: null,
     moveTimerId: null,
   })
-  const [modal, setModal] = useState(false);
   const [active, setActive] = useState(false);
   const [session, setSession] = useState(0); // number of current game session, needed to know when update buttons positions
   const [steps, setSteps] = useState(0);
@@ -72,13 +71,22 @@ const G1 = ({ gameId }) => {
     setGameOver(true);
   }, [errors.current]);
 
-  // if game is over, then set result and show modal window
+  // if game is over, then set result
+  useEffect(() => {
+    if (!gameOver) return;
+    resultDispatch({type: 'update', payload: score.current});
+  }, [gameOver]);
+  
+  // if game is over and result updated, then show modal
   useEffect(() => {
     if (!gameOver) return;
     
-    resultDispatch({type: 'update', payload: score.current});
-    setTimeout(() => delayedOpen( () => setModal(true) ), 700);
-  }, [gameOver]);
+    updateModal({
+      visible: true,
+      header: 'Результаты',
+      children: <GameResult result={{...result, ...score}} startNewGame={startNewGame} />,
+    })
+  }, [result]);
 
   const handleGameButtonClick = useCallback((chosenIndex) => {
     setChosenIndex(chosenIndex);
@@ -164,11 +172,6 @@ const G1 = ({ gameId }) => {
           />
         }
       </Container>
-      { modal &&
-        <Modal header='Результаты' closeModal={() => setModal(false)}>
-          <GameResult result={{...result, ...score}} startNewGame={startNewGame} />
-        </Modal>
-      }
     </MainBackground>
   );
 }

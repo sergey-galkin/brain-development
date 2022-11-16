@@ -41,7 +41,7 @@ export default function (initIndex, maxIndex, animation) {
 
   const handleScrollButtons = useCallback((e) => {
     const delta = getDelta(e);
-    scroll(delta);
+    if (delta) scroll(delta);
     
     function getDelta(event) {
       if (['ArrowDown', 'PageDown'].indexOf(event.code) > -1) return 1;

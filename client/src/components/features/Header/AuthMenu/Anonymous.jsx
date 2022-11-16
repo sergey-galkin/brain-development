@@ -1,37 +1,32 @@
-import React, { useState } from 'react';
-import LoginWindow from '../../ModalChildren/LoginWindow/LoginWindow';
-import RegistrationWindow from '../../ModalChildren/RegistrationWindow/RegistrationWindow';
-import Modal from '../../Modal/Modal';
-import { delayedOpen } from '../../Modal/handlers';
+import React, { useContext } from 'react';
+import LoginWindow from '../../ModalChildren/LoginWindow/Index/Index';
+import RegistrationWindow from '../../ModalChildren/RegistrationWindow/Index/Index';
 import { useMediaQuery } from 'react-responsive';
 import NavButton from '../../Buttons/CSSButtons/NavButton/NavButton';
+import { ModalContext } from '../../../../context/context';
 
 const Anonymous = () => {
-  const [dialogIndex, setDialogIndex] = useState(0);
   const isDesktop = useMediaQuery({minWidth: 768});
+  const { update } = useContext(ModalContext);
 
   const dialogs = [
-    null,
-    <Modal header={'Вход'} closeModal={() => setDialogIndex(0)}>
-      <LoginWindow/>
-    </Modal>,
-    <Modal header={'Регистрация'} closeModal={() => setDialogIndex(0)}>
-      <RegistrationWindow/>
-    </Modal>,
+    {
+      visible: true,
+      header: 'Вход',
+      children: <LoginWindow/>,
+    },
+    {
+      visible: true,
+      header: 'Регистрация',
+      children: <RegistrationWindow/>,
+    },
   ];
   
-  function showModal(index) {
-    delayedOpen( () => setDialogIndex(index))
-  }
-
   return (
     <>
-      <NavButton handleClick={() => showModal(1)}>Войти</NavButton>
-      {
-        isDesktop && <div style={{'padding': '10px 0'}}>|</div>
-      }
-      <NavButton handleClick={() => showModal(2)}>Регистрация</NavButton>
-      { dialogs[dialogIndex] }
+      <NavButton handleClick={() => update(dialogs[0])}>Войти</NavButton>
+      { isDesktop && <div style={{'padding': '10px 0'}}>|</div> }
+      <NavButton handleClick={() => update(dialogs[1])}>Регистрация</NavButton>
     </>
   );
 }

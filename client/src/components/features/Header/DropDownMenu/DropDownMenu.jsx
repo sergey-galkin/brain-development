@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import CustomLink from '../CustomLink/CustomLink'
 import css from './DropDownMenu.module.css'
 import routes from '../../../../router/router'
@@ -7,9 +7,9 @@ import Anonymous from '../AuthMenu/Anonymous'
 import { useIdentificationQuery } from '../../../../api/apiSlice'
 import Container from '../../../common/Container/Container'
 
-const DropDownMenu = React.forwardRef(({ closeMenu, hideMenu }, ref) => {
+const DropDownMenu = forwardRef(({ closeMenu, animate }, ref) => {
   const { data: user, isLoading } = useIdentificationQuery();
-
+  
   const UserMenu = user
     ? <Authenticated login={user.login} closeMenu={closeMenu} />
     : isLoading
@@ -20,14 +20,7 @@ const DropDownMenu = React.forwardRef(({ closeMenu, hideMenu }, ref) => {
   const separator = <div className={css.separator} />
   
   useEffect(() => {
-    hideMenu(ref);
-    setTimeout(() => {
-      ref.current.style.top = '60px';
-    }, 0);
-    setTimeout(() => {
-      // if menu is still opened then put it on top layer
-      if (ref.current.style.top === '60px') ref.current.style.zIndex = 1;
-    }, 300);
+    animate();
   }, [])
   
   const headerRoutes = routes.filter(r => r.tags.includes('header'));

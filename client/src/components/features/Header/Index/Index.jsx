@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import css from './Header.module.css';
+import css from './Index.module.css';
 import Logo from '../Logo/Logo';
 import Container from '../../../common/Container/Container';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
@@ -8,7 +8,7 @@ import MenuIcon from '../MenuIcon/MenuIcon';
 const Header = () => {
   const menuRef = useRef();
   const [isMenuOpened, setIsMenuOpened] = useState(false)
-
+  
   function handleMenu() {
     // if menu closed then just open it,
     // animation handles by DropDownMenu component internally in useEffect hook
@@ -17,17 +17,28 @@ const Header = () => {
       return;
     }
     // if menu opened then hide it and after that unmount
-    hideMenu(menuRef);
+    hideMenu();
     setTimeout(() => {
       setIsMenuOpened(false)
     }, 300);
   }
 
-  function hideMenu(menuRef) {
+  function hideMenu() {
     const menuHeight = menuRef.current.getBoundingClientRect().height;
     const headerHeight = 60;
     menuRef.current.style.top = headerHeight - menuHeight + 'px';
     menuRef.current.style.zIndex = -1;
+  }
+
+  function animateMenuApearance() {
+    hideMenu();
+    setTimeout(() => {
+      menuRef.current.style.top = '60px';
+    }, 0);
+    setTimeout(() => {
+      // if menu is still opened then put it on top layer
+      if (menuRef.current.style.top === '60px') menuRef.current.style.zIndex = 1;
+    }, 300);
   }
 
   return (
@@ -37,7 +48,7 @@ const Header = () => {
           <Logo handleClick={isMenuOpened ? handleMenu : null} />
           <MenuIcon isMenuOpened={isMenuOpened} handleClick={handleMenu} />
           {isMenuOpened &&
-            <DropDownMenu ref={menuRef} closeMenu={handleMenu} hideMenu={hideMenu} />
+            <DropDownMenu ref={menuRef} closeMenu={handleMenu} animate={animateMenuApearance} />
           }
         </nav>
       </Container>

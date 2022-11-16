@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import css from './Index.module.css';
 import Card from '../Card/Card';
 import GameMenu from '../GameMenu/GameMenu';
-import Modal from '../../../Modal/Modal';
-import GameModal from '../../../ModalChildren/G1/GameResult';
-import { delayedOpen } from '../../../Modal/handlers';
 import Container from '../../../../common/Container/Container';
 import MainBackground from '../../../../common/MainBackground/MainBackground';
 import useResult from '../../../../../hooks/G2/useResult';
 import useCards from '../../../../../hooks/G2/useCards';
 import useTime from '../../../../../hooks/G2/useTime';
+import { ModalContext } from '../../../../../context/context';
+import GameResult from '../../../ModalChildren/GameResult/GameResult';
 
 const G2 = ({ gameId, difficulty }) => {
-  const [modal, setModal] = useState(false);
+  const { update: updateModal } = useContext(ModalContext);
   const [playfield, setPlayfield] = useState(false);
   const [cards, cardsDispatch] = useCards(difficulty);
   const [result, resultDispatch] = useResult();
@@ -78,9 +77,19 @@ const G2 = ({ gameId, difficulty }) => {
     setTimeout(() => {
       const timeDelta = finishTime - startTime;
       resultDispatch({type: 'update', payload: {timeDelta, difficulty, moves}});
-      delayedOpen( () => setModal(true) );
     }, 1000);
   }, [gameOver])
+
+  // if game is over and result updated, then show modal
+  useEffect(() => {
+    if (!gameOver) return;
+    
+    updateModal({
+      visible: true,
+      header: 'Результаты',
+      children: <GameResult result={result[difficulty - 1]} startNewGame={startGame} />,
+    })
+  }, [result]);
 
   return (
     <MainBackground animationDuration={1000}>
@@ -99,14 +108,6 @@ const G2 = ({ gameId, difficulty }) => {
             </div>
           </div>
         </Container>
-      }
-      {modal &&
-        <Modal header='Результаты' closeModal={() => setModal(false)}>
-          <GameModal
-            result={result[difficulty - 1]}
-            startNewGame={startGame}
-          />
-        </Modal>
       }
     </MainBackground>
   );

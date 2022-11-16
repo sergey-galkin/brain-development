@@ -1,50 +1,43 @@
-import React, { useState } from 'react';
-import Field from './Field/Field';
-import css from './LoginWindow.module.css';
-import RequestStageInterface from '../RequestStageInterface/RequestStageInterface';
-import additionalStages from "./requestStages";
-import { useAuthenticationMutation } from '../../../../api/apiSlice';
-import ModalWindowButton from '../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
+import React, { useMemo, useState } from 'react';
+import Field from '../Field/Field';
+import css from './Index.module.css';
+import RequestStageInterface from '../../RequestStageInterface/RequestStageInterface';
+import additionalStages from "../requestStages";
+import { useAuthenticationMutation } from '../../../../../api/apiSlice';
+import ModalWindowButton from '../../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
+import { useCallback } from 'react';
 
+const LoginWindow = ({ closeModal }) => {
+  const fields = useMemo(() => [
+    {
+      id: 'login',
+      type: 'text',
+      placeholder: 'Логин',
+    },
+    {
+      id: 'password',
+      type: 'password',
+      placeholder: 'Пароль',
+    },
+  ], []);
+  
+  const setFormFieldInitialState = useCallback((value) => {
+    const state = {};
+    fields.forEach((f) => state[f.id] = value);
+    return state;
+  }, []);
 
-const fields = [
-  {
-    id: 'login',
-    type: 'text',
-    placeholder: 'Логин',
-  },
-  {
-    id: 'password',
-    type: 'password',
-    placeholder: 'Пароль',
-  },
-];
-
-const setFormFieldInitialState = (value) => {
-  const state = {};
-  fields.forEach((f) => state[f.id] = value);
-  return state;
-}
-
-const LoginWindow = ({closeModal}) => {
   const [authData, setAuthData] = useState(setFormFieldInitialState(''));
   const [requestStage, setRequestStage] = useState({index: 0, data: ''});
   const [authentication, {}] = useAuthenticationMutation();
 
-  function handleFormFieldChange(e) {
-    setAuthData({
-      ...authData,
-      [e.target.id]: e.target.value,
-    });
-  }
+  const handleFormFieldChange = useCallback((e) => {
+    setAuthData(p => ({...p, [e.target.id]: e.target.value}));
+  }, [])
 
-  function handleFormSubmit(e) {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     
-    // const authData = {
-    //   login: 'Johny',
-    //   password: 'aaaaA1!',
-    // };
     setRequestStage({index: 1, data: ''});
     authentication(authData).unwrap()
       .then(res => {

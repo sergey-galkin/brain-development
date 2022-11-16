@@ -2,24 +2,24 @@ import React from 'react';
 import ModalWindowButton from '../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
 import css from './GameResult.module.css';
 
-const GameModal = ({result, startGame, closeModal}) => {
+const GameResult = ({result, startNewGame, closeModal}) => {
   return (
     <div>
       <table className={css['result-container']}>
         <tbody>
           <tr>
             <td>Текущий:</td>
-            <Time value={result.current} />
+            <Points value={result.current} />
             {
-              result.current > result.previousBest && result.previousBest &&
-              <Deviation value={result.current - result.previousBest} />
+              result.current < result.previousBest && result.previousBest !== null &&
+              <Deviation value={(result.current - result.best)} />
             }
           </tr>
           <tr>
             <td>Лучший:</td>
-            <Time value={result.best} />
+            <Points value={result.best} />
             {
-              result.best < result.previousBest &&
+              result.best > result.previousBest && result.previousBest !== null &&
               <Deviation value={(result.best - result.previousBest)} />
             }
           </tr>
@@ -29,7 +29,7 @@ const GameModal = ({result, startGame, closeModal}) => {
         type='button'
         autoFocus={true}
         classesArr={[css.button]}
-        onClick={() => {closeModal(); startGame()}}
+        onClick={() => {closeModal(); startNewGame()}}
       >
         Новая игра
       </ModalWindowButton>
@@ -37,38 +37,31 @@ const GameModal = ({result, startGame, closeModal}) => {
   );
 }
 
-const Time = ({value}) => {
+const Points = ({value}) => {
   return (
     <td className={css['result-value']}>
-      {getTime(value)}
+      {value.toLocaleString()}
     </td>
   )
 }
 
 const Deviation = ({value}) => {
   const classes = [];
-  const sign = value > 0 ? '+' : '-';
   if (value < 0) {
     classes.push([css.minus]);
-    value *= -1;
+    value = value.toLocaleString();
   }
-  if (value > 0) classes.push([css.plus]);
+  if (value > 0) {
+    classes.push([css.plus]);
+    value = '+' + value.toLocaleString()
+  }
 
   return (
     <td className={classes.join(' ')}>
-      {sign + getTime(value)}
+      {value}
     </td>
   )
 }
 
-function getTime(time) {
-  time = time / 1000;
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
-  const shares = Math.round(time * 100 % 100);
-  const prefixSeconds = seconds < 10 ? '0' : '';
-  const prefixShares = shares < 10 ? '0' : '';
-  return minutes + ':' + prefixSeconds + seconds + '.' + prefixShares + shares;
-}
 
-export default GameModal;
+export default GameResult;

@@ -1,40 +1,42 @@
-import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useContext, useEffect, useMemo } from 'react';
 import css from './Modal.module.css';
-import { close, open } from './modalSlice';
 import { useSpring, animated } from '@react-spring/web'
 import EventHandler from '../../../libs/EventHandler';
+import { ModalContext } from '../../../context/context';
 
-const Modal = ({header, closeModal, children }) => {
-  const dispatch = useDispatch();
+const Modal = () => {
+  const { header, children, update } = useContext(ModalContext);
+  const animationDudation = 100;
   const [styles, api] = useSpring(() => ({
     from: { opacity: 0 },
     config: {
-      duration: 100,
+      duration: animationDudation,
     }
   }))
 
   useEffect(() => {
-    dispatch( open() );
     api.start({ opacity: 1 });
-    escapeKeydownEH.current.add();
+    escapeKeydownEH.add();
 
-    return () => escapeKeydownEH.current.remove();
+    return () => escapeKeydownEH.remove();
   }, [])
 
   const closeModalHandler = () => {
     api.start({ opacity: 0 })
     setTimeout( () => {
-      closeModal();
-      dispatch( close() );
-    }, 100);
+      update({
+        visible: false,
+        header: null,
+        children: null,
+      });
+    }, animationDudation);
   };
 
-  const escapeKeydownEH = useRef(
+  const escapeKeydownEH = useMemo(() =>
     new EventHandler(
       document, { 'keydown': handleEscapeButton }
     )
-  )
+  , [])
 
   function handleEscapeButton(e) {
     e = e || window.event;

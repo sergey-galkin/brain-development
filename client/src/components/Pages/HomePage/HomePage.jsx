@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer'
 import { useSpring, animated } from '@react-spring/web'
 import css from './HomePage.module.css'
@@ -8,7 +8,6 @@ import useScroll from '../../../hooks/HomePage/useScroll';
 import StartDevelopmentButton from '../../features/Buttons/CSSButtons/StartDevelopmentButton/StartDevelopmentButton';
 import PageNavigationGroup from '../../features/PageNavigationGroup/PageNavigationGroup';
 import MainBackground from '../../common/MainBackground/MainBackground';
-
 
 const HomePage = () => {
   const [topRef, topInView] = useInView({ threshold: 0 })
@@ -24,11 +23,11 @@ const HomePage = () => {
     }
   }))
 
-  const animation = useMemo(() => ({
+  const animation = {
     close: () => api.start({ opacity: 0 }),
     open: () => api.start({ opacity: 1 }),
     duration: animationDuration,
-  }), [])
+  }
 
   const maxIndex = sectionsData.length
   const [index, allowScroll, scroll] = useScroll(0, maxIndex, animation);

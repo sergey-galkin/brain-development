@@ -1,62 +1,49 @@
-import React, { useState } from 'react';
-import { createUser } from '../../../../api/dbRequest';
-import { regValidation } from '../../../../libs/validation';
-import Field from './Field/Field';
-import css from './RegistrationWindow.module.css';
-import RequestStageInterface from '../RequestStageInterface/RequestStageInterface';
-import additionalStages from "./requestStages";
-import ModalWindowButton from '../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
-
-
-const fields = [
-  {
-    id: 'login',
-    type: 'text',
-    placeholder: 'Логин',
-  },
-  {
-    id: 'email',
-    type: 'text',
-    placeholder: 'E-mail',
-  },
-  {
-    id: 'password',
-    type: 'password',
-    placeholder: 'Пароль',
-  },
-  {
-    id: 'repeatedPassword',
-    type: 'password',
-    placeholder: 'Повторите пароль',
-  },
-];
-
-const setFormFieldInitialState = (value) => {
-  const state = {};
-  fields.forEach((f) => state[f.id] = value);
-  return state;
-}
-
-const isRegDataCorrect = (warnings) => {
-  for (const field in warnings) {
-    if (Object.hasOwnProperty.call(warnings, field)) {
-      if (warnings[field]) return false;
-    }
-  }
-  return true;
-}
+import React, { useCallback, useMemo, useState } from 'react';
+import css from './Index.module.css';
+import { createUser } from '../../../../../api/dbRequest';
+import { regValidation } from '../../../../../libs/validation';
+import Field from '../Field/Field';
+import RequestStageInterface from '../../RequestStageInterface/RequestStageInterface';
+import additionalStages from "../requestStages";
+import ModalWindowButton from '../../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
 
 const RegistrationWindow = ({closeModal}) => {
+  const fields = useMemo(() => [
+    {
+      id: 'login',
+      type: 'text',
+      placeholder: 'Логин',
+    },
+    {
+      id: 'email',
+      type: 'text',
+      placeholder: 'E-mail',
+    },
+    {
+      id: 'password',
+      type: 'password',
+      placeholder: 'Пароль',
+    },
+    {
+      id: 'repeatedPassword',
+      type: 'password',
+      placeholder: 'Повторите пароль',
+    },
+  ], []);
+  
+  const setFormFieldInitialState = useCallback((value) => {
+    const state = {};
+    fields.forEach((f) => state[f.id] = value);
+    return state;
+  }, [])
+  
   const [regData, setRegData] = useState(setFormFieldInitialState(''));
   const [warnings, setWarnings] = useState(setFormFieldInitialState(''));
   const [requestStage, setRequestStage] = useState({index: 0, data: ''});
 
-  function handleFormFieldChange(e) {
-    setRegData({
-      ...regData,
-      [e.target.id]: e.target.value,
-    });
-  }
+  const handleFormFieldChange = useCallback((e) => {
+    setRegData(p => ({...p, [e.target.id]: e.target.value}));
+  }, [])
 
   function handleFormFieldBlur(e) {
     setWarnings({
@@ -65,7 +52,8 @@ const RegistrationWindow = ({closeModal}) => {
     });
   }
 
-  function handleFormSubmit(e) {
+  
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
     const newW = regValidation.checkAll(regData);
@@ -91,6 +79,15 @@ const RegistrationWindow = ({closeModal}) => {
       ;
     } else {
       setWarnings(newW);
+    }
+
+    function isRegDataCorrect(warnings) {
+      for (const field in warnings) {
+        if (Object.hasOwnProperty.call(warnings, field)) {
+          if (warnings[field]) return false;
+        }
+      }
+      return true;
     }
   }
 

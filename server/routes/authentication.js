@@ -4,7 +4,7 @@ const crypto = require('node:crypto');
 
 module.exports = async (req, res, next) => {
   const loginData = req.body;
-
+  
   const user = await User.findUnique({
     where: {login: loginData.login},
     select: {login: true, password: true, salt: true},
