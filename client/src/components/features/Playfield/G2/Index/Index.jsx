@@ -4,9 +4,10 @@ import Card from '../Card/Card';
 import GameMenu from '../GameMenu/GameMenu';
 import Container from '../../../../common/Container/Container';
 import MainBackground from '../../../../common/MainBackground/MainBackground';
-import useResult from '../../../../../hooks/G2/useResult';
-import useCards from '../../../../../hooks/G2/useCards';
-import useTime from '../../../../../hooks/G2/useTime';
+import useResult from '../../../../../hooks/games/useResult';
+import useCards from '../../../../../hooks/games/G2/useCards';
+import useScore from '../../../../../hooks/games/G2/useScore';
+import useTime from '../../../../../hooks/games/G2/useTime';
 import { ModalContext } from '../../../../../context/context';
 import GameResult from '../../../ModalChildren/GameResult/GameResult';
 
@@ -14,7 +15,8 @@ const G2 = ({ gameId, difficulty }) => {
   const { update: updateModal } = useContext(ModalContext);
   const [playfield, setPlayfield] = useState(false);
   const [cards, cardsDispatch] = useCards(difficulty);
-  const [result, resultDispatch] = useResult();
+  const [score, scoreDispatch] = useScore(0);
+  const [result, resultUpdate] = useResult(gameId);
   const [time, startTime, finishTime, timeDispatch] = useTime();
   const [moves, setMoves] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -26,7 +28,7 @@ const G2 = ({ gameId, difficulty }) => {
       timeDispatch({type: 'reset'});
       setMoves(0);
       cardsDispatch({type: 'reset', payload: difficulty});
-      resultDispatch({type: 'reset', payload: difficulty});
+      scoreDispatch({type: 'reset'});
     }, modalAnimationDuration)
   }, []);
 
@@ -65,31 +67,38 @@ const G2 = ({ gameId, difficulty }) => {
     defineMatchedCards(cards);
   }, [cards])
 
+  // if all cards pairs founded, then stop timer and define finish time
   useEffect(() => {
     const isAnyNotMatchedCards = cards.filter(c => !c.matched).length > 0;
     if (!cards.length || isAnyNotMatchedCards) return;
-    setGameOver(true);
     timeDispatch({type: 'stop'});
   }, [moves])
-
+  
+  // if finish time defined, then calculate score
   useEffect(() => {
-    if (!gameOver) return;
+    if (!finishTime) return;
     setTimeout(() => {
       const timeDelta = finishTime - startTime;
-      resultDispatch({type: 'update', payload: {timeDelta, difficulty, moves}});
+      scoreDispatch({type: 'update', payload: {timeDelta, difficulty, moves}});
     }, 1000);
-  }, [gameOver])
+  }, [finishTime])
+  
+  // if score calculated, then update result and finish game
+  useEffect(() => {
+    if (!score) return;
+    resultUpdate(score);
+    setGameOver(true);
+  }, [score])
 
-  // if game is over and result updated, then show modal
+  // if game is over, then show modal
   useEffect(() => {
     if (!gameOver) return;
-    
     updateModal({
       visible: true,
       header: 'Результаты',
-      children: <GameResult result={result[difficulty - 1]} startNewGame={startGame} />,
+      children: <GameResult result={{...result, current: score}} startNewGame={startGame} />,
     })
-  }, [result]);
+  }, [gameOver]);
 
   return (
     <MainBackground animationDuration={1000}>

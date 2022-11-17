@@ -12,7 +12,7 @@ import MainBackground from '../../../common/MainBackground/MainBackground';
 
 const CheckingWrapper = () => {
   const { gameURL } = useParams();
-  const gameData = getGameData(gameURL);
+  const gameData = getGameData({url: gameURL});
   if (!gameData) return <NotFound />
 
   return (

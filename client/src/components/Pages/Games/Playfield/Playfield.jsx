@@ -7,7 +7,7 @@ import * as Games from '../../../features/Playfield/collector';
 const Playfield = () => {
   const {gameURL} = useParams();
 
-  const gameData = getGameData(gameURL);
+  const gameData = getGameData({url: gameURL});
   if (!gameData) return <NotFound/>
   
   const CurrentGame = Games[gameData.id];

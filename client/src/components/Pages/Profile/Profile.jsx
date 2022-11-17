@@ -12,8 +12,8 @@ import { getGamesData } from '../../../meta_data/games/gamesMetaData';
 const ProfilePage = () => {
   const gamesData = getGamesData();
   const gamesStat = useSelector(selectAllGamesStat);
-  const items = gamesStat.map((data) => ({...props}) =>
-    <Slab data={data} difficulty={gamesData[data.id].difficulty} {...props} />
+  const items = gamesStat.map((data, i) => ({...props}) =>
+    <Slab data={{...data, level: 0.25 * (i + 1)}} difficulty={gamesData[data.id].difficulty} {...props} />
   );
   
   const aProps = {

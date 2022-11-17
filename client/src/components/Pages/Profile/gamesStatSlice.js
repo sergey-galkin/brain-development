@@ -4,23 +4,25 @@ import { getGamesData } from '../../../meta_data/games/gamesMetaData';
 function createInitialState() {
   const gamesData = getGamesData();
   const ids = Object.keys(gamesData);
-  const state = {
-    ids: ids,
-    entities: {},
-  };
-  ids.forEach(id => {
-    state.entities[id] = {
-      id: id,
-      bestResult: null, 
-      gamesPlayed: 0, 
-      level: 0
-    }
-  })
+  const state = ids.reduce((res, id) => 
+    {
+      res.entities[id] = {
+        id: id,
+        bestResult: null, 
+        gamesPlayed: 0, 
+        level: 0 
+      }
+      return res;
+    },
+    {ids: ids, entities: {}}
+  );
   
   return state;
 }
 
-const gamesStatAdapter = createEntityAdapter();
+const gamesStatAdapter = createEntityAdapter({
+  sortComparer: (a, b) => a.id.localeCompare(b.id)
+});
 
 export const gamesStatSlice = createSlice({
   name: 'gamesStat',
@@ -40,7 +42,7 @@ export const gamesStatSlice = createSlice({
         bestResult: bestResult,
         gamesPlayed: stat.gamesPlayed + 1,
       }
-      // console.log(newStat);
+      
       gamesStatAdapter.upsertOne(state, newStat);
     },
     setGamesStat: gamesStatAdapter.setAll,

@@ -1,9 +1,15 @@
-import { useCallback, useMemo, useReducer, useRef } from "react";
+import { useCallback, useReducer, useRef, useState } from "react";
 
 export default function() {
   const timer = useRef({});
+  const [count, setCount] = useState(0);
 
   const getTime = useCallback(() => {
+    // setCount forces rerender even if time value wasn't changed.
+    // this behavior important when, by the time stopTimer function invoked,
+    // getTime function returns the same value as at previous invoke
+    setCount(c => c + 1);
+
     const time = (Date.now() - timer.current.startTime) / 1000;
     const minutes = Math.floor(time / 60);
     const seconds = Math.round(time % 60);
@@ -11,16 +17,15 @@ export default function() {
     return minutes + ':' + prefix + seconds;
   }, []);
   
-  const initialTime = useMemo(() => '0:00', []);
-
   const launchTimer = useCallback(() => {
     clearInterval(timer.current.id);
+    timer.current.finishTime = null;
     timer.current.startTime = Date.now();
     timer.current.id = setInterval(() => 
       dispatch({type: 'increment'})
     , 1000);
     
-    return initialTime;
+    return '0:00';
   }, []);
 
   const stopTimer = useCallback(() => {
@@ -42,7 +47,7 @@ export default function() {
     }
   }, [])
 
-  const [time, dispatch] = useReducer(reducer, initialTime);
+  const [time, dispatch] = useReducer(reducer, '0:00');
 
   return [time, timer.current.startTime, timer.current.finishTime, dispatch];
 }

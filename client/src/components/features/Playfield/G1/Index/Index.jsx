@@ -10,9 +10,9 @@ import MainBackground from '../../../../common/MainBackground/MainBackground';
 import GameMenu from '../GameMenu/GameMenu';
 import Score from '../Score/Score';
 import Controllers from '../Controllers/Controllers';
-import useErrors from '../../../../../hooks/G1/useErrors';
-import useScore from '../../../../../hooks/G1/useScore';
-import useResult from '../../../../../hooks/G1/useResult';
+import useErrors from '../../../../../hooks/games/G1/useErrors';
+import useScore from '../../../../../hooks/games/G1/useScore';
+import useResult from '../../../../../hooks/games/useResult';
 import { ModalContext } from '../../../../../context/context';
 
 const G1 = ({ gameId }) => {
@@ -32,7 +32,7 @@ const G1 = ({ gameId }) => {
   const [chosenIndex, setChosenIndex] = useState(undefined);
   const [errors, errorsDispatch] = useErrors();
   const [score, scoreDispatch] = useScore(timer);
-  const [result, resultDispatch] = useResult();
+  const [result, resultUpdate] = useResult(gameId);
   const [gameOver, setGameOver] = useState(false);
   
   // start game after background animation will finished
@@ -61,23 +61,18 @@ const G1 = ({ gameId }) => {
     scheduleNextMove();
   }, [chosenIndex]);
 
-  // if errors limit is over, then clear timeouts and finish game
+  // if errors limit is over, then clear timeouts, set result and finish game
   useEffect(() => {
     if (errors.current !== errors.max) return;
     
     clearTimeout(timer.current.waitingNextMoveTimerId);
     clearTimeout(timer.current.moveTimerId);
-
+    
+    resultUpdate(score.current);
     setGameOver(true);
   }, [errors.current]);
 
-  // if game is over, then set result
-  useEffect(() => {
-    if (!gameOver) return;
-    resultDispatch({type: 'update', payload: score.current});
-  }, [gameOver]);
-  
-  // if game is over and result updated, then show modal
+  // if game is over, then show modal
   useEffect(() => {
     if (!gameOver) return;
     
@@ -86,7 +81,7 @@ const G1 = ({ gameId }) => {
       header: 'Результаты',
       children: <GameResult result={{...result, ...score}} startNewGame={startNewGame} />,
     })
-  }, [result]);
+  }, [gameOver]);
 
   const handleGameButtonClick = useCallback((chosenIndex) => {
     setChosenIndex(chosenIndex);
