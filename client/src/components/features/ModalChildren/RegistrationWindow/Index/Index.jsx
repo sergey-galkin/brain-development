@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import css from './Index.module.css';
-import { createUser } from '../../../../../api/dbRequest';
 import { regValidation } from '../../../../../libs/validation';
 import Field from '../Field/Field';
 import RequestStageInterface from '../../RequestStageInterface/RequestStageInterface';
 import additionalStages from "../requestStages";
 import ModalWindowButton from '../../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
+import { createUser } from '../../../../../api/fakeServer/fakeServer';
 
 const RegistrationWindow = ({closeModal}) => {
   const fields = useMemo(() => [
@@ -57,19 +57,13 @@ const RegistrationWindow = ({closeModal}) => {
     e.preventDefault();
 
     const newW = regValidation.checkAll(regData);
-    // const regData = {
-    //   login: 'Johny',
-    //   email: 'JohnyConor@gmail.com',
-    //   password: 'aaaaA1!',
-    // };
     if (isRegDataCorrect(newW)) {
-    // if (true) {
       setRequestStage(1);
       createUser(regData)
         .then(res => {
-          if (res.data.status) setRequestStage({index: 3, data: ''});
+          if (res.status) setRequestStage({index: 3, data: ''});
           else {
-            const field = res.data.notUnique;
+            const field = res.notUnique;
             const value = regData[field];
             if (field === 'login') setRequestStage({index: 4, data: value})
             if (field === 'email') setRequestStage({index: 5, data: value})

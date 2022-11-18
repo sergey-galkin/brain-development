@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Draft version of "Brain Development" Project (client side only)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Capabilities
 
-## Available Scripts
+In this version of project you can:
 
-In the project directory, you can run:
+### `create users`
 
-### `npm start`
+To create a new user click **registration button** in dropdown menu.\
+You can create multiple users, but keep in mind - each user must have unique **login** and **email** properties.\
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `login`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To login as a registered user click **login button** in dropdown menu and enter the credentials.\
+Of course the user whose credentials you are attempting to use must be created before.
 
-### `npm test`
+### `play games`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Four games are available now.\
+Visit [http://localhost:3000/games](http://localhost:3000/games) to see games navigation page.\
+Or follow to each game personal page with additional information about it:
+- [http://localhost:3000/games/1](http://localhost:3000/games/1)
+- [http://localhost:3000/games/2](http://localhost:3000/games/2)
+- [http://localhost:3000/games/3](http://localhost:3000/games/3)
+- [http://localhost:3000/games/4](http://localhost:3000/games/4)
 
-### `npm run build`
+### `learn games statistics`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Statistics is available only if you are playing as registered player.**\
+To see your achievements follow to [http://localhost:3000/profile/login](http://localhost:3000/profile/login)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Worth to mention
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Users, authentication data and achievements are preserved in global state handled by redux, so if you decide to reload the page all data will be reseted.
 
-### `npm run eject`
+## Technology stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React
+- Redux, Redux Toolkit
+- React Spring (for animations)
+- Other react libraries

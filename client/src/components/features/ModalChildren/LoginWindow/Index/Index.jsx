@@ -3,9 +3,9 @@ import Field from '../Field/Field';
 import css from './Index.module.css';
 import RequestStageInterface from '../../RequestStageInterface/RequestStageInterface';
 import additionalStages from "../requestStages";
-import { useAuthenticationMutation } from '../../../../../api/apiSlice';
 import ModalWindowButton from '../../../Buttons/CSSButtons/ModalWindowButton/ModalWindowButton';
 import { useCallback } from 'react';
+import { authentication } from '../../../../../api/fakeServer/fakeServer';
 
 const LoginWindow = ({ closeModal }) => {
   const fields = useMemo(() => [
@@ -29,7 +29,6 @@ const LoginWindow = ({ closeModal }) => {
 
   const [authData, setAuthData] = useState(setFormFieldInitialState(''));
   const [requestStage, setRequestStage] = useState({index: 0, data: ''});
-  const [authentication, {}] = useAuthenticationMutation();
 
   const handleFormFieldChange = useCallback((e) => {
     setAuthData(p => ({...p, [e.target.id]: e.target.value}));
@@ -39,9 +38,9 @@ const LoginWindow = ({ closeModal }) => {
     e.preventDefault();
     
     setRequestStage({index: 1, data: ''});
-    authentication(authData).unwrap()
+    authentication(authData)
       .then(res => {
-        if (res) closeModal();
+        if (res.status) closeModal();
         else setRequestStage({index: 4, data: ''});
       })
       .catch(err => setRequestStage({index: 2, data: ''}))

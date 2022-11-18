@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
+import usersSlice from '../api/fakeServer/usersSlice';
+import authSlice from '../components/features/Header/DropDownMenu/authSlice';
 import gamesStatSlice from '../components/Pages/Profile/gamesStatSlice';
 
 export default configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    users: usersSlice,
     gamesStat: gamesStatSlice,
+    auth: authSlice,
   },
-  middleware: getDefaultMiddleWare => 
-    getDefaultMiddleWare().concat(apiSlice.middleware)
 });

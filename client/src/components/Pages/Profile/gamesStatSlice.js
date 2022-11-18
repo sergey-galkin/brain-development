@@ -1,5 +1,6 @@
 import { createSlice, createEntityAdapter, current } from '@reduxjs/toolkit';
 import { getGamesData } from '../../../meta_data/games/gamesMetaData';
+import { logout } from '../../features/Header/DropDownMenu/authSlice';
 
 function createInitialState() {
   const gamesData = getGamesData();
@@ -46,6 +47,12 @@ export const gamesStatSlice = createSlice({
       gamesStatAdapter.upsertOne(state, newStat);
     },
     setGamesStat: gamesStatAdapter.setAll,
+  },
+  extraReducers: builder => { builder
+    .addCase(logout, (state) => {
+      gamesStatAdapter.setAll(state, createInitialState().entities)
+    })
+
   }
 })
 

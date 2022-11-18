@@ -4,16 +4,15 @@ import css from './DropDownMenu.module.css'
 import routes from '../../../../router/router'
 import Authenticated from '../AuthMenu/Authenticated'
 import Anonymous from '../AuthMenu/Anonymous'
-import { useIdentificationQuery } from '../../../../api/apiSlice'
 import Container from '../../../common/Container/Container'
+import { useSelector } from 'react-redux'
+import { selectAuthData } from './authSlice'
 
 const DropDownMenu = forwardRef(({ closeMenu, animate }, ref) => {
-  const { data: user, isLoading } = useIdentificationQuery();
+  const user = useSelector(selectAuthData);
   
   const UserMenu = user
     ? <Authenticated login={user.login} closeMenu={closeMenu} />
-    : isLoading
-    ? null
     : <Anonymous />
   ;
 
